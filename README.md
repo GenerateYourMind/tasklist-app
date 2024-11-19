@@ -39,7 +39,7 @@ You need to install [Node.js and npm](https://nodejs.org/en/) to run this app.
 
 1. Clone the repository:
 
-   `git clone https://github.com/GenerateYourMind/TaskListApp.git`
+   `git clone https://github.com/GenerateYourMind/tasklist-app.git`
 
 2. Navigate to the project folder:
 
