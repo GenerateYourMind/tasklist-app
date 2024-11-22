@@ -26,10 +26,10 @@ Project is created with:
 
 - Vite version: 4.4.0
 - React version: 18.2.0
-- TypeScript": 5.0.2
+- TypeScript: 5.0.2
 - Sass, (Scss syntax): 1.63.6
 - Html5
-- @hello-pangea/dnd": 16.3.0
+- @hello-pangea/dnd: 16.3.0
 - uuid: 10.0.0
 - react-icons: 4.10.1
 
@@ -43,7 +43,7 @@ You need to install [Node.js and npm](https://nodejs.org/en/) to run this app.
 
 2. Navigate to the project folder:
 
-   `cd TaskListApp`
+   `cd tasklist-app`
 
 3. Install the dependencies:
 
