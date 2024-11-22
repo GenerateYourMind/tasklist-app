@@ -26,34 +26,38 @@ const TodoLists: FC = () => {
 
   return (
     <div className="todo-lists">
-      <Droppable droppableId="ActiveTodoList">
-        {(provided) => (
-          <section
-            className="todo-list"
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            <h2 className="todo-list-header">Active tasks</h2>
-            {shouldRenderNoTodos(todos, 'active')}
-            {renderTodoItems(todos)}
-            {provided.placeholder}
-          </section>
-        )}
-      </Droppable>
-      <Droppable droppableId="DoneTodoList">
-        {(provided) => (
-          <section
-            className="todo-list done"
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            <h2 className="todo-list-header">Done tasks</h2>
-            {shouldRenderNoTodos(doneTodos, 'done')}
-            {renderTodoItems(doneTodos)}
-            {provided.placeholder}
-          </section>
-        )}
-      </Droppable>
+      <div className="todo-list">
+        <h2 className="todo-list-header">Active tasks</h2>
+        <Droppable droppableId="ActiveTodoList">
+          {(provided) => (
+            <ul
+              className="todo-items"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {shouldRenderNoTodos(todos, 'active')}
+              {renderTodoItems(todos)}
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+      </div>
+      <div className="todo-list done">
+        <h2 className="todo-list-header">Done tasks</h2>
+        <Droppable droppableId="DoneTodoList">
+          {(provided) => (
+            <ul
+              className="todo-items"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {shouldRenderNoTodos(doneTodos, 'done')}
+              {renderTodoItems(doneTodos)}
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+      </div>
     </div>
   );
 };
