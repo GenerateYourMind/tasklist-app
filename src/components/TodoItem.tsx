@@ -1,20 +1,20 @@
 import {
   FC,
-  FormEvent,
   useState,
   useRef,
   useEffect,
   memo,
   Dispatch,
+  KeyboardEvent,
 } from 'react';
 import { FaTrash, FaEdit, FaPlus } from 'react-icons/fa';
 import { MdDoneOutline } from 'react-icons/md';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { Draggable } from '@hello-pangea/dnd';
 import Button from './Button';
+import Modal from './Modal';
 import { Target, TodoActions } from '../context/todoReducer';
 import { Todo } from '../models';
-import Modal from './Modal';
 
 interface TodoItemProps {
   index: number;
@@ -61,9 +61,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
 
   //TODO: Review this function and where it's using below this code, because uses only for todos not for doneTodos
   //TODO: Consider adding a condition for an empty string
-  const handleEdit = (event: FormEvent, id: string): void => {
-    event.preventDefault();
-
+  const handleConfirmEdit = (): void => {
     if (editTodoText.trim().length === 0) {
       toggleModal();
       return;
@@ -71,7 +69,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
 
     dispatch({
       type: 'EDIT-TODO',
-      payload: { id, editTodoText, target: 'todos' },
+      payload: { id: todo.id, editTodoText, target: 'todos' },
     });
     // dispatch({
     // 	type: 'EDIT-TODO',
@@ -81,14 +79,18 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
     setEdit(false);
   };
 
+  const handleKeyDownEnter = (event: KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === 'Enter') {
+      handleConfirmEdit();
+    }
+  };
+
   return (
     <>
       <Draggable draggableId={todo.id.toString()} index={index}>
         {(provided) => (
-          <form
-            // Change from form to li and add - className="todo-edit-item"
-            className="todo-edit-form"
-            onSubmit={(event) => handleEdit(event, todo.id)}
+          <li
+            className="todo-item"
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
@@ -117,6 +119,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
                 className="todo-text"
                 value={editTodoText}
                 onChange={(event) => setEditTodoText(event.target.value)}
+                onKeyDown={handleKeyDownEnter}
                 // onBlur={(event) => {
                 // 	handleEdit(event, todo.id);
                 // 	inputRef.current?.blur();
@@ -138,7 +141,10 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
                 </Button>
               )}
               {edit && (
-                <Button type="submit" className="todo-control-btn">
+                <Button
+                  className="todo-control-btn"
+                  onClick={handleConfirmEdit}
+                >
                   <FaPlus />
                 </Button>
               )}
@@ -150,7 +156,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
                 <FaTrash />
               </Button>
             </div>
-          </form>
+          </li>
         )}
       </Draggable>
       {isModalOpen && (
