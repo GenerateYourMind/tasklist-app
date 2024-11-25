@@ -11,7 +11,6 @@ import { FaTrash, FaEdit, FaPlus } from 'react-icons/fa';
 import { MdDoneOutline } from 'react-icons/md';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { Draggable } from '@hello-pangea/dnd';
-import Button from './Button';
 import Modal from './Modal';
 import { Target, TodoActions } from '../context/todoReducer';
 import { Todo } from '../models';
@@ -97,20 +96,22 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
           >
             <div className="todo-control-buttons">
               {!todo.done ? (
-                <Button
+                <button
                   className="todo-control-btn"
                   disabled={edit}
+                  aria-label="Complete"
                   onClick={() => handleDone(todo.id, 'todos')}
                 >
                   <MdDoneOutline />
-                </Button>
+                </button>
               ) : (
-                <Button
+                <button
                   className="todo-control-btn"
+                  aria-label="Return"
                   onClick={() => handleDone(todo.id, 'doneTodos')}
                 >
                   <RiArrowGoBackFill />
-                </Button>
+                </button>
               )}
             </div>
             {edit ? (
@@ -136,25 +137,31 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
             )}
             <div className="todo-control-buttons">
               {todo.done || edit || (
-                <Button className="todo-control-btn" onClick={handleToggleEdit}>
+                <button
+                  className="todo-control-btn"
+                  aria-label="Edit"
+                  onClick={handleToggleEdit}
+                >
                   <FaEdit />
-                </Button>
+                </button>
               )}
               {edit && (
-                <Button
+                <button
                   className="todo-control-btn"
+                  aria-label="Confirm"
                   onClick={handleConfirmEdit}
                 >
                   <FaPlus />
-                </Button>
+                </button>
               )}
-              <Button
+              <button
                 className="todo-control-btn"
                 disabled={edit}
+                aria-label="Delete"
                 onClick={() => handleDelete(todo.id)}
               >
                 <FaTrash />
-              </Button>
+              </button>
             </div>
           </li>
         )}
