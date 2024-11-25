@@ -47,7 +47,7 @@ const CreateTodo: FC = () => {
             ref={inputRef}
           />
         </div>
-        <button className="create-todo-button" aria-label="Create task">
+        <button className="create-todo-button" aria-label="Create">
           <PiPlusBold />
         </button>
       </form>

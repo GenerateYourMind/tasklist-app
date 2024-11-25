@@ -99,6 +99,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
                 <button
                   className="todo-control-btn"
                   disabled={edit}
+                  aria-label="Complete"
                   onClick={() => handleDone(todo.id, 'todos')}
                 >
                   <MdDoneOutline />
@@ -106,6 +107,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
               ) : (
                 <button
                   className="todo-control-btn"
+                  aria-label="Return"
                   onClick={() => handleDone(todo.id, 'doneTodos')}
                 >
                   <RiArrowGoBackFill />
@@ -135,13 +137,18 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
             )}
             <div className="todo-control-buttons">
               {todo.done || edit || (
-                <button className="todo-control-btn" onClick={handleToggleEdit}>
+                <button
+                  className="todo-control-btn"
+                  aria-label="Edit"
+                  onClick={handleToggleEdit}
+                >
                   <FaEdit />
                 </button>
               )}
               {edit && (
                 <button
                   className="todo-control-btn"
+                  aria-label="Confirm"
                   onClick={handleConfirmEdit}
                 >
                   <FaPlus />
@@ -150,6 +157,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
               <button
                 className="todo-control-btn"
                 disabled={edit}
+                aria-label="Delete"
                 onClick={() => handleDelete(todo.id)}
               >
                 <FaTrash />

@@ -45,7 +45,11 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
       <div className="modal">
         <div className="modal-header">
           {title && <h2 className="modal-title">{title}</h2>}
-          <button className="modal-close-btn" onClick={onClose}>
+          <button
+            className="modal-close-btn"
+            aria-label="Close"
+            onClick={onClose}
+          >
             <MdClose />
           </button>
         </div>
