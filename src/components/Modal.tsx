@@ -1,7 +1,6 @@
 import { FC, MouseEvent, ReactNode, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { MdClose } from 'react-icons/md';
-import Button from './Button';
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 
 // Use prop title for both simple and complex content.
@@ -46,9 +45,9 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
       <div className="modal">
         <div className="modal-header">
           {title && <h2 className="modal-title">{title}</h2>}
-          <Button className="modal-close-btn" onClick={onClose}>
+          <button className="modal-close-btn" onClick={onClose}>
             <MdClose />
-          </Button>
+          </button>
         </div>
         <div className="modal-content">
           {message && <p className="modal-message">{message}</p>}

@@ -1,6 +1,5 @@
 import { FC, FormEvent, useRef, useContext, useState } from 'react';
 import { PiPlusBold } from 'react-icons/pi';
-import Button from './Button';
 import Modal from './Modal';
 import { TodoContext } from '../context/TodoContext';
 import './styles.scss';
@@ -48,13 +47,9 @@ const CreateTodo: FC = () => {
             ref={inputRef}
           />
         </div>
-        <Button
-          type="submit"
-          className="create-todo-button"
-          aria-label="Create task"
-        >
+        <button className="create-todo-button" aria-label="Create task">
           <PiPlusBold />
-        </Button>
+        </button>
       </form>
       {isModalOpen && (
         <Modal
