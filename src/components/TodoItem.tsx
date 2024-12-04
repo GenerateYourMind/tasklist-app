@@ -60,7 +60,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
 
   //TODO: Review this function and where it's using below this code, because uses only for todos not for doneTodos
   //TODO: Consider adding a condition for an empty string
-  const handleConfirmEdit = (): void => {
+  const handleSaveEdit = (): void => {
     if (editTodoText.trim().length === 0) {
       toggleModal();
       return;
@@ -80,7 +80,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
 
   const handleKeyDownEnter = (event: KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === 'Enter') {
-      handleConfirmEdit();
+      handleSaveEdit();
     }
   };
 
@@ -148,8 +148,8 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
               {edit && (
                 <button
                   className="todo-control-btn"
-                  aria-label="Confirm"
-                  onClick={handleConfirmEdit}
+                  aria-label="Save"
+                  onClick={handleSaveEdit}
                 >
                   <FaPlus />
                 </button>
