@@ -155,11 +155,13 @@
     flex: 1;
     margin: 0px 15px;
     font-size: 22px;
+    line-height: 28px;
     word-wrap: break-word;
     min-width: 0;
   }
 
   input.todo-text {
+    font-family: inherit;
     background-color: transparent;
     color: var(--theme-input-text);
     margin: 0px 10px;
