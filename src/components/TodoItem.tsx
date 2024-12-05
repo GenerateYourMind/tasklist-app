@@ -49,7 +49,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
   };
 
   const handleToggleEdit = (): void => {
-    if (!edit && !todo.done) {
+    if (!edit) {
       setEdit(true);
     }
   };
@@ -136,7 +136,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
               </p>
             )}
             <div className="todo-control-buttons">
-              {todo.done || edit || (
+              {!edit ? (
                 <button
                   className="todo-control-btn"
                   aria-label="Edit"
@@ -144,8 +144,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
                 >
                   <FaEdit />
                 </button>
-              )}
-              {edit && (
+              ) : (
                 <button
                   className="todo-control-btn"
                   aria-label="Save"
