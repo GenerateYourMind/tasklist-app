@@ -21,7 +21,6 @@ interface TodoItemProps {
   dispatch: Dispatch<TodoActions>;
 }
 
-// * Check this component and functions on right using todos and doneTodos
 const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
   const [edit, setEdit] = useState(false);
   const [editTodoText, setEditTodoText] = useState<string>(todo.todoText);
@@ -58,23 +57,15 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
     setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
   };
 
-  //TODO: Review this function and where it's using below this code, because uses only for todos not for doneTodos
-  //TODO: Consider adding a condition for an empty string
   const handleSaveEdit = (): void => {
     if (editTodoText.trim().length === 0) {
       toggleModal();
       return;
     }
-
     dispatch({
       type: 'EDIT-TODO',
-      payload: { id: todo.id, editTodoText, target: 'todos' },
+      payload: { id: todo.id, editTodoText },
     });
-    // dispatch({
-    // 	type: 'EDIT-TODO',
-    // 	payload: { id, editTodoText, target: 'doneTodos' },
-    // });
-
     setEdit(false);
   };
 

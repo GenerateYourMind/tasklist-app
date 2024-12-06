@@ -16,7 +16,7 @@ export type TodoActions =
       payload: {
         id: string;
         editTodoText: string;
-        target: Target;
+        target?: Target;
       };
     }
   | {
@@ -82,7 +82,7 @@ const todoReducer = (
     case 'EDIT-TODO':
       return {
         ...state,
-        [payload.target]: targetArray.map((todo) =>
+        todos: todos.map((todo) =>
           todo.id === payload.id
             ? { ...todo, todoText: payload.editTodoText }
             : todo
