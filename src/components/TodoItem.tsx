@@ -64,7 +64,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
     }
     dispatch({
       type: 'EDIT-TODO',
-      payload: { id: todo.id, editTodoText, target: 'todos' },
+      payload: { id: todo.id, editTodoText },
     });
     setEdit(false);
   };
