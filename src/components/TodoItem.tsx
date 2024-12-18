@@ -12,6 +12,7 @@ import { MdDoneOutline } from 'react-icons/md';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { Draggable } from '@hello-pangea/dnd';
 import Modal from './Modal';
+import { useModal } from '../hooks/useModal';
 import { Target, TodoActions } from '../context/todoReducer';
 import { Todo } from '../models';
 
@@ -24,7 +25,7 @@ interface TodoItemProps {
 const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
   const [edit, setEdit] = useState(false);
   const [editTodoText, setEditTodoText] = useState<string>(todo.todoText);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, openModal, closeModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -53,13 +54,9 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
     }
   };
 
-  const toggleModal = () => {
-    setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
-  };
-
   const handleSaveEdit = (): void => {
     if (editTodoText.trim().length === 0) {
-      toggleModal();
+      openModal();
       return;
     }
     dispatch({
@@ -158,7 +155,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
       </Draggable>
       {isModalOpen && (
         <Modal
-          onClose={toggleModal}
+          onClose={closeModal}
           title="Error"
           message="The already created task cannot be empty. Edit it correctly."
         />

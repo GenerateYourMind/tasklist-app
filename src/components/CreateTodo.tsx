@@ -1,24 +1,21 @@
 import { FC, FormEvent, useRef, useContext, useState } from 'react';
 import { PiPlusBold } from 'react-icons/pi';
 import Modal from './Modal';
+import { useModal } from '../hooks/useModal';
 import { TodoContext } from '../context/TodoContext';
 import './styles.scss';
 
 const CreateTodo: FC = () => {
   const [todoText, setTodoText] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, openModal, closeModal } = useModal();
   const { dispatch } = useContext(TodoContext);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const toggleModal = (): void => {
-    setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
-  };
 
   const handleSubmitTodo = (event: FormEvent): void => {
     event.preventDefault();
 
     if (todoText.trim().length === 0) {
-      toggleModal();
+      openModal();
       setTodoText('');
       return;
     }
@@ -53,7 +50,7 @@ const CreateTodo: FC = () => {
       </form>
       {isModalOpen && (
         <Modal
-          onClose={toggleModal}
+          onClose={closeModal}
           title="Error"
           message="A task cannot have an empty field."
         />
