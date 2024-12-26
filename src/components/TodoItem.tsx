@@ -23,16 +23,16 @@ interface TodoItemProps {
 }
 
 const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
-  const [edit, setEdit] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [editTodoText, setEditTodoText] = useState<string>(todo.todoText);
   const { isModalOpen, openModal, closeModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (edit) {
+    if (isEditing) {
       inputRef?.current?.focus();
     }
-  }, [edit, isModalOpen]);
+  }, [isEditing, isModalOpen]);
 
   const handleDone = (id: string, target: Target): void => {
     dispatch({ type: 'DONE-TODO', payload: { id, target } });
@@ -49,8 +49,8 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
   };
 
   const handleToggleEdit = (): void => {
-    if (!edit) {
-      setEdit(true);
+    if (!isEditing) {
+      setIsEditing(true);
     }
   };
 
@@ -59,11 +59,12 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
       openModal();
       return;
     }
+
     dispatch({
       type: 'EDIT-TODO',
       payload: { id: todo.id, editTodoText },
     });
-    setEdit(false);
+    setIsEditing(false);
   };
 
   const handleKeyDownEnter = (event: KeyboardEvent<HTMLInputElement>): void => {
@@ -86,7 +87,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
               {!todo.done ? (
                 <button
                   className="todo-control-btn"
-                  disabled={edit}
+                  disabled={isEditing}
                   aria-label="Complete"
                   onClick={() => handleDone(todo.id, 'todos')}
                 >
@@ -102,7 +103,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
                 </button>
               )}
             </div>
-            {edit ? (
+            {isEditing ? (
               <input
                 type="text"
                 className="todo-text"
@@ -124,7 +125,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
               </p>
             )}
             <div className="todo-control-buttons">
-              {!edit ? (
+              {!isEditing ? (
                 <button
                   className="todo-control-btn"
                   aria-label="Edit"
@@ -143,7 +144,7 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
               )}
               <button
                 className="todo-control-btn"
-                disabled={edit}
+                disabled={isEditing}
                 aria-label="Delete"
                 onClick={() => handleDelete(todo.id)}
               >
