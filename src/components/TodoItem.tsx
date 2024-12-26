@@ -125,21 +125,13 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
               </p>
             )}
             <div className="todo-control-buttons">
-              {!isEditing ? (
+              {!todo.done && (
                 <button
                   className="todo-control-btn"
-                  aria-label="Edit"
-                  onClick={handleToggleEdit}
+                  aria-label={isEditing ? 'Save' : 'Edit'}
+                  onClick={isEditing ? handleSaveEdit : handleToggleEdit}
                 >
-                  <FaEdit />
-                </button>
-              ) : (
-                <button
-                  className="todo-control-btn"
-                  aria-label="Save"
-                  onClick={handleSaveEdit}
-                >
-                  <FaPlus />
+                  {isEditing ? <FaPlus /> : <FaEdit />}
                 </button>
               )}
               <button
