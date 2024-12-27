@@ -4,8 +4,8 @@
   background-color: rgba(255, 255, 255, 0.33);
 }
 
-// CreateTodo component
-.create-todo-form {
+// CreateTask component
+.create-task-form {
   position: relative;
   margin-bottom: 20px;
 
@@ -28,7 +28,7 @@
     }
   }
 
-  .create-todo-input {
+  .create-task-input {
     position: relative;
     width: 100%;
     height: 69px;
@@ -51,7 +51,7 @@
     }
   }
 
-  .create-todo-button {
+  .create-task-button {
     position: absolute;
     top: 0;
     right: 0;
@@ -87,14 +87,14 @@
   margin-bottom: 20px;
 }
 
-// -TodoLists component
-.todo-lists {
+// -TaskLists component
+.task-lists {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.todo-list {
+.task-list {
   display: flex;
   flex-direction: column;
   width: 48.5%;
@@ -103,7 +103,7 @@
   // background-color: #67889b;
   background-color: #025d92;
 
-  .todo-list-header {
+  .task-list-header {
     font-size: 28px;
     text-align: center;
     color: var(--theme-header);
@@ -111,7 +111,7 @@
   }
 }
 
-.no-todos {
+.no-tasks {
   font-weight: 600; // fix font-weight cuz imported Lato font is changed
   letter-spacing: 1px;
   font-size: 18px;
@@ -124,8 +124,8 @@
   background-color: #12992f;
 }
 
-// -Todo component
-.todo-item {
+// -TaskItem component
+.task-item {
   display: flex;
   border-radius: 10px;
   padding: 20px;
@@ -151,7 +151,7 @@
     margin-bottom: 10px;
   }
 
-  .todo-text {
+  .task-text {
     flex: 1;
     margin: 0px 15px;
     font-size: 22px;
@@ -160,7 +160,7 @@
     min-width: 0;
   }
 
-  input.todo-text {
+  input.task-text {
     font-family: inherit;
     background-color: transparent;
     color: var(--theme-input-text);
@@ -173,11 +173,11 @@
     }
   }
 
-  .todo-control-buttons {
+  .task-control-buttons {
     align-self: center;
   }
 
-  .todo-control-btn {
+  .task-control-btn {
     display: inline-block;
     margin-top: 3px;
     background-color: transparent;
@@ -276,15 +276,15 @@
 
 // Media queries
 @media (max-width: 997px) {
-  .todo-edit-form {
-    .todo-text {
+  .task-edit-form {
+    .task-text {
       margin-right: 10px;
     }
   }
 }
 
 @media (max-width: 767.98px) {
-  .create-todo-form {
+  .create-task-form {
     margin-bottom: 15px;
   }
 
@@ -292,16 +292,16 @@
     margin-bottom: 15px;
   }
 
-  .todo-lists {
+  .task-lists {
     flex-direction: column;
   }
 
-  .todo-list {
+  .task-list {
     width: 100%;
     margin-bottom: 15px;
   }
 
-  .todo-edit-form {
+  .task-edit-form {
     width: 100%;
   }
 }

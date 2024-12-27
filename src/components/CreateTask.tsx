@@ -23,12 +23,12 @@ const CreateTask: FC = () => {
     dispatch({ type: 'CREATE-TASK', payload: { taskText } });
     setTaskText('');
   };
-  // createTask instead of create-todo-form classes
+  // createTask instead of create-task-form classes
   // add name to input or look on console in webdev tools
   return (
     <>
       <form
-        className="create-todo-form"
+        className="create-task-form"
         onSubmit={(event) => {
           handleSubmitTask(event);
           inputRef.current?.blur();
@@ -38,13 +38,13 @@ const CreateTask: FC = () => {
           <input
             type="text"
             placeholder="Enter your task..."
-            className="create-todo-input"
+            className="create-task-input"
             value={taskText}
             onChange={(event) => setTaskText(event.target.value)}
             ref={inputRef}
           />
         </div>
-        <button className="create-todo-button" aria-label="Create">
+        <button className="create-task-button" aria-label="Create">
           <PiPlusBold />
         </button>
       </form>

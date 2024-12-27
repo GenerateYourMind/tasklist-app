@@ -22,13 +22,13 @@ const TaskLists: FC = () => {
   };
 
   return (
-    <div className="todo-lists">
-      <div className="todo-list">
-        <h2 className="todo-list-header">Active tasks</h2>
+    <div className="task-lists">
+      <div className="task-list">
+        <h2 className="task-list-header">Active tasks</h2>
         <Droppable droppableId="ActiveTaskList">
           {(provided) => (
             <ul
-              className="todo-items"
+              className="task-items"
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
@@ -39,12 +39,12 @@ const TaskLists: FC = () => {
           )}
         </Droppable>
       </div>
-      <div className="todo-list done">
-        <h2 className="todo-list-header">Done tasks</h2>
+      <div className="task-list done">
+        <h2 className="task-list-header">Done tasks</h2>
         <Droppable droppableId="DoneTaskList">
           {(provided) => (
             <ul
-              className="todo-items"
+              className="task-items"
               ref={provided.innerRef}
               {...provided.droppableProps}
             >

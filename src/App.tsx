@@ -58,7 +58,7 @@ const App: FC = () => {
   return (
     <div className="app">
       <Header />
-      <main className="todo-container">
+      <main className="task-container">
         <CreateTask />
         <DragDropContext onDragEnd={onDragEnd}>
           <TaskLists />
