@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
 export interface NoTasksProps {
-  todosStatus: 'active' | 'done';
+  tasksStatus: 'active' | 'done';
 }
 
-const NoTasks: FC<NoTasksProps> = ({ todosStatus }) => {
-  return <p className="no-todos">{`There are no ${todosStatus} tasks`}</p>;
+const NoTasks: FC<NoTasksProps> = ({ tasksStatus }) => {
+  return <p className="no-todos">{`There are no ${tasksStatus} tasks`}</p>;
 };
 
 export default NoTasks;

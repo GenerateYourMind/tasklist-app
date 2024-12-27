@@ -6,7 +6,7 @@ import { TaskContext } from '../context/TaskContext';
 import './styles.scss';
 
 const CreateTask: FC = () => {
-  const [todoText, setTodoText] = useState('');
+  const [taskText, setTaskText] = useState('');
   const { isModalOpen, openModal, closeModal } = useModal();
   const { dispatch } = useContext(TaskContext);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -14,14 +14,14 @@ const CreateTask: FC = () => {
   const handleSubmitTask = (event: FormEvent): void => {
     event.preventDefault();
 
-    if (todoText.trim().length === 0) {
+    if (taskText.trim().length === 0) {
       openModal();
-      setTodoText('');
+      setTaskText('');
       return;
     }
 
-    dispatch({ type: 'CREATE-TASK', payload: { todoText } });
-    setTodoText('');
+    dispatch({ type: 'CREATE-TASK', payload: { taskText } });
+    setTaskText('');
   };
   // createTask instead of create-todo-form classes
   // add name to input or look on console in webdev tools
@@ -39,8 +39,8 @@ const CreateTask: FC = () => {
             type="text"
             placeholder="Enter your task..."
             className="create-todo-input"
-            value={todoText}
-            onChange={(event) => setTodoText(event.target.value)}
+            value={taskText}
+            onChange={(event) => setTaskText(event.target.value)}
             ref={inputRef}
           />
         </div>

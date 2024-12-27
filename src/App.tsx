@@ -9,7 +9,7 @@ import './App.scss';
 
 const App: FC = () => {
   const {
-    state: { todos, doneTodos },
+    state: { tasks, doneTasks },
     dispatch,
   } = useContext(TaskContext);
 
@@ -24,33 +24,33 @@ const App: FC = () => {
       return;
     }
 
-    const active = [...todos];
-    const done = [...doneTodos];
+    const active = [...tasks];
+    const done = [...doneTasks];
 
     const getArray = (droppableId: string): Task[] =>
-      droppableId === 'ActiveTodoList' ? active : done;
+      droppableId === 'ActiveTaskList' ? active : done;
 
     const sourceArray = getArray(source.droppableId);
     const destinationArray = getArray(destination.droppableId);
 
-    const movingTodo: Task = sourceArray[source.index];
+    const movingTask: Task = sourceArray[source.index];
 
-    // Updates todo status based on the destination list
-    movingTodo.done = destination.droppableId !== 'ActiveTodoList';
+    // Updates task status based on the destination list
+    movingTask.done = destination.droppableId !== 'ActiveTaskList';
 
     sourceArray.splice(source.index, 1);
-    destinationArray.splice(destination.index, 0, movingTodo);
+    destinationArray.splice(destination.index, 0, movingTask);
 
     dispatch({
       type: 'UPDATE-TASKS',
-      payload: { todos: active, target: 'todos' },
+      payload: { tasks: active, target: 'tasks' },
     });
 
     dispatch({
       type: 'UPDATE-TASKS',
       payload: {
-        doneTodos: done,
-        target: 'doneTodos',
+        doneTasks: done,
+        target: 'doneTasks',
       },
     });
   };

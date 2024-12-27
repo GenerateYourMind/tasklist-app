@@ -7,20 +7,17 @@ import { Task } from '../models';
 
 const TaskLists: FC = () => {
   const {
-    state: { todos, doneTodos },
+    state: { tasks, doneTasks },
     dispatch,
   } = useContext(TaskContext);
 
-  const shouldRenderNoTasks = (
-    todosList: Task[],
-    status: 'active' | 'done'
-  ) => {
-    return !todosList.length && <NoTasks todosStatus={status} />;
+  const shouldRenderNoTasks = (taskList: Task[], status: 'active' | 'done') => {
+    return !taskList.length && <NoTasks tasksStatus={status} />;
   };
 
-  const renderTaskItems = (todosList: Task[]) => {
-    return todosList.map((todo, index) => (
-      <TaskItem index={index} key={todo.id} todo={todo} dispatch={dispatch} />
+  const renderTaskItems = (taskList: Task[]) => {
+    return taskList.map((task, index) => (
+      <TaskItem index={index} key={task.id} task={task} dispatch={dispatch} />
     ));
   };
 
@@ -28,15 +25,15 @@ const TaskLists: FC = () => {
     <div className="todo-lists">
       <div className="todo-list">
         <h2 className="todo-list-header">Active tasks</h2>
-        <Droppable droppableId="ActiveTodoList">
+        <Droppable droppableId="ActiveTaskList">
           {(provided) => (
             <ul
               className="todo-items"
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {shouldRenderNoTasks(todos, 'active')}
-              {renderTaskItems(todos)}
+              {shouldRenderNoTasks(tasks, 'active')}
+              {renderTaskItems(tasks)}
               {provided.placeholder}
             </ul>
           )}
@@ -44,15 +41,15 @@ const TaskLists: FC = () => {
       </div>
       <div className="todo-list done">
         <h2 className="todo-list-header">Done tasks</h2>
-        <Droppable droppableId="DoneTodoList">
+        <Droppable droppableId="DoneTaskList">
           {(provided) => (
             <ul
               className="todo-items"
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {shouldRenderNoTasks(doneTodos, 'done')}
-              {renderTaskItems(doneTodos)}
+              {shouldRenderNoTasks(doneTasks, 'done')}
+              {renderTaskItems(doneTasks)}
               {provided.placeholder}
             </ul>
           )}

@@ -2,10 +2,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { Task } from '../models';
 import { InitialState } from './TaskContext';
 
-export type Target = 'todos' | 'doneTodos';
+export type Target = 'tasks' | 'doneTasks';
 
 export type TaskActions =
-  | { type: 'CREATE-TASK'; payload: { todoText: string; target?: Target } }
+  | { type: 'CREATE-TASK'; payload: { taskText: string; target?: Target } }
   | {
       type: 'DELETE-TASK' | 'DONE-TASK';
       payload: { id: string; target: Target };
@@ -15,13 +15,13 @@ export type TaskActions =
       type: 'EDIT-TASK';
       payload: {
         id: string;
-        editTodoText: string;
+        editTaskText: string;
         target?: Target;
       };
     }
   | {
       type: 'UPDATE-TASKS';
-      payload: { todos?: Task[]; doneTodos?: Task[]; target: Target };
+      payload: { tasks?: Task[]; doneTasks?: Task[]; target: Target };
     };
 
 const taskReducer = (
@@ -29,36 +29,36 @@ const taskReducer = (
   action: TaskActions
 ): InitialState => {
   const { type, payload } = action;
-  const { todos, doneTodos } = state;
-  const targetArray = payload.target === 'todos' ? todos : doneTodos;
+  const { tasks, doneTasks } = state;
+  const targetArray = payload.target === 'tasks' ? tasks : doneTasks;
 
   switch (type) {
     case 'CREATE-TASK':
       return {
         ...state,
-        todos: [
-          ...todos,
-          { id: uuidv4(), todoText: payload.todoText, done: false },
+        tasks: [
+          ...tasks,
+          { id: uuidv4(), taskText: payload.taskText, done: false },
         ],
       };
 
     case 'DELETE-TASK':
       return {
         ...state,
-        [payload.target]: targetArray.filter((todo) => todo.id !== payload.id),
+        [payload.target]: targetArray.filter((task) => task.id !== payload.id),
       };
 
     case 'DONE-TASK':
       return {
         ...state,
-        [payload.target]: targetArray.map((todo) =>
-          todo.id === payload.id ? { ...todo, done: !todo.done } : todo
+        [payload.target]: targetArray.map((task) =>
+          task.id === payload.id ? { ...task, done: !task.done } : task
         ),
       };
 
     case 'MOVE-TASK-BETWEEN-LISTS': {
-      const returnTodos = (
-        todosList: Task[],
+      const returnTasks = (
+        taskList: Task[],
         targetName: string,
         isDone: boolean,
         currentState: InitialState
@@ -66,26 +66,26 @@ const taskReducer = (
         return {
           ...currentState,
           [targetName]: [
-            ...todosList,
-            ...targetArray.filter((todo) => todo.done === isDone),
+            ...taskList,
+            ...targetArray.filter((task) => task.done === isDone),
           ],
         };
       };
 
-      if (payload.target === 'todos') {
-        return returnTodos(doneTodos, 'doneTodos', true, state);
+      if (payload.target === 'tasks') {
+        return returnTasks(doneTasks, 'doneTasks', true, state);
       }
 
-      return returnTodos(todos, 'todos', false, state);
+      return returnTasks(tasks, 'tasks', false, state);
     }
 
     case 'EDIT-TASK':
       return {
         ...state,
-        todos: todos.map((todo) =>
-          todo.id === payload.id
-            ? { ...todo, todoText: payload.editTodoText }
-            : todo
+        tasks: tasks.map((task) =>
+          task.id === payload.id
+            ? { ...task, taskText: payload.editTaskText }
+            : task
         ),
       };
 

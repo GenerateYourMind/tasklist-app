@@ -18,13 +18,13 @@ import { Task } from '../models';
 
 interface TaskItemProps {
   index: number;
-  todo: Task;
+  task: Task;
   dispatch: Dispatch<TaskActions>;
 }
 
-const TaskItem: FC<TaskItemProps> = memo(({ index, todo, dispatch }) => {
+const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editTodoText, setEditTodoText] = useState<string>(todo.todoText);
+  const [editTaskText, setEditTaskText] = useState<string>(task.taskText);
   const { isModalOpen, openModal, closeModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,10 +41,10 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, todo, dispatch }) => {
   };
 
   const handleDelete = (id: string): void => {
-    dispatch({ type: 'DELETE-TASK', payload: { id, target: 'todos' } });
+    dispatch({ type: 'DELETE-TASK', payload: { id, target: 'tasks' } });
     dispatch({
       type: 'DELETE-TASK',
-      payload: { id, target: 'doneTodos' },
+      payload: { id, target: 'doneTasks' },
     });
   };
 
@@ -55,14 +55,14 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, todo, dispatch }) => {
   };
 
   const handleSaveEdit = (): void => {
-    if (editTodoText.trim().length === 0) {
+    if (editTaskText.trim().length === 0) {
       openModal();
       return;
     }
 
     dispatch({
       type: 'EDIT-TASK',
-      payload: { id: todo.id, editTodoText },
+      payload: { id: task.id, editTaskText },
     });
     setIsEditing(false);
   };
@@ -75,7 +75,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, todo, dispatch }) => {
 
   return (
     <>
-      <Draggable draggableId={todo.id.toString()} index={index}>
+      <Draggable draggableId={task.id.toString()} index={index}>
         {(provided) => (
           <li
             className="todo-item"
@@ -84,12 +84,12 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, todo, dispatch }) => {
             ref={provided.innerRef}
           >
             <div className="todo-control-buttons">
-              {!todo.done ? (
+              {!task.done ? (
                 <button
                   className="todo-control-btn"
                   disabled={isEditing}
                   aria-label="Complete"
-                  onClick={() => handleDone(todo.id, 'todos')}
+                  onClick={() => handleDone(task.id, 'tasks')}
                 >
                   <MdDoneOutline />
                 </button>
@@ -97,7 +97,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, todo, dispatch }) => {
                 <button
                   className="todo-control-btn"
                   aria-label="Return"
-                  onClick={() => handleDone(todo.id, 'doneTodos')}
+                  onClick={() => handleDone(task.id, 'doneTasks')}
                 >
                   <RiArrowGoBackFill />
                 </button>
@@ -107,25 +107,25 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, todo, dispatch }) => {
               <input
                 type="text"
                 className="todo-text"
-                value={editTodoText}
-                onChange={(event) => setEditTodoText(event.target.value)}
+                value={editTaskText}
+                onChange={(event) => setEditTaskText(event.target.value)}
                 onKeyDown={handleKeyDownEnter}
                 // onBlur={(event) => {
-                // 	handleEdit(event, todo.id);
+                // 	handleEdit(event, task.id);
                 // 	inputRef.current?.blur();
                 // }}
                 ref={inputRef}
               />
             ) : (
               <p
-                style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
+                style={{ textDecoration: task.done ? 'line-through' : 'none' }}
                 className="todo-text"
               >
-                {todo.todoText}
+                {task.taskText}
               </p>
             )}
             <div className="todo-control-buttons">
-              {!todo.done && (
+              {!task.done && (
                 <button
                   className="todo-control-btn"
                   aria-label={isEditing ? 'Save' : 'Edit'}
@@ -138,7 +138,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, todo, dispatch }) => {
                 className="todo-control-btn"
                 disabled={isEditing}
                 aria-label="Delete"
-                onClick={() => handleDelete(todo.id)}
+                onClick={() => handleDelete(task.id)}
               >
                 <FaTrash />
               </button>

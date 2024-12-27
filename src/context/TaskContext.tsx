@@ -10,8 +10,8 @@ import { TaskActions, taskReducer } from './taskReducer';
 import { saveToStorage, getFromStorage } from '../utils/localStorage';
 
 export interface InitialState {
-  todos: Task[];
-  doneTodos: Task[];
+  tasks: Task[];
+  doneTasks: Task[];
 }
 
 interface TaskContextProps {
@@ -20,8 +20,8 @@ interface TaskContextProps {
 }
 
 const initialState: InitialState = {
-  todos: [],
-  doneTodos: [],
+  tasks: [],
+  doneTasks: [],
 };
 
 const TaskContext = createContext<TaskContextProps>({
@@ -31,34 +31,34 @@ const TaskContext = createContext<TaskContextProps>({
 
 const TaskContextProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
-  const { todos, doneTodos } = state;
+  const { tasks, doneTasks } = state;
 
   useEffect(() => {
-    const storedTodos = getFromStorage<Task[] | null>('todos');
-    const storedDoneTodos = getFromStorage<Task[] | null>('doneTodos');
+    const storedTasks = getFromStorage<Task[] | null>('tasks');
+    const storedDoneTasks = getFromStorage<Task[] | null>('doneTasks');
 
-    if (storedTodos && storedTodos.length > 0) {
+    if (storedTasks && storedTasks.length > 0) {
       dispatch({
         type: 'UPDATE-TASKS',
-        payload: { todos: storedTodos, target: 'todos' },
+        payload: { tasks: storedTasks, target: 'tasks' },
       });
     }
 
-    if (storedDoneTodos && storedDoneTodos.length > 0) {
+    if (storedDoneTasks && storedDoneTasks.length > 0) {
       dispatch({
         type: 'UPDATE-TASKS',
-        payload: { doneTodos: storedDoneTodos, target: 'doneTodos' },
+        payload: { doneTasks: storedDoneTasks, target: 'doneTasks' },
       });
     }
   }, []);
 
   useEffect(() => {
-    saveToStorage('todos', todos);
-  }, [todos]);
+    saveToStorage('tasks', tasks);
+  }, [tasks]);
 
   useEffect(() => {
-    saveToStorage('doneTodos', doneTodos);
-  }, [doneTodos]);
+    saveToStorage('doneTasks', doneTasks);
+  }, [doneTasks]);
 
   return (
     <TaskContext.Provider value={{ state, dispatch }}>
