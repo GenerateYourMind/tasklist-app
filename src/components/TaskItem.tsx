@@ -13,18 +13,18 @@ import { RiArrowGoBackFill } from 'react-icons/ri';
 import { Draggable } from '@hello-pangea/dnd';
 import Modal from './Modal';
 import { useModal } from '../hooks/useModal';
-import { Target, TodoActions } from '../context/todoReducer';
-import { Todo } from '../models';
+import { Target, TaskActions } from '../context/taskReducer';
+import { Task } from '../models';
 
-interface TodoItemProps {
+interface TaskItemProps {
   index: number;
-  todo: Todo;
-  dispatch: Dispatch<TodoActions>;
+  task: Task;
+  dispatch: Dispatch<TaskActions>;
 }
 
-const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
+const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editTodoText, setEditTodoText] = useState<string>(todo.todoText);
+  const [editTaskText, setEditTaskText] = useState<string>(task.taskText);
   const { isModalOpen, openModal, closeModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -35,16 +35,16 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
   }, [isEditing, isModalOpen]);
 
   const handleDone = (id: string, target: Target): void => {
-    dispatch({ type: 'DONE-TODO', payload: { id, target } });
-    dispatch({ type: 'MOVE-TODO-BETWEEN-LISTS', payload: { target } });
-    dispatch({ type: 'DELETE-TODO', payload: { id, target } });
+    dispatch({ type: 'DONE-TASK', payload: { id, target } });
+    dispatch({ type: 'MOVE-TASK-BETWEEN-LISTS', payload: { target } });
+    dispatch({ type: 'DELETE-TASK', payload: { id, target } });
   };
 
   const handleDelete = (id: string): void => {
-    dispatch({ type: 'DELETE-TODO', payload: { id, target: 'todos' } });
+    dispatch({ type: 'DELETE-TASK', payload: { id, target: 'tasks' } });
     dispatch({
-      type: 'DELETE-TODO',
-      payload: { id, target: 'doneTodos' },
+      type: 'DELETE-TASK',
+      payload: { id, target: 'doneTasks' },
     });
   };
 
@@ -55,14 +55,14 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
   };
 
   const handleSaveEdit = (): void => {
-    if (editTodoText.trim().length === 0) {
+    if (editTaskText.trim().length === 0) {
       openModal();
       return;
     }
 
     dispatch({
-      type: 'EDIT-TODO',
-      payload: { id: todo.id, editTodoText },
+      type: 'EDIT-TASK',
+      payload: { id: task.id, editTaskText },
     });
     setIsEditing(false);
   };
@@ -75,29 +75,29 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
 
   return (
     <>
-      <Draggable draggableId={todo.id.toString()} index={index}>
+      <Draggable draggableId={task.id.toString()} index={index}>
         {(provided) => (
           <li
-            className="todo-item"
+            className="task-item"
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            <div className="todo-control-buttons">
-              {!todo.done ? (
+            <div className="task-control-buttons">
+              {!task.done ? (
                 <button
-                  className="todo-control-btn"
+                  className="task-control-btn"
                   disabled={isEditing}
                   aria-label="Complete"
-                  onClick={() => handleDone(todo.id, 'todos')}
+                  onClick={() => handleDone(task.id, 'tasks')}
                 >
                   <MdDoneOutline />
                 </button>
               ) : (
                 <button
-                  className="todo-control-btn"
+                  className="task-control-btn"
                   aria-label="Return"
-                  onClick={() => handleDone(todo.id, 'doneTodos')}
+                  onClick={() => handleDone(task.id, 'doneTasks')}
                 >
                   <RiArrowGoBackFill />
                 </button>
@@ -106,28 +106,28 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
             {isEditing ? (
               <input
                 type="text"
-                className="todo-text"
-                value={editTodoText}
-                onChange={(event) => setEditTodoText(event.target.value)}
+                className="task-text"
+                value={editTaskText}
+                onChange={(event) => setEditTaskText(event.target.value)}
                 onKeyDown={handleKeyDownEnter}
                 // onBlur={(event) => {
-                // 	handleEdit(event, todo.id);
+                // 	handleEdit(event, task.id);
                 // 	inputRef.current?.blur();
                 // }}
                 ref={inputRef}
               />
             ) : (
               <p
-                style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
-                className="todo-text"
+                style={{ textDecoration: task.done ? 'line-through' : 'none' }}
+                className="task-text"
               >
-                {todo.todoText}
+                {task.taskText}
               </p>
             )}
-            <div className="todo-control-buttons">
-              {!todo.done && (
+            <div className="task-control-buttons">
+              {!task.done && (
                 <button
-                  className="todo-control-btn"
+                  className="task-control-btn"
                   aria-label={isEditing ? 'Save' : 'Edit'}
                   onClick={isEditing ? handleSaveEdit : handleToggleEdit}
                 >
@@ -135,10 +135,10 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
                 </button>
               )}
               <button
-                className="todo-control-btn"
+                className="task-control-btn"
                 disabled={isEditing}
                 aria-label="Delete"
-                onClick={() => handleDelete(todo.id)}
+                onClick={() => handleDelete(task.id)}
               >
                 <FaTrash />
               </button>
@@ -157,4 +157,4 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
   );
 });
 
-export default TodoItem;
+export default TaskItem;

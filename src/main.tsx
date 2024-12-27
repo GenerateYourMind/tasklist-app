@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
-import { TodoContextProvider } from './context/TodoContext.tsx';
+import { TaskContextProvider } from './context/TaskContext.tsx';
 import './index.scss';
 // import './styles/themes.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <TodoContextProvider>
+    <TaskContextProvider>
       <App />
-    </TodoContextProvider>
+    </TaskContextProvider>
   </React.StrictMode>
 );

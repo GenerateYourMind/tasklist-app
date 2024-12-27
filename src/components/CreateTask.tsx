@@ -2,35 +2,35 @@ import { FC, FormEvent, useRef, useContext, useState } from 'react';
 import { PiPlusBold } from 'react-icons/pi';
 import Modal from './Modal';
 import { useModal } from '../hooks/useModal';
-import { TodoContext } from '../context/TodoContext';
+import { TaskContext } from '../context/TaskContext';
 import './styles.scss';
 
-const CreateTodo: FC = () => {
-  const [todoText, setTodoText] = useState('');
+const CreateTask: FC = () => {
+  const [taskText, setTaskText] = useState('');
   const { isModalOpen, openModal, closeModal } = useModal();
-  const { dispatch } = useContext(TodoContext);
+  const { dispatch } = useContext(TaskContext);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmitTodo = (event: FormEvent): void => {
+  const handleSubmitTask = (event: FormEvent): void => {
     event.preventDefault();
 
-    if (todoText.trim().length === 0) {
+    if (taskText.trim().length === 0) {
       openModal();
-      setTodoText('');
+      setTaskText('');
       return;
     }
 
-    dispatch({ type: 'CREATE-TODO', payload: { todoText } });
-    setTodoText('');
+    dispatch({ type: 'CREATE-TASK', payload: { taskText } });
+    setTaskText('');
   };
-  // createTodo instead of create-todo-form classes
+  // createTask instead of create-task-form classes
   // add name to input or look on console in webdev tools
   return (
     <>
       <form
-        className="create-todo-form"
+        className="create-task-form"
         onSubmit={(event) => {
-          handleSubmitTodo(event);
+          handleSubmitTask(event);
           inputRef.current?.blur();
         }}
       >
@@ -38,13 +38,13 @@ const CreateTodo: FC = () => {
           <input
             type="text"
             placeholder="Enter your task..."
-            className="create-todo-input"
-            value={todoText}
-            onChange={(event) => setTodoText(event.target.value)}
+            className="create-task-input"
+            value={taskText}
+            onChange={(event) => setTaskText(event.target.value)}
             ref={inputRef}
           />
         </div>
-        <button className="create-todo-button" aria-label="Create">
+        <button className="create-task-button" aria-label="Create">
           <PiPlusBold />
         </button>
       </form>
@@ -59,4 +59,4 @@ const CreateTodo: FC = () => {
   );
 };
 
-export default CreateTodo;
+export default CreateTask;

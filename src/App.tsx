@@ -1,17 +1,17 @@
 import { FC, useContext } from 'react';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import Header from './components/Header';
-import CreateTodo from './components/CreateTodo';
-import TodoLists from './components/TodoLists';
-import { TodoContext } from './context/TodoContext';
-import { Todo } from './models';
+import CreateTask from './components/CreateTask';
+import TaskLists from './components/TaskLists';
+import { TaskContext } from './context/TaskContext';
+import { Task } from './models';
 import './App.scss';
 
 const App: FC = () => {
   const {
-    state: { todos, doneTodos },
+    state: { tasks, doneTasks },
     dispatch,
-  } = useContext(TodoContext);
+  } = useContext(TaskContext);
 
   const onDragEnd = (result: DropResult): void => {
     const { source, destination } = result;
@@ -24,33 +24,33 @@ const App: FC = () => {
       return;
     }
 
-    const active = [...todos];
-    const done = [...doneTodos];
+    const active = [...tasks];
+    const done = [...doneTasks];
 
-    const getArray = (droppableId: string): Todo[] =>
-      droppableId === 'ActiveTodoList' ? active : done;
+    const getArray = (droppableId: string): Task[] =>
+      droppableId === 'ActiveTaskList' ? active : done;
 
     const sourceArray = getArray(source.droppableId);
     const destinationArray = getArray(destination.droppableId);
 
-    const movingTodo: Todo = sourceArray[source.index];
+    const movingTask: Task = sourceArray[source.index];
 
-    // Updates todo status based on the destination list
-    movingTodo.done = destination.droppableId !== 'ActiveTodoList';
+    // Updates task status based on the destination list
+    movingTask.done = destination.droppableId !== 'ActiveTaskList';
 
     sourceArray.splice(source.index, 1);
-    destinationArray.splice(destination.index, 0, movingTodo);
+    destinationArray.splice(destination.index, 0, movingTask);
 
     dispatch({
-      type: 'UPDATE-TODOS',
-      payload: { todos: active, target: 'todos' },
+      type: 'UPDATE-TASKS',
+      payload: { tasks: active, target: 'tasks' },
     });
 
     dispatch({
-      type: 'UPDATE-TODOS',
+      type: 'UPDATE-TASKS',
       payload: {
-        doneTodos: done,
-        target: 'doneTodos',
+        doneTasks: done,
+        target: 'doneTasks',
       },
     });
   };
@@ -58,10 +58,10 @@ const App: FC = () => {
   return (
     <div className="app">
       <Header />
-      <main className="todo-container">
-        <CreateTodo />
+      <main className="task-container">
+        <CreateTask />
         <DragDropContext onDragEnd={onDragEnd}>
-          <TodoLists />
+          <TaskLists />
         </DragDropContext>
       </main>
     </div>
