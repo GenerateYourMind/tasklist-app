@@ -13,16 +13,16 @@ import { RiArrowGoBackFill } from 'react-icons/ri';
 import { Draggable } from '@hello-pangea/dnd';
 import Modal from './Modal';
 import { useModal } from '../hooks/useModal';
-import { Target, TodoActions } from '../context/taskReducer';
-import { Todo } from '../models';
+import { Target, TaskActions } from '../context/taskReducer';
+import { Task } from '../models';
 
-interface TodoItemProps {
+interface TaskItemProps {
   index: number;
-  todo: Todo;
-  dispatch: Dispatch<TodoActions>;
+  todo: Task;
+  dispatch: Dispatch<TaskActions>;
 }
 
-const TaskItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
+const TaskItem: FC<TaskItemProps> = memo(({ index, todo, dispatch }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTodoText, setEditTodoText] = useState<string>(todo.todoText);
   const { isModalOpen, openModal, closeModal } = useModal();

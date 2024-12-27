@@ -5,13 +5,18 @@ import {
   Dispatch,
   useEffect,
 } from 'react';
-import { Todo } from '../models';
-import { TodoActions, taskReducer } from './taskReducer';
+import { Task } from '../models';
+import { TaskActions, taskReducer } from './taskReducer';
 import { saveToStorage, getFromStorage } from '../utils/localStorage';
 
 export interface InitialState {
-  todos: Todo[];
-  doneTodos: Todo[];
+  todos: Task[];
+  doneTodos: Task[];
+}
+
+interface TaskContextProps {
+  state: InitialState;
+  dispatch: Dispatch<TaskActions>;
 }
 
 const initialState: InitialState = {
@@ -19,12 +24,7 @@ const initialState: InitialState = {
   doneTodos: [],
 };
 
-interface TodoContextProps {
-  state: InitialState;
-  dispatch: Dispatch<TodoActions>;
-}
-
-const TaskContext = createContext<TodoContextProps>({
+const TaskContext = createContext<TaskContextProps>({
   state: initialState,
   dispatch: () => undefined,
 });
@@ -34,8 +34,8 @@ const TaskContextProvider = ({ children }: { children: ReactNode }) => {
   const { todos, doneTodos } = state;
 
   useEffect(() => {
-    const storedTodos = getFromStorage<Todo[] | null>('todos');
-    const storedDoneTodos = getFromStorage<Todo[] | null>('doneTodos');
+    const storedTodos = getFromStorage<Task[] | null>('todos');
+    const storedDoneTodos = getFromStorage<Task[] | null>('doneTodos');
 
     if (storedTodos && storedTodos.length > 0) {
       dispatch({

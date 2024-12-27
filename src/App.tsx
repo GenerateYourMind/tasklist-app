@@ -4,7 +4,7 @@ import Header from './components/Header';
 import CreateTask from './components/CreateTask';
 import TaskLists from './components/TaskLists';
 import { TaskContext } from './context/TaskContext';
-import { Todo } from './models';
+import { Task } from './models';
 import './App.scss';
 
 const App: FC = () => {
@@ -27,13 +27,13 @@ const App: FC = () => {
     const active = [...todos];
     const done = [...doneTodos];
 
-    const getArray = (droppableId: string): Todo[] =>
+    const getArray = (droppableId: string): Task[] =>
       droppableId === 'ActiveTodoList' ? active : done;
 
     const sourceArray = getArray(source.droppableId);
     const destinationArray = getArray(destination.droppableId);
 
-    const movingTodo: Todo = sourceArray[source.index];
+    const movingTodo: Task = sourceArray[source.index];
 
     // Updates todo status based on the destination list
     movingTodo.done = destination.droppableId !== 'ActiveTodoList';

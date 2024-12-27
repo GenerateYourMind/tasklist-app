@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Todo } from '../models';
+import { Task } from '../models';
 import { InitialState } from './TaskContext';
 
 export type Target = 'todos' | 'doneTodos';
 
-export type TodoActions =
+export type TaskActions =
   | { type: 'CREATE-TODO'; payload: { todoText: string; target?: Target } }
   | {
       type: 'DELETE-TODO' | 'DONE-TODO';
@@ -21,12 +21,12 @@ export type TodoActions =
     }
   | {
       type: 'UPDATE-TODOS';
-      payload: { todos?: Todo[]; doneTodos?: Todo[]; target: Target };
+      payload: { todos?: Task[]; doneTodos?: Task[]; target: Target };
     };
 
 const taskReducer = (
   state: InitialState,
-  action: TodoActions
+  action: TaskActions
 ): InitialState => {
   const { type, payload } = action;
   const { todos, doneTodos } = state;
@@ -58,7 +58,7 @@ const taskReducer = (
 
     case 'MOVE-TODO-BETWEEN-LISTS': {
       const returnTodos = (
-        todosList: Todo[],
+        todosList: Task[],
         targetName: string,
         isDone: boolean,
         currentState: InitialState
@@ -92,7 +92,7 @@ const taskReducer = (
     case 'UPDATE-TODOS':
       return {
         ...state,
-        [payload.target]: [...(payload[payload.target] as Todo[])],
+        [payload.target]: [...(payload[payload.target] as Task[])],
       };
 
     default:

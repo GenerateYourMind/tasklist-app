@@ -3,7 +3,7 @@ import { Droppable } from '@hello-pangea/dnd';
 import TaskItem from './TaskItem';
 import NoTasks from './NoTasks';
 import { TaskContext } from '../context/TaskContext';
-import { Todo } from '../models';
+import { Task } from '../models';
 
 const TaskLists: FC = () => {
   const {
@@ -12,13 +12,13 @@ const TaskLists: FC = () => {
   } = useContext(TaskContext);
 
   const shouldRenderNoTasks = (
-    todosList: Todo[],
+    todosList: Task[],
     status: 'active' | 'done'
   ) => {
     return !todosList.length && <NoTasks todosStatus={status} />;
   };
 
-  const renderTaskItems = (todosList: Todo[]) => {
+  const renderTaskItems = (todosList: Task[]) => {
     return todosList.map((todo, index) => (
       <TaskItem index={index} key={todo.id} todo={todo} dispatch={dispatch} />
     ));
