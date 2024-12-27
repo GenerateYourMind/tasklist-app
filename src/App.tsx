@@ -42,12 +42,12 @@ const App: FC = () => {
     destinationArray.splice(destination.index, 0, movingTodo);
 
     dispatch({
-      type: 'UPDATE-TODOS',
+      type: 'UPDATE-TASKS',
       payload: { todos: active, target: 'todos' },
     });
 
     dispatch({
-      type: 'UPDATE-TODOS',
+      type: 'UPDATE-TASKS',
       payload: {
         doneTodos: done,
         target: 'doneTodos',

@@ -5,14 +5,14 @@ import { InitialState } from './TaskContext';
 export type Target = 'todos' | 'doneTodos';
 
 export type TaskActions =
-  | { type: 'CREATE-TODO'; payload: { todoText: string; target?: Target } }
+  | { type: 'CREATE-TASK'; payload: { todoText: string; target?: Target } }
   | {
-      type: 'DELETE-TODO' | 'DONE-TODO';
+      type: 'DELETE-TASK' | 'DONE-TASK';
       payload: { id: string; target: Target };
     }
-  | { type: 'MOVE-TODO-BETWEEN-LISTS'; payload: { target: Target } }
+  | { type: 'MOVE-TASK-BETWEEN-LISTS'; payload: { target: Target } }
   | {
-      type: 'EDIT-TODO';
+      type: 'EDIT-TASK';
       payload: {
         id: string;
         editTodoText: string;
@@ -20,7 +20,7 @@ export type TaskActions =
       };
     }
   | {
-      type: 'UPDATE-TODOS';
+      type: 'UPDATE-TASKS';
       payload: { todos?: Task[]; doneTodos?: Task[]; target: Target };
     };
 
@@ -33,7 +33,7 @@ const taskReducer = (
   const targetArray = payload.target === 'todos' ? todos : doneTodos;
 
   switch (type) {
-    case 'CREATE-TODO':
+    case 'CREATE-TASK':
       return {
         ...state,
         todos: [
@@ -42,13 +42,13 @@ const taskReducer = (
         ],
       };
 
-    case 'DELETE-TODO':
+    case 'DELETE-TASK':
       return {
         ...state,
         [payload.target]: targetArray.filter((todo) => todo.id !== payload.id),
       };
 
-    case 'DONE-TODO':
+    case 'DONE-TASK':
       return {
         ...state,
         [payload.target]: targetArray.map((todo) =>
@@ -56,7 +56,7 @@ const taskReducer = (
         ),
       };
 
-    case 'MOVE-TODO-BETWEEN-LISTS': {
+    case 'MOVE-TASK-BETWEEN-LISTS': {
       const returnTodos = (
         todosList: Task[],
         targetName: string,
@@ -79,7 +79,7 @@ const taskReducer = (
       return returnTodos(todos, 'todos', false, state);
     }
 
-    case 'EDIT-TODO':
+    case 'EDIT-TASK':
       return {
         ...state,
         todos: todos.map((todo) =>
@@ -89,7 +89,7 @@ const taskReducer = (
         ),
       };
 
-    case 'UPDATE-TODOS':
+    case 'UPDATE-TASKS':
       return {
         ...state,
         [payload.target]: [...(payload[payload.target] as Task[])],

@@ -39,14 +39,14 @@ const TaskContextProvider = ({ children }: { children: ReactNode }) => {
 
     if (storedTodos && storedTodos.length > 0) {
       dispatch({
-        type: 'UPDATE-TODOS',
+        type: 'UPDATE-TASKS',
         payload: { todos: storedTodos, target: 'todos' },
       });
     }
 
     if (storedDoneTodos && storedDoneTodos.length > 0) {
       dispatch({
-        type: 'UPDATE-TODOS',
+        type: 'UPDATE-TASKS',
         payload: { doneTodos: storedDoneTodos, target: 'doneTodos' },
       });
     }

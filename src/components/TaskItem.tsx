@@ -35,15 +35,15 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, todo, dispatch }) => {
   }, [isEditing, isModalOpen]);
 
   const handleDone = (id: string, target: Target): void => {
-    dispatch({ type: 'DONE-TODO', payload: { id, target } });
-    dispatch({ type: 'MOVE-TODO-BETWEEN-LISTS', payload: { target } });
-    dispatch({ type: 'DELETE-TODO', payload: { id, target } });
+    dispatch({ type: 'DONE-TASK', payload: { id, target } });
+    dispatch({ type: 'MOVE-TASK-BETWEEN-LISTS', payload: { target } });
+    dispatch({ type: 'DELETE-TASK', payload: { id, target } });
   };
 
   const handleDelete = (id: string): void => {
-    dispatch({ type: 'DELETE-TODO', payload: { id, target: 'todos' } });
+    dispatch({ type: 'DELETE-TASK', payload: { id, target: 'todos' } });
     dispatch({
-      type: 'DELETE-TODO',
+      type: 'DELETE-TASK',
       payload: { id, target: 'doneTodos' },
     });
   };
@@ -61,7 +61,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, todo, dispatch }) => {
     }
 
     dispatch({
-      type: 'EDIT-TODO',
+      type: 'EDIT-TASK',
       payload: { id: todo.id, editTodoText },
     });
     setIsEditing(false);

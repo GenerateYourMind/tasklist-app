@@ -20,7 +20,7 @@ const CreateTask: FC = () => {
       return;
     }
 
-    dispatch({ type: 'CREATE-TODO', payload: { todoText } });
+    dispatch({ type: 'CREATE-TASK', payload: { todoText } });
     setTodoText('');
   };
   // createTask instead of create-todo-form classes
