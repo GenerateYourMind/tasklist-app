@@ -1,9 +1,9 @@
 import { FC, useContext } from 'react';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import Header from './components/Header';
-import CreateTodo from './components/CreateTodo';
-import TodoLists from './components/TodoLists';
-import { TodoContext } from './context/TodoContext';
+import CreateTask from './components/CreateTask';
+import TaskLists from './components/TaskLists';
+import { TaskContext } from './context/TaskContext';
 import { Todo } from './models';
 import './App.scss';
 
@@ -11,7 +11,7 @@ const App: FC = () => {
   const {
     state: { todos, doneTodos },
     dispatch,
-  } = useContext(TodoContext);
+  } = useContext(TaskContext);
 
   const onDragEnd = (result: DropResult): void => {
     const { source, destination } = result;
@@ -59,9 +59,9 @@ const App: FC = () => {
     <div className="app">
       <Header />
       <main className="todo-container">
-        <CreateTodo />
+        <CreateTask />
         <DragDropContext onDragEnd={onDragEnd}>
-          <TodoLists />
+          <TaskLists />
         </DragDropContext>
       </main>
     </div>

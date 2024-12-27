@@ -1,26 +1,26 @@
 import { FC, useContext } from 'react';
 import { Droppable } from '@hello-pangea/dnd';
-import TodoItem from './TodoItem';
-import NoTodos from './NoTodos';
-import { TodoContext } from '../context/TodoContext';
+import TaskItem from './TaskItem';
+import NoTasks from './NoTasks';
+import { TaskContext } from '../context/TaskContext';
 import { Todo } from '../models';
 
-const TodoLists: FC = () => {
+const TaskLists: FC = () => {
   const {
     state: { todos, doneTodos },
     dispatch,
-  } = useContext(TodoContext);
+  } = useContext(TaskContext);
 
-  const shouldRenderNoTodos = (
+  const shouldRenderNoTasks = (
     todosList: Todo[],
     status: 'active' | 'done'
   ) => {
-    return !todosList.length && <NoTodos todosStatus={status} />;
+    return !todosList.length && <NoTasks todosStatus={status} />;
   };
 
-  const renderTodoItems = (todosList: Todo[]) => {
+  const renderTaskItems = (todosList: Todo[]) => {
     return todosList.map((todo, index) => (
-      <TodoItem index={index} key={todo.id} todo={todo} dispatch={dispatch} />
+      <TaskItem index={index} key={todo.id} todo={todo} dispatch={dispatch} />
     ));
   };
 
@@ -35,8 +35,8 @@ const TodoLists: FC = () => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {shouldRenderNoTodos(todos, 'active')}
-              {renderTodoItems(todos)}
+              {shouldRenderNoTasks(todos, 'active')}
+              {renderTaskItems(todos)}
               {provided.placeholder}
             </ul>
           )}
@@ -51,8 +51,8 @@ const TodoLists: FC = () => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {shouldRenderNoTodos(doneTodos, 'done')}
-              {renderTodoItems(doneTodos)}
+              {shouldRenderNoTasks(doneTodos, 'done')}
+              {renderTaskItems(doneTodos)}
               {provided.placeholder}
             </ul>
           )}
@@ -62,4 +62,4 @@ const TodoLists: FC = () => {
   );
 };
 
-export default TodoLists;
+export default TaskLists;

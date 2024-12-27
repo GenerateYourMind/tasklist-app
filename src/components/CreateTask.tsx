@@ -2,16 +2,16 @@ import { FC, FormEvent, useRef, useContext, useState } from 'react';
 import { PiPlusBold } from 'react-icons/pi';
 import Modal from './Modal';
 import { useModal } from '../hooks/useModal';
-import { TodoContext } from '../context/TodoContext';
+import { TaskContext } from '../context/TaskContext';
 import './styles.scss';
 
-const CreateTodo: FC = () => {
+const CreateTask: FC = () => {
   const [todoText, setTodoText] = useState('');
   const { isModalOpen, openModal, closeModal } = useModal();
-  const { dispatch } = useContext(TodoContext);
+  const { dispatch } = useContext(TaskContext);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmitTodo = (event: FormEvent): void => {
+  const handleSubmitTask = (event: FormEvent): void => {
     event.preventDefault();
 
     if (todoText.trim().length === 0) {
@@ -23,14 +23,14 @@ const CreateTodo: FC = () => {
     dispatch({ type: 'CREATE-TODO', payload: { todoText } });
     setTodoText('');
   };
-  // createTodo instead of create-todo-form classes
+  // createTask instead of create-todo-form classes
   // add name to input or look on console in webdev tools
   return (
     <>
       <form
         className="create-todo-form"
         onSubmit={(event) => {
-          handleSubmitTodo(event);
+          handleSubmitTask(event);
           inputRef.current?.blur();
         }}
       >
@@ -59,4 +59,4 @@ const CreateTodo: FC = () => {
   );
 };
 
-export default CreateTodo;
+export default CreateTask;

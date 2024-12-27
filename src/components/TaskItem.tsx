@@ -13,7 +13,7 @@ import { RiArrowGoBackFill } from 'react-icons/ri';
 import { Draggable } from '@hello-pangea/dnd';
 import Modal from './Modal';
 import { useModal } from '../hooks/useModal';
-import { Target, TodoActions } from '../context/todoReducer';
+import { Target, TodoActions } from '../context/taskReducer';
 import { Todo } from '../models';
 
 interface TodoItemProps {
@@ -22,7 +22,7 @@ interface TodoItemProps {
   dispatch: Dispatch<TodoActions>;
 }
 
-const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
+const TaskItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTodoText, setEditTodoText] = useState<string>(todo.todoText);
   const { isModalOpen, openModal, closeModal } = useModal();
@@ -157,4 +157,4 @@ const TodoItem: FC<TodoItemProps> = memo(({ index, todo, dispatch }) => {
   );
 });
 
-export default TodoItem;
+export default TaskItem;

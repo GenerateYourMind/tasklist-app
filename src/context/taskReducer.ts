@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Todo } from '../models';
-import { InitialState } from './TodoContext';
+import { InitialState } from './TaskContext';
 
 export type Target = 'todos' | 'doneTodos';
 
@@ -24,7 +24,7 @@ export type TodoActions =
       payload: { todos?: Todo[]; doneTodos?: Todo[]; target: Target };
     };
 
-const todoReducer = (
+const taskReducer = (
   state: InitialState,
   action: TodoActions
 ): InitialState => {
@@ -100,4 +100,4 @@ const todoReducer = (
   }
 };
 
-export { todoReducer };
+export { taskReducer };

@@ -6,7 +6,7 @@ import {
   useEffect,
 } from 'react';
 import { Todo } from '../models';
-import { TodoActions, todoReducer } from './todoReducer';
+import { TodoActions, taskReducer } from './taskReducer';
 import { saveToStorage, getFromStorage } from '../utils/localStorage';
 
 export interface InitialState {
@@ -24,13 +24,13 @@ interface TodoContextProps {
   dispatch: Dispatch<TodoActions>;
 }
 
-const TodoContext = createContext<TodoContextProps>({
+const TaskContext = createContext<TodoContextProps>({
   state: initialState,
   dispatch: () => undefined,
 });
 
-const TodoContextProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(todoReducer, initialState);
+const TaskContextProvider = ({ children }: { children: ReactNode }) => {
+  const [state, dispatch] = useReducer(taskReducer, initialState);
   const { todos, doneTodos } = state;
 
   useEffect(() => {
@@ -61,10 +61,10 @@ const TodoContextProvider = ({ children }: { children: ReactNode }) => {
   }, [doneTodos]);
 
   return (
-    <TodoContext.Provider value={{ state, dispatch }}>
+    <TaskContext.Provider value={{ state, dispatch }}>
       {children}
-    </TodoContext.Provider>
+    </TaskContext.Provider>
   );
 };
 
-export { TodoContext, TodoContextProvider };
+export { TaskContext, TaskContextProvider };
