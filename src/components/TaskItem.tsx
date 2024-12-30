@@ -84,24 +84,16 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
             ref={provided.innerRef}
           >
             <div className="task-control-buttons">
-              {!task.done ? (
-                <button
-                  className="task-control-btn"
-                  disabled={isEditing}
-                  aria-label="Complete"
-                  onClick={() => handleDone(task.id, 'tasks')}
-                >
-                  <MdDoneOutline />
-                </button>
-              ) : (
-                <button
-                  className="task-control-btn"
-                  aria-label="Return"
-                  onClick={() => handleDone(task.id, 'doneTasks')}
-                >
-                  <RiArrowGoBackFill />
-                </button>
-              )}
+              <button
+                className="task-control-btn"
+                disabled={isEditing}
+                aria-label={task.done ? 'Return' : 'Complete'}
+                onClick={() =>
+                  handleDone(task.id, task.done ? 'doneTasks' : 'tasks')
+                }
+              >
+                {task.done ? <RiArrowGoBackFill /> : <MdDoneOutline />}
+              </button>
             </div>
             {isEditing ? (
               <input
