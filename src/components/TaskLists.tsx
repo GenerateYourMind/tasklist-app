@@ -7,7 +7,7 @@ import { Task } from '../models';
 
 const TaskLists: FC = () => {
   const {
-    state: { tasks, doneTasks },
+    state: { activeTasks, doneTasks },
     dispatch,
   } = useContext(TaskContext);
 
@@ -32,8 +32,8 @@ const TaskLists: FC = () => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {shouldRenderNoTasks(tasks, 'active')}
-              {renderTaskItems(tasks)}
+              {shouldRenderNoTasks(activeTasks, 'active')}
+              {renderTaskItems(activeTasks)}
               {provided.placeholder}
             </ul>
           )}

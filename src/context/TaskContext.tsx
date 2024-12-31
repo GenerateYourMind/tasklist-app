@@ -10,7 +10,7 @@ import { TaskActions, taskReducer } from './taskReducer';
 import { saveToStorage, getFromStorage } from '../utils/localStorage';
 
 export interface InitialState {
-  tasks: Task[];
+  activeTasks: Task[];
   doneTasks: Task[];
 }
 
@@ -20,7 +20,7 @@ interface TaskContextProps {
 }
 
 const initialState: InitialState = {
-  tasks: [],
+  activeTasks: [],
   doneTasks: [],
 };
 
@@ -31,16 +31,16 @@ const TaskContext = createContext<TaskContextProps>({
 
 const TaskContextProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
-  const { tasks, doneTasks } = state;
+  const { activeTasks, doneTasks } = state;
 
   useEffect(() => {
-    const storedTasks = getFromStorage<Task[] | null>('tasks');
+    const storedActiveTasks = getFromStorage<Task[] | null>('activeTasks');
     const storedDoneTasks = getFromStorage<Task[] | null>('doneTasks');
 
-    if (storedTasks && storedTasks.length > 0) {
+    if (storedActiveTasks && storedActiveTasks.length > 0) {
       dispatch({
         type: 'UPDATE-TASKS',
-        payload: { tasks: storedTasks, target: 'tasks' },
+        payload: { activeTasks: storedActiveTasks, target: 'activeTasks' },
       });
     }
 
@@ -53,8 +53,8 @@ const TaskContextProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    saveToStorage('tasks', tasks);
-  }, [tasks]);
+    saveToStorage('activeTasks', activeTasks);
+  }, [activeTasks]);
 
   useEffect(() => {
     saveToStorage('doneTasks', doneTasks);

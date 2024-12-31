@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Task } from '../models';
 import { InitialState } from './TaskContext';
 
-export type Target = 'tasks' | 'doneTasks';
+export type Target = 'activeTasks' | 'doneTasks';
 
 export type TaskActions =
   | { type: 'CREATE-TASK'; payload: { taskText: string; target?: Target } }
@@ -21,7 +21,7 @@ export type TaskActions =
     }
   | {
       type: 'UPDATE-TASKS';
-      payload: { tasks?: Task[]; doneTasks?: Task[]; target: Target };
+      payload: { activeTasks?: Task[]; doneTasks?: Task[]; target: Target };
     };
 
 const taskReducer = (
@@ -29,15 +29,16 @@ const taskReducer = (
   action: TaskActions
 ): InitialState => {
   const { type, payload } = action;
-  const { tasks, doneTasks } = state;
-  const targetArray = payload.target === 'tasks' ? tasks : doneTasks;
+  const { activeTasks, doneTasks } = state;
+  const targetArray =
+    payload.target === 'activeTasks' ? activeTasks : doneTasks;
 
   switch (type) {
     case 'CREATE-TASK':
       return {
         ...state,
-        tasks: [
-          ...tasks,
+        activeTasks: [
+          ...activeTasks,
           { id: uuidv4(), taskText: payload.taskText, done: false },
         ],
       };
@@ -72,17 +73,17 @@ const taskReducer = (
         };
       };
 
-      if (payload.target === 'tasks') {
+      if (payload.target === 'activeTasks') {
         return returnTasks(doneTasks, 'doneTasks', true, state);
       }
 
-      return returnTasks(tasks, 'tasks', false, state);
+      return returnTasks(activeTasks, 'activeTasks', false, state);
     }
 
     case 'EDIT-TASK':
       return {
         ...state,
-        tasks: tasks.map((task) =>
+        activeTasks: activeTasks.map((task) =>
           task.id === payload.id
             ? { ...task, taskText: payload.editTaskText }
             : task
