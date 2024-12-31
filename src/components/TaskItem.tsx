@@ -41,7 +41,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
   };
 
   const handleDelete = (id: string): void => {
-    dispatch({ type: 'DELETE-TASK', payload: { id, target: 'tasks' } });
+    dispatch({ type: 'DELETE-TASK', payload: { id, target: 'activeTasks' } });
     dispatch({
       type: 'DELETE-TASK',
       payload: { id, target: 'doneTasks' },
@@ -89,7 +89,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 disabled={isEditing}
                 aria-label={task.done ? 'Return' : 'Complete'}
                 onClick={() =>
-                  handleDone(task.id, task.done ? 'doneTasks' : 'tasks')
+                  handleDone(task.id, task.done ? 'doneTasks' : 'activeTasks')
                 }
               >
                 {task.done ? <RiArrowGoBackFill /> : <MdDoneOutline />}

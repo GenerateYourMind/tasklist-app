@@ -9,7 +9,7 @@ import './App.scss';
 
 const App: FC = () => {
   const {
-    state: { tasks, doneTasks },
+    state: { activeTasks, doneTasks },
     dispatch,
   } = useContext(TaskContext);
 
@@ -24,7 +24,7 @@ const App: FC = () => {
       return;
     }
 
-    const active = [...tasks];
+    const active = [...activeTasks];
     const done = [...doneTasks];
 
     const getArray = (droppableId: string): Task[] =>
@@ -43,7 +43,7 @@ const App: FC = () => {
 
     dispatch({
       type: 'UPDATE-TASKS',
-      payload: { tasks: active, target: 'tasks' },
+      payload: { activeTasks: active, target: 'activeTasks' },
     });
 
     dispatch({
