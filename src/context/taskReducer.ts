@@ -1,28 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Task } from '../types/taskTypes';
-import { InitialState } from './TaskContext';
-
-export type Target = 'activeTasks' | 'doneTasks';
-
-export type TaskActions =
-  | { type: 'CREATE-TASK'; payload: { taskText: string; target?: Target } }
-  | {
-      type: 'DELETE-TASK' | 'DONE-TASK';
-      payload: { id: string; target: Target };
-    }
-  | { type: 'MOVE-TASK-BETWEEN-LISTS'; payload: { target: Target } }
-  | {
-      type: 'EDIT-TASK';
-      payload: {
-        id: string;
-        editTaskText: string;
-        target?: Target;
-      };
-    }
-  | {
-      type: 'UPDATE-TASKS';
-      payload: { activeTasks?: Task[]; doneTasks?: Task[]; target: Target };
-    };
+import { InitialState, TaskActions, Task } from '../types/taskTypes';
 
 const taskReducer = (
   state: InitialState,
