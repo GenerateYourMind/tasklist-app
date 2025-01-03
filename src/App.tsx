@@ -4,7 +4,7 @@ import Header from './components/Header';
 import CreateTask from './components/CreateTask';
 import TaskLists from './components/TaskLists';
 import { TaskContext } from './context/TaskContext';
-import { Task } from './models';
+import { Task } from './types/taskTypes';
 import './App.scss';
 
 const App: FC = () => {

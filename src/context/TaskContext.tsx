@@ -5,7 +5,7 @@ import {
   Dispatch,
   useEffect,
 } from 'react';
-import { Task } from '../models';
+import { Task } from '../types/taskTypes';
 import { TaskActions, taskReducer } from './taskReducer';
 import { saveToStorage, getFromStorage } from '../utils/localStorage';
 

@@ -3,7 +3,7 @@ import { Droppable } from '@hello-pangea/dnd';
 import TaskItem from './TaskItem';
 import NoTasks from './NoTasks';
 import { TaskContext } from '../context/TaskContext';
-import { Task } from '../models';
+import { Task } from '../types/taskTypes';
 
 const TaskLists: FC = () => {
   const {

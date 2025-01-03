@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Task } from '../models';
+import { Task } from '../types/taskTypes';
 import { InitialState } from './TaskContext';
 
 export type Target = 'activeTasks' | 'doneTasks';
