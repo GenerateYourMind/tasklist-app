@@ -1,23 +1,7 @@
-import {
-  createContext,
-  ReactNode,
-  useReducer,
-  Dispatch,
-  useEffect,
-} from 'react';
-import { Task } from '../models';
-import { TaskActions, taskReducer } from './taskReducer';
+import { createContext, ReactNode, useReducer, useEffect } from 'react';
+import { InitialState, TaskContextProps, Task } from '../types/taskTypes';
+import { taskReducer } from './taskReducer';
 import { saveToStorage, getFromStorage } from '../utils/localStorage';
-
-export interface InitialState {
-  activeTasks: Task[];
-  doneTasks: Task[];
-}
-
-interface TaskContextProps {
-  state: InitialState;
-  dispatch: Dispatch<TaskActions>;
-}
 
 const initialState: InitialState = {
   activeTasks: [],

@@ -1,7 +1,8 @@
 import { FC } from 'react';
+import { TaskStatus } from '../types/taskTypes';
 
 export interface NoTasksProps {
-  tasksStatus: 'active' | 'done';
+  tasksStatus: TaskStatus;
 }
 
 const NoTasks: FC<NoTasksProps> = ({ tasksStatus }) => {
