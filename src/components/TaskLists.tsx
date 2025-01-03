@@ -3,7 +3,7 @@ import { Droppable } from '@hello-pangea/dnd';
 import TaskItem from './TaskItem';
 import NoTasks from './NoTasks';
 import { TaskContext } from '../context/TaskContext';
-import { Task } from '../types/taskTypes';
+import { Task, TaskStatus } from '../types/taskTypes';
 
 const TaskLists: FC = () => {
   const {
@@ -11,7 +11,7 @@ const TaskLists: FC = () => {
     dispatch,
   } = useContext(TaskContext);
 
-  const shouldRenderNoTasks = (taskList: Task[], status: 'active' | 'done') => {
+  const shouldRenderNoTasks = (taskList: Task[], status: TaskStatus) => {
     return !taskList.length && <NoTasks tasksStatus={status} />;
   };
 

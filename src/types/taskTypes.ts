@@ -3,3 +3,5 @@ export interface Task {
   taskText: string;
   done: boolean;
 }
+
+export type TaskStatus = 'active' | 'done';
