@@ -12,7 +12,7 @@ const TaskLists: FC = () => {
   } = useContext(TaskContext);
 
   const shouldRenderNoTasks = (taskList: Task[], status: TaskStatus) => {
-    return !taskList.length && <NoTasks tasksStatus={status} />;
+    return !taskList.length && <NoTasks status={status} />;
   };
 
   const renderTaskItems = (taskList: Task[]) => {
