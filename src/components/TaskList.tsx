@@ -1,7 +1,6 @@
 import { FC, useContext } from 'react';
 import { Droppable } from '@hello-pangea/dnd';
 import TaskItem from './TaskItem';
-import NoTasks from './NoTasks';
 import { TaskContext } from '../context/TaskContext';
 import { Task, TaskStatus } from '../types/taskTypes';
 
@@ -25,7 +24,9 @@ const TaskList: FC<TaskListProps> = ({ title, tasks, status, droppableId }) => {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            {!tasks.length && <NoTasks status={status} />}
+            {!tasks.length && (
+              <li className="no-tasks">{`There are no ${status} tasks`}</li>
+            )}
             {tasks.map((task, index) => (
               <TaskItem
                 index={index}
