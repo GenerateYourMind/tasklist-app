@@ -18,6 +18,10 @@ button {
   cursor: pointer;
 }
 
+ul li {
+  list-style: none;
+}
+
 // Theme color variables
 :root {
   --light-bg: rgb(128, 146, 158);
