@@ -1,27 +1,77 @@
 import { FC, useContext } from 'react';
+import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import TaskList from './TaskList';
 import { TaskContext } from '../context/TaskContext';
+import { Task } from '../types/taskTypes';
 
 const TaskLists: FC = () => {
   const {
     state: { activeTasks, doneTasks },
+    dispatch,
   } = useContext(TaskContext);
 
+  const onDragEnd = (result: DropResult): void => {
+    const { source, destination } = result;
+
+    if (
+      !destination ||
+      (destination.droppableId === source.droppableId &&
+        destination.index === source.index)
+    ) {
+      return;
+    }
+
+    const active = [...activeTasks];
+    const done = [...doneTasks];
+
+    const getArray = (droppableId: string): Task[] =>
+      droppableId === 'ActiveTaskList' ? active : done;
+
+    const sourceArray = getArray(source.droppableId);
+    const destinationArray = getArray(destination.droppableId);
+
+    const movingTask: Task = sourceArray[source.index];
+
+    // Updates task status based on the destination list
+    movingTask.done = destination.droppableId !== 'ActiveTaskList';
+
+    sourceArray.splice(source.index, 1);
+    destinationArray.splice(destination.index, 0, movingTask);
+
+    dispatch({
+      type: 'UPDATE-TASKS',
+      payload: {
+        activeTasks: active,
+        target: 'activeTasks',
+      },
+    });
+
+    dispatch({
+      type: 'UPDATE-TASKS',
+      payload: {
+        doneTasks: done,
+        target: 'doneTasks',
+      },
+    });
+  };
+
   return (
-    <div className="task-lists">
-      <TaskList
-        title="Active tasks"
-        tasks={activeTasks}
-        status="active"
-        droppableId="ActiveTaskList"
-      />
-      <TaskList
-        title="Done tasks"
-        tasks={doneTasks}
-        status="done"
-        droppableId="DoneTaskList"
-      />
-    </div>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className="task-lists">
+        <TaskList
+          title="Active tasks"
+          tasks={activeTasks}
+          status="active"
+          droppableId="ActiveTaskList"
+        />
+        <TaskList
+          title="Done tasks"
+          tasks={doneTasks}
+          status="done"
+          droppableId="DoneTaskList"
+        />
+      </div>
+    </DragDropContext>
   );
 };
 
