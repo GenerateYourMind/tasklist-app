@@ -6,9 +6,9 @@ const taskReducer = (
   action: TaskActions
 ): InitialState => {
   const { type, payload } = action;
-  const { activeTasks, doneTasks } = state;
+  const { activeTasks, completedTasks } = state;
   const targetArray =
-    payload.target === 'activeTasks' ? activeTasks : doneTasks;
+    payload.target === 'activeTasks' ? activeTasks : completedTasks;
 
   switch (type) {
     case 'CREATE-TASK':
@@ -16,7 +16,7 @@ const taskReducer = (
         ...state,
         activeTasks: [
           ...activeTasks,
-          { id: uuidv4(), taskText: payload.taskText, done: false },
+          { id: uuidv4(), taskText: payload.taskText, completed: false },
         ],
       };
 
@@ -26,11 +26,13 @@ const taskReducer = (
         [payload.target]: targetArray.filter((task) => task.id !== payload.id),
       };
 
-    case 'DONE-TASK':
+    case 'COMPLETE-TASK':
       return {
         ...state,
         [payload.target]: targetArray.map((task) =>
-          task.id === payload.id ? { ...task, done: !task.done } : task
+          task.id === payload.id
+            ? { ...task, completed: !task.completed }
+            : task
         ),
       };
 
@@ -38,20 +40,20 @@ const taskReducer = (
       const returnTasks = (
         taskList: Task[],
         targetName: string,
-        isDone: boolean,
+        isCompleted: boolean,
         currentState: InitialState
       ): InitialState => {
         return {
           ...currentState,
           [targetName]: [
             ...taskList,
-            ...targetArray.filter((task) => task.done === isDone),
+            ...targetArray.filter((task) => task.completed === isCompleted),
           ],
         };
       };
 
       if (payload.target === 'activeTasks') {
-        return returnTasks(doneTasks, 'doneTasks', true, state);
+        return returnTasks(completedTasks, 'completedTasks', true, state);
       }
 
       return returnTasks(activeTasks, 'activeTasks', false, state);

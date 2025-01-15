@@ -6,7 +6,7 @@ import { Task } from '../types/taskTypes';
 
 const TaskLists: FC = () => {
   const {
-    state: { activeTasks, doneTasks },
+    state: { activeTasks, completedTasks },
     dispatch,
   } = useContext(TaskContext);
 
@@ -22,10 +22,10 @@ const TaskLists: FC = () => {
     }
 
     const active = [...activeTasks];
-    const done = [...doneTasks];
+    const completed = [...completedTasks];
 
     const getArray = (droppableId: string): Task[] =>
-      droppableId === 'ActiveTaskList' ? active : done;
+      droppableId === 'ActiveTaskList' ? active : completed;
 
     const sourceArray = getArray(source.droppableId);
     const destinationArray = getArray(destination.droppableId);
@@ -33,7 +33,7 @@ const TaskLists: FC = () => {
     const movingTask: Task = sourceArray[source.index];
 
     // Updates task status based on the destination list
-    movingTask.done = destination.droppableId !== 'ActiveTaskList';
+    movingTask.completed = destination.droppableId !== 'ActiveTaskList';
 
     sourceArray.splice(source.index, 1);
     destinationArray.splice(destination.index, 0, movingTask);
@@ -49,8 +49,8 @@ const TaskLists: FC = () => {
     dispatch({
       type: 'UPDATE-TASKS',
       payload: {
-        doneTasks: done,
-        target: 'doneTasks',
+        completedTasks: completed,
+        target: 'completedTasks',
       },
     });
   };
@@ -65,10 +65,10 @@ const TaskLists: FC = () => {
           droppableId="ActiveTaskList"
         />
         <TaskList
-          title="Done tasks"
-          tasks={doneTasks}
-          status="done"
-          droppableId="DoneTaskList"
+          title="Completed tasks"
+          tasks={completedTasks}
+          status="completed"
+          droppableId="CompletedTaskList"
         />
       </div>
     </DragDropContext>
