@@ -1,19 +1,17 @@
 # Task List App
 
-Task List App is a task management web application built with React and TypeScript. Users can create, edit, and move tasks between active and done lists. The app supports drag-and-drop functionality, along with animations for interactions. Themes are automatically set based on system preferences, and all changes are stored in localStorage. The app features both light and dark modes, as well as modal windows for error notifications. Built with Vite for fast development and optimized performance.
+Task List App is a task management web application built with React and TypeScript. Users can create, edit, and move tasks between active and completed lists. The app supports drag-and-drop functionality, along with animations for interactions. Themes are automatically set based on system preferences, and all changes are stored in localStorage. The app features both light and dark modes, as well as modal windows for error notifications. Built with Vite for fast development and optimized performance.
 
-![Image](https://github.com/user-attachments/assets/d2ba4bf2-6e85-4fdc-a1cb-d75ff2be9a8e)
+![Image](https://github.com/user-attachments/assets/c3b64540-c340-4a9b-9144-343257f48ff4)
 
-![Image](https://github.com/user-attachments/assets/7fb90ca1-d324-4776-90ed-d182265de969)
-
-![Image](https://github.com/user-attachments/assets/f7410956-590b-48ec-98f8-2697656ae3e8)
+![Image](https://github.com/user-attachments/assets/5f9054e3-d583-492c-bdf1-adee62898e21)
 
 ## Features
 
 - Create new tasks with a form and add them to the active task list.
 - Edit existing tasks in the active task list.
-- Mark tasks as complete, which automatically moves them to the done task list.
-- Drag and drop tasks between the active and done task lists, as well as within the same list.
+- Mark tasks as completed, which automatically moves them to the completed task list.
+- Drag and drop tasks between the active and completed task lists, as well as within the same list.
 - Animated modals appear for error handling when tasks are not properly created or edited.
 - Switch between light and dark themes, with automatic theme detection based on system preferences.
 - Store tasks and theme preferences in localStorage for persistence across sessions.
@@ -65,7 +63,7 @@ You need to install [Node.js and npm](https://nodejs.org/en/) to run this app.
 
 The application features an intuitive interface where you can create tasks by filling out a simple form and clicking the "Add Task" button or prresing the "Enter" key on your keyboard. Newly created tasks will appear in the active task list.
 
-You can edit tasks, mark them as complete, or delete them using the corresponding buttons. Tasks can be dragged and dropped between the active and done lists, as well as reordered within the same list.
+You can edit tasks, mark them as completed, or delete them using the corresponding buttons. Tasks can be dragged and dropped between the active and completed lists, as well as reordered within the same list.
 
 When you first enter the app, it automatically detects your system's theme and applies it. You can later switch between light and dark modes by clicking the theme toggle in the top-right corner.
 

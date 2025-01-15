@@ -33,8 +33,8 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     }
   }, [isEditing, isModalOpen]);
 
-  const handleDone = (id: string, target: Target): void => {
-    dispatch({ type: 'DONE-TASK', payload: { id, target } });
+  const handleComplete = (id: string, target: Target): void => {
+    dispatch({ type: 'COMPLETE-TASK', payload: { id, target } });
     dispatch({ type: 'MOVE-TASK-BETWEEN-LISTS', payload: { target } });
     dispatch({ type: 'DELETE-TASK', payload: { id, target } });
   };
@@ -43,7 +43,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     dispatch({ type: 'DELETE-TASK', payload: { id, target: 'activeTasks' } });
     dispatch({
       type: 'DELETE-TASK',
-      payload: { id, target: 'doneTasks' },
+      payload: { id, target: 'completedTasks' },
     });
   };
 
@@ -86,12 +86,15 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
               <button
                 className="task-control-btn"
                 disabled={isEditing}
-                aria-label={task.done ? 'Return' : 'Complete'}
+                aria-label={task.completed ? 'Return' : 'Complete'}
                 onClick={() =>
-                  handleDone(task.id, task.done ? 'doneTasks' : 'activeTasks')
+                  handleComplete(
+                    task.id,
+                    task.completed ? 'completedTasks' : 'activeTasks'
+                  )
                 }
               >
-                {task.done ? <RiArrowGoBackFill /> : <MdDoneOutline />}
+                {task.completed ? <RiArrowGoBackFill /> : <MdDoneOutline />}
               </button>
             </div>
             {isEditing ? (
@@ -109,14 +112,16 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
               />
             ) : (
               <p
-                style={{ textDecoration: task.done ? 'line-through' : 'none' }}
+                style={{
+                  textDecoration: task.completed ? 'line-through' : 'none',
+                }}
                 className="task-text"
               >
                 {task.taskText}
               </p>
             )}
             <div className="task-control-buttons">
-              {!task.done && (
+              {!task.completed && (
                 <button
                   className="task-control-btn"
                   aria-label={isEditing ? 'Save' : 'Edit'}
