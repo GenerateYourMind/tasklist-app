@@ -16,7 +16,7 @@ const taskReducer = (
         ...state,
         activeTasks: [
           ...activeTasks,
-          { id: uuidv4(), taskText: payload.taskText, completed: false },
+          { id: uuidv4(), taskText: payload.taskText, isCompleted: false },
         ],
       };
 
@@ -31,7 +31,7 @@ const taskReducer = (
         ...state,
         [payload.target]: targetArray.map((task) =>
           task.id === payload.id
-            ? { ...task, completed: !task.completed }
+            ? { ...task, isCompleted: !task.isCompleted }
             : task
         ),
       };
@@ -47,7 +47,7 @@ const taskReducer = (
           ...currentState,
           [targetName]: [
             ...taskList,
-            ...targetArray.filter((task) => task.completed === isCompleted),
+            ...targetArray.filter((task) => task.isCompleted === isCompleted),
           ],
         };
       };
