@@ -86,15 +86,15 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
               <button
                 className="task-control-btn"
                 disabled={isEditing}
-                aria-label={task.completed ? 'Return' : 'Complete'}
+                aria-label={task.isCompleted ? 'Return' : 'Complete'}
                 onClick={() =>
                   handleComplete(
                     task.id,
-                    task.completed ? 'completedTasks' : 'activeTasks'
+                    task.isCompleted ? 'completedTasks' : 'activeTasks'
                   )
                 }
               >
-                {task.completed ? <RiArrowGoBackFill /> : <MdDoneOutline />}
+                {task.isCompleted ? <RiArrowGoBackFill /> : <MdDoneOutline />}
               </button>
             </div>
             {isEditing ? (
@@ -113,7 +113,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
             ) : (
               <p
                 style={{
-                  textDecoration: task.completed ? 'line-through' : 'none',
+                  textDecoration: task.isCompleted ? 'line-through' : 'none',
                 }}
                 className="task-text"
               >
@@ -121,7 +121,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
               </p>
             )}
             <div className="task-control-buttons">
-              {!task.completed && (
+              {!task.isCompleted && (
                 <button
                   className="task-control-btn"
                   aria-label={isEditing ? 'Save' : 'Edit'}

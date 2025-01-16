@@ -33,7 +33,7 @@ const TaskLists: FC = () => {
     const movingTask: Task = sourceArray[source.index];
 
     // Updates task status based on the destination list
-    movingTask.completed = destination.droppableId !== 'ActiveTaskList';
+    movingTask.isCompleted = destination.droppableId !== 'ActiveTaskList';
 
     sourceArray.splice(source.index, 1);
     destinationArray.splice(destination.index, 0, movingTask);

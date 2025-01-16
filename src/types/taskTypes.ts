@@ -3,7 +3,7 @@ import { Dispatch } from 'react';
 export interface Task {
   id: string;
   taskText: string;
-  completed: boolean;
+  isCompleted: boolean;
 }
 
 export type TaskStatus = 'active' | 'completed';
