@@ -4,7 +4,7 @@ Task List App is a task management web application built with React and TypeScri
 
 ![Image](https://github.com/user-attachments/assets/c3b64540-c340-4a9b-9144-343257f48ff4)
 
-![Image](https://github.com/user-attachments/assets/5f9054e3-d583-492c-bdf1-adee62898e21)
+![Image](https://github.com/user-attachments/assets/7eb098df-0d07-42b8-94fc-e97193c37cc6)
 
 ## Features
 
