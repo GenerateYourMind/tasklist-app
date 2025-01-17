@@ -146,7 +146,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
         <Modal
           onClose={closeModal}
           title="Error"
-          message="The already created task cannot be empty. Edit it correctly."
+          message="The existing task cannot be empty. Please edit the task name."
         />
       )}
     </>

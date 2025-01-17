@@ -52,7 +52,7 @@ const CreateTask: FC = () => {
         <Modal
           onClose={closeModal}
           title="Error"
-          message="A task cannot have an empty field."
+          message="A task cannot have an empty name."
         />
       )}
     </>
