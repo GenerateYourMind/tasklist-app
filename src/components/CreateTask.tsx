@@ -1,4 +1,11 @@
-import { FC, FormEvent, useRef, useContext, useState } from 'react';
+import {
+  FC,
+  FormEvent,
+  useRef,
+  useContext,
+  useState,
+  ChangeEvent,
+} from 'react';
 import { PiPlusBold } from 'react-icons/pi';
 import Modal from './Modal';
 import { useModal } from '../hooks/useModal';
@@ -11,6 +18,10 @@ const CreateTask: FC = () => {
   const { dispatch } = useContext(TaskContext);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const handleTaskText = (event: ChangeEvent<HTMLInputElement>): void => {
+    setTaskText(event.target.value);
+  };
+
   const handleSubmitTask = (event: FormEvent): void => {
     event.preventDefault();
 
@@ -22,25 +33,20 @@ const CreateTask: FC = () => {
 
     dispatch({ type: 'CREATE-TASK', payload: { taskText } });
     setTaskText('');
+    inputRef.current?.blur();
   };
   // createTask instead of create-task-form classes
   // add name to input or look on console in webdev tools
   return (
     <>
-      <form
-        className="create-task-form"
-        onSubmit={(event) => {
-          handleSubmitTask(event);
-          inputRef.current?.blur();
-        }}
-      >
+      <form className="create-task-form" onSubmit={handleSubmitTask}>
         <div className="input-backdrop">
           <input
             type="text"
             placeholder="Enter your task..."
             className="create-task-input"
             value={taskText}
-            onChange={(event) => setTaskText(event.target.value)}
+            onChange={handleTaskText}
             ref={inputRef}
           />
         </div>
