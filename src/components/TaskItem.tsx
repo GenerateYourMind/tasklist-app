@@ -6,6 +6,7 @@ import {
   memo,
   Dispatch,
   KeyboardEvent,
+  ChangeEvent,
 } from 'react';
 import { FaTrash, FaEdit, FaPlus } from 'react-icons/fa';
 import { MdDoneOutline } from 'react-icons/md';
@@ -33,17 +34,22 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     }
   }, [isEditing, isModalOpen]);
 
-  const handleComplete = (id: string, target: Target): void => {
-    dispatch({ type: 'COMPLETE-TASK', payload: { id, target } });
+  const handleComplete = (): void => {
+    const target: Target = task.isCompleted ? 'completedTasks' : 'activeTasks';
+
+    dispatch({ type: 'COMPLETE-TASK', payload: { id: task.id, target } });
     dispatch({ type: 'MOVE-TASK-BETWEEN-LISTS', payload: { target } });
-    dispatch({ type: 'DELETE-TASK', payload: { id, target } });
+    dispatch({ type: 'DELETE-TASK', payload: { id: task.id, target } });
   };
 
-  const handleDelete = (id: string): void => {
-    dispatch({ type: 'DELETE-TASK', payload: { id, target: 'activeTasks' } });
+  const handleDelete = (): void => {
     dispatch({
       type: 'DELETE-TASK',
-      payload: { id, target: 'completedTasks' },
+      payload: { id: task.id, target: 'activeTasks' },
+    });
+    dispatch({
+      type: 'DELETE-TASK',
+      payload: { id: task.id, target: 'completedTasks' },
     });
   };
 
@@ -72,6 +78,10 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     }
   };
 
+  const handleEditTaskText = (event: ChangeEvent<HTMLInputElement>): void => {
+    setEditTaskText(event.target.value);
+  };
+
   return (
     <>
       <Draggable draggableId={task.id.toString()} index={index}>
@@ -87,12 +97,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 className="task-control-btn"
                 disabled={isEditing}
                 aria-label={task.isCompleted ? 'Return' : 'Complete'}
-                onClick={() =>
-                  handleComplete(
-                    task.id,
-                    task.isCompleted ? 'completedTasks' : 'activeTasks'
-                  )
-                }
+                onClick={handleComplete}
               >
                 {task.isCompleted ? <RiArrowGoBackFill /> : <MdDoneOutline />}
               </button>
@@ -102,7 +107,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 type="text"
                 className="task-text"
                 value={editTaskText}
-                onChange={(event) => setEditTaskText(event.target.value)}
+                onChange={handleEditTaskText}
                 onKeyDown={handleKeyDownEnter}
                 // onBlur={(event) => {
                 // 	handleEdit(event, task.id);
@@ -134,7 +139,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 className="task-control-btn"
                 disabled={isEditing}
                 aria-label="Delete"
-                onClick={() => handleDelete(task.id)}
+                onClick={handleDelete}
               >
                 <FaTrash />
               </button>
