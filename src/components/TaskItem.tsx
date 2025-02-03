@@ -30,7 +30,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
 
   useEffect(() => {
     if (isEditing) {
-      inputRef?.current?.focus();
+      inputRef.current?.focus();
     }
   }, [isEditing, isModalOpen]);
 
