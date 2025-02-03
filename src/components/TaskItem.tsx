@@ -109,10 +109,6 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 value={editTaskText}
                 onChange={handleEditTaskText}
                 onKeyDown={handleKeyDownEnter}
-                // onBlur={(event) => {
-                // 	handleEdit(event, task.id);
-                // 	inputRef.current?.blur();
-                // }}
                 ref={inputRef}
               />
             ) : (
