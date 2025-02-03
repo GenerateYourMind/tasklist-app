@@ -42,8 +42,8 @@ const CreateTask: FC = () => {
         <div className="input-backdrop">
           <input
             type="text"
-            placeholder="Enter your task..."
             className="create-task-input"
+            placeholder="Enter your task..."
             value={taskText}
             onChange={handleTaskText}
             ref={inputRef}
