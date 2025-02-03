@@ -117,10 +117,10 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
               />
             ) : (
               <p
+                className="task-text"
                 style={{
                   textDecoration: task.isCompleted ? 'line-through' : 'none',
                 }}
-                className="task-text"
               >
                 {task.taskText}
               </p>
