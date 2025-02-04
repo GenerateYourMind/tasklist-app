@@ -100,7 +100,6 @@
   width: 48.5%;
   padding: 15px;
   border-radius: 10px;
-  // background-color: #67889b;
   background-color: #025d92;
 
   .task-list-header {
@@ -112,15 +111,13 @@
 }
 
 .no-tasks {
-  font-weight: 600; // fix font-weight cuz imported Lato font is changed
+  font-weight: 600;
   letter-spacing: 1px;
   font-size: 18px;
   text-align: center;
 }
 
 .completed {
-  // background-color: #a8a265;
-  // background-color: #04ff3b7e;
   background-color: #12992f;
 }
 
@@ -129,9 +126,7 @@
   display: flex;
   border-radius: 10px;
   padding: 20px;
-  // background-color: #a1af98;
   background-color: rgba(255, 255, 255, 0.4);
-  // background-color: rgba(235, 235, 235, 0.459);
   cursor: grab;
   transition:
     background-color 0.3s,
@@ -214,7 +209,6 @@
   z-index: 1000;
 }
 
-// Rewrite classes. For instance from modal-header just to header and the rest.
 .modal {
   background-color: var(--theme-bg);
   color: var(--theme-text);
