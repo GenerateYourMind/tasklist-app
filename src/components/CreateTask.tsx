@@ -35,16 +35,15 @@ const CreateTask: FC = () => {
     setTaskText('');
     inputRef.current?.blur();
   };
-  // createTask instead of create-task-form classes
-  // add name to input or look on console in webdev tools
+
   return (
     <>
       <form className="create-task-form" onSubmit={handleSubmitTask}>
         <div className="input-backdrop">
           <input
             type="text"
-            placeholder="Enter your task..."
             className="create-task-input"
+            placeholder="Enter your task..."
             value={taskText}
             onChange={handleTaskText}
             ref={inputRef}

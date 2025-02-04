@@ -30,7 +30,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
 
   useEffect(() => {
     if (isEditing) {
-      inputRef?.current?.focus();
+      inputRef.current?.focus();
     }
   }, [isEditing, isModalOpen]);
 
@@ -109,18 +109,14 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 value={editTaskText}
                 onChange={handleEditTaskText}
                 onKeyDown={handleKeyDownEnter}
-                // onBlur={(event) => {
-                // 	handleEdit(event, task.id);
-                // 	inputRef.current?.blur();
-                // }}
                 ref={inputRef}
               />
             ) : (
               <p
+                className="task-text"
                 style={{
                   textDecoration: task.isCompleted ? 'line-through' : 'none',
                 }}
-                className="task-text"
               >
                 {task.taskText}
               </p>

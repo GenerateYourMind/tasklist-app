@@ -1,4 +1,4 @@
-// Template
+// Templates
 %hover-active-effect {
   box-shadow: 0 0 5px #333;
   background-color: rgba(255, 255, 255, 0.33);
@@ -77,30 +77,21 @@
     }
   }
 }
-// delete error-message as there isn't more this
-.error-message {
-  text-align: center;
-  font-weight: 600; // fix weight cuz imported Lato font is changed
-  letter-spacing: 1px;
-  font-size: 20px;
-  color: rgba(255, 0, 0, 0.7);
-  margin-bottom: 20px;
-}
 
-// -TaskLists component
+// TaskLists component
 .task-lists {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
+// TaskList component
 .task-list {
   display: flex;
   flex-direction: column;
   width: 48.5%;
   padding: 15px;
   border-radius: 10px;
-  // background-color: #67889b;
   background-color: #025d92;
 
   .task-list-header {
@@ -112,26 +103,22 @@
 }
 
 .no-tasks {
-  font-weight: 600; // fix font-weight cuz imported Lato font is changed
+  font-weight: 600;
   letter-spacing: 1px;
   font-size: 18px;
   text-align: center;
 }
 
 .completed {
-  // background-color: #a8a265;
-  // background-color: #04ff3b7e;
   background-color: #12992f;
 }
 
-// -TaskItem component
+// TaskItem component
 .task-item {
   display: flex;
   border-radius: 10px;
   padding: 20px;
-  // background-color: #a1af98;
   background-color: rgba(255, 255, 255, 0.4);
-  // background-color: rgba(235, 235, 235, 0.459);
   cursor: grab;
   transition:
     background-color 0.3s,
@@ -214,7 +201,6 @@
   z-index: 1000;
 }
 
-// Rewrite classes. For instance from modal-header just to header and the rest.
 .modal {
   background-color: var(--theme-bg);
   color: var(--theme-text);
@@ -306,6 +292,7 @@
   }
 }
 
+// Animations
 @keyframes appear {
   0% {
     opacity: 0;
