@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
-import TaskList from '../TaskList/TaskList';
+import TaskList from '../TaskList';
 import { TaskContext } from '../../context/TaskContext';
 import { Task } from '../../types/taskTypes';
 
