@@ -12,9 +12,9 @@ import { FaTrash, FaEdit, FaPlus } from 'react-icons/fa';
 import { MdDoneOutline } from 'react-icons/md';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { Draggable } from '@hello-pangea/dnd';
-import Modal from './Modal';
-import { useModal } from '../hooks/useModal';
-import { Task, TaskActions, Target } from '../types/taskTypes';
+import Modal from '../Modal';
+import { useModal } from '../../hooks/useModal';
+import { Task, TaskActions, Target } from '../../types/taskTypes';
 
 interface TaskItemProps {
   index: number;
