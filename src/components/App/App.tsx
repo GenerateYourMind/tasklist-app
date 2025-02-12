@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import Header from '../Header';
-import CreateTask from '../CreateTask';
-import TaskLists from '../TaskLists';
+import Header from '@components/Header';
+import CreateTask from '@components/CreateTask';
+import TaskLists from '@components/TaskLists';
 import './App.scss';
 
 const App: FC = () => {

@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useReducer, useEffect } from 'react';
 import { InitialState, TaskContextProps, Task } from '../types/taskTypes';
-import { taskReducer } from './taskReducer';
-import { saveToStorage, getFromStorage } from '../utils/localStorage';
+import { taskReducer } from '@context/taskReducer';
+import { saveToStorage, getFromStorage } from '@utils/localStorage';
 
 const initialState: InitialState = {
   activeTasks: [],

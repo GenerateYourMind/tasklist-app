@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react';
 import { Droppable } from '@hello-pangea/dnd';
-import TaskItem from '../TaskItem';
-import { TaskContext } from '../../context/TaskContext';
+import TaskItem from '@components/TaskItem';
+import { TaskContext } from '@context/TaskContext';
 import { Task, TaskStatus } from '../../types/taskTypes';
 
 interface TaskListProps {
