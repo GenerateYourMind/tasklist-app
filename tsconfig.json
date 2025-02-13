@@ -28,7 +28,7 @@
       "@context/*": ["context/*"],
       "@hooks/*": ["hooks/*"],
       "@styles/*": ["styles/*"],
-      "@types/*": ["types/*"],
+      "@typings/*": ["types/*"],
       "@utils/*": ["utils/*"]
     }
   },
