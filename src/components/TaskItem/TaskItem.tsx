@@ -14,7 +14,7 @@ import { RiArrowGoBackFill } from 'react-icons/ri';
 import { Draggable } from '@hello-pangea/dnd';
 import Modal from '@components/Modal';
 import { useModal } from '@hooks/useModal';
-import { Task, TaskActions, Target } from '../../types/taskTypes';
+import { Task, TaskActions, Target } from '@typings/taskTypes';
 
 interface TaskItemProps {
   index: number;

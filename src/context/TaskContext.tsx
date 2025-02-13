@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useReducer, useEffect } from 'react';
-import { InitialState, TaskContextProps, Task } from '../types/taskTypes';
+import { InitialState, TaskContextProps, Task } from '@typings/taskTypes';
 import { taskReducer } from '@context/taskReducer';
 import { saveToStorage, getFromStorage } from '@utils/localStorage';
 

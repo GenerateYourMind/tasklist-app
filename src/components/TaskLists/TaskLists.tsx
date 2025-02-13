@@ -2,7 +2,7 @@ import { FC, useContext } from 'react';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import TaskList from '@components/TaskList';
 import { TaskContext } from '@context/TaskContext';
-import { Task } from '../../types/taskTypes';
+import { Task } from '@typings/taskTypes';
 
 const TaskLists: FC = () => {
   const {

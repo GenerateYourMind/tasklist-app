@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { InitialState, TaskActions, Task } from '../types/taskTypes';
+import { InitialState, TaskActions, Task } from '@typings/taskTypes';
 
 const taskReducer = (
   state: InitialState,
