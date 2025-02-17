@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import { useTheme } from '@hooks/useTheme';
+import './Header.scss';
 
 const Header: FC = () => {
   const { theme, toggleTheme } = useTheme();
