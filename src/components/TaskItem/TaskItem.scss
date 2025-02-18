@@ -74,20 +74,6 @@
   }
 }
 
-@media (max-width: 997px) {
-  .task-edit-form {
-    .task-text {
-      margin-right: 10px;
-    }
-  }
-}
-
-@media (max-width: 767.98px) {
-  .task-edit-form {
-    width: 100%;
-  }
-}
-
 @keyframes appear {
   0% {
     opacity: 0;
