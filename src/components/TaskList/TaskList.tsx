@@ -3,6 +3,7 @@ import { Droppable } from '@hello-pangea/dnd';
 import TaskItem from '@components/TaskItem';
 import { TaskContext } from '@context/TaskContext';
 import { Task, TaskStatus } from '@typings/taskTypes';
+import './TaskList.scss';
 
 interface TaskListProps {
   title: string;

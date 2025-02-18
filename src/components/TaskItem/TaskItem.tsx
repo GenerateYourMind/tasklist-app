@@ -15,6 +15,7 @@ import { Draggable } from '@hello-pangea/dnd';
 import Modal from '@components/Modal';
 import { useModal } from '@hooks/useModal';
 import { Task, TaskActions, Target } from '@typings/taskTypes';
+import './TaskItem.scss';
 
 interface TaskItemProps {
   index: number;

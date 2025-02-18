@@ -10,7 +10,7 @@ import { PiPlusBold } from 'react-icons/pi';
 import Modal from '@components/Modal';
 import { useModal } from '@hooks/useModal';
 import { TaskContext } from '@context/TaskContext';
-import '../styles.scss';
+import './CreateTask.scss';
 
 const CreateTask: FC = () => {
   const [taskText, setTaskText] = useState('');

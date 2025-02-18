@@ -3,6 +3,7 @@ import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import TaskList from '@components/TaskList';
 import { TaskContext } from '@context/TaskContext';
 import { Task } from '@typings/taskTypes';
+import './TaskLists.scss';
 
 const TaskLists: FC = () => {
   const {

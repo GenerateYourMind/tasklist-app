@@ -1,0 +1,98 @@
+%hover-active-effect {
+  box-shadow: 0 0 5px #333;
+  background-color: rgba(255, 255, 255, 0.33);
+}
+
+.task-item {
+  display: flex;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: grab;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
+  animation: appear 0.5s;
+
+  &:hover {
+    @extend %hover-active-effect;
+  }
+
+  &:active {
+    @extend %hover-active-effect;
+    cursor: grabbing;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .task-text {
+    flex: 1;
+    margin: 0px 15px;
+    font-size: 22px;
+    line-height: 28px;
+    word-wrap: break-word;
+    min-width: 0;
+  }
+
+  input.task-text {
+    font-family: inherit;
+    background-color: transparent;
+    color: var(--theme-input-text);
+    margin: 0px 10px;
+    padding: 0px 5px;
+    box-shadow: 0 4px 0 -3px whitesmoke;
+
+    &:focus {
+      box-shadow: inset 0 0 5px #e3e3e3;
+    }
+  }
+
+  .task-control-buttons {
+    align-self: center;
+  }
+
+  .task-control-btn {
+    display: inline-block;
+    margin-top: 3px;
+    background-color: transparent;
+    font-size: 20px;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+
+    &:active {
+      transform: scale(1);
+    }
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
+
+@media (max-width: 997px) {
+  .task-edit-form {
+    .task-text {
+      margin-right: 10px;
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .task-edit-form {
+    width: 100%;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

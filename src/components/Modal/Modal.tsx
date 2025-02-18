@@ -2,6 +2,7 @@ import { FC, MouseEvent, ReactNode, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { MdClose } from 'react-icons/md';
 import { useLockBodyScroll } from '@hooks/useLockBodyScroll';
+import './Modal.scss';
 
 // Use prop title for both simple and complex content.
 // Use prop message for simple text content.
