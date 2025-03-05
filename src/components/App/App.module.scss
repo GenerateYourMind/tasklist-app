@@ -1,4 +1,4 @@
-.app {
+.wrapper {
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.task-container {
+.tasksContainer {
   width: 95%;
   margin-bottom: 20px;
 }

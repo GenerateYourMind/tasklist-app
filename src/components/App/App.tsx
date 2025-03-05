@@ -2,13 +2,13 @@ import { FC } from 'react';
 import Header from '@components/Header';
 import CreateTask from '@components/CreateTask';
 import TaskLists from '@components/TaskLists';
-import './App.scss';
+import styles from './App.module.scss';
 
 const App: FC = () => {
   return (
-    <div className="app">
+    <div className={styles.wrapper}>
       <Header />
-      <main className="task-container">
+      <main className={styles.tasksContainer}>
         <CreateTask />
         <TaskLists />
       </main>

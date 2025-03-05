@@ -1,16 +1,16 @@
 import { FC } from 'react';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import { useTheme } from '@hooks/useTheme';
-import './Header.scss';
+import styles from './Header.module.scss';
 
 const Header: FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="header">
-      <h1 className="title">Task list</h1>
+    <header className={styles.header}>
+      <h1 className={styles.title}>Task list</h1>
       <button
-        className="theme-btn"
+        className={styles.themeButton}
         aria-label="Switch theme"
         onClick={toggleTheme}
       >

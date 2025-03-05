@@ -10,7 +10,7 @@ import { PiPlusBold } from 'react-icons/pi';
 import Modal from '@components/Modal';
 import { useModal } from '@hooks/useModal';
 import { TaskContext } from '@context/TaskContext';
-import './CreateTask.scss';
+import styles from './CreateTask.module.scss';
 
 const CreateTask: FC = () => {
   const [taskText, setTaskText] = useState('');
@@ -38,18 +38,18 @@ const CreateTask: FC = () => {
 
   return (
     <>
-      <form className="create-task-form" onSubmit={handleSubmitTask}>
-        <div className="input-backdrop">
+      <form className={styles.form} onSubmit={handleSubmitTask}>
+        <div className={styles.inputBackdrop}>
           <input
             type="text"
-            className="create-task-input"
+            className={styles.input}
             placeholder="Enter your task..."
             value={taskText}
             onChange={handleTaskText}
             ref={inputRef}
           />
         </div>
-        <button className="create-task-button" aria-label="Create">
+        <button className={styles.submitButton} aria-label="Create">
           <PiPlusBold />
         </button>
       </form>
