@@ -1,0 +1,33 @@
+.taskList {
+  display: flex;
+  flex-direction: column;
+  width: 48.5%;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #025d92;
+}
+
+.completed {
+  background-color: #12992f;
+}
+
+.title {
+  font-size: 28px;
+  text-align: center;
+  color: var(--theme-header);
+  margin-bottom: 15px;
+}
+
+.noTasks {
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 18px;
+  text-align: center;
+}
+
+@media (max-width: 767.98px) {
+  .taskList {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}

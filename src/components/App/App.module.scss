@@ -1,0 +1,13 @@
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tasksContainer {
+  width: 95%;
+  margin-bottom: 20px;
+}

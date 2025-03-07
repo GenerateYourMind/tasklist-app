@@ -3,6 +3,7 @@ import { Droppable } from '@hello-pangea/dnd';
 import TaskItem from '@components/TaskItem';
 import { TaskContext } from '@context/TaskContext';
 import { Task, TaskStatus } from '@typings/taskTypes';
+import styles from './TaskList.module.scss';
 
 interface TaskListProps {
   title: string;
@@ -15,17 +16,23 @@ const TaskList: FC<TaskListProps> = ({ title, tasks, status, droppableId }) => {
   const { dispatch } = useContext(TaskContext);
 
   return (
-    <div className={`task-list ${status === 'completed' ? 'completed' : ''}`}>
-      <h2 className="task-list-header">{title}</h2>
+    <div
+      className={`${styles.taskList} ${
+        status === 'completed' ? styles.completed : ''
+      }`}
+    >
+      <h2 className={styles.title}>{title}</h2>
       <Droppable droppableId={droppableId}>
         {(provided) => (
           <ul
-            className="task-items"
+            className={styles.taskItems}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
             {!tasks.length && (
-              <li className="no-tasks">{`There are no ${status} tasks`}</li>
+              <li
+                className={styles.noTasks}
+              >{`There are no ${status} tasks`}</li>
             )}
             {tasks.map((task, index) => (
               <TaskItem

@@ -2,6 +2,7 @@ import { FC, MouseEvent, ReactNode, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { MdClose } from 'react-icons/md';
 import { useLockBodyScroll } from '@hooks/useLockBodyScroll';
+import styles from './Modal.module.scss';
 
 // Use prop title for both simple and complex content.
 // Use prop message for simple text content.
@@ -41,20 +42,24 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
   };
 
   return createPortal(
-    <div className="backdrop" ref={backdropRef} onClick={handleBackdropClick}>
-      <div className="modal">
-        <div className="modal-header">
-          {title && <h2 className="modal-title">{title}</h2>}
+    <div
+      className={styles.backdrop}
+      ref={backdropRef}
+      onClick={handleBackdropClick}
+    >
+      <div className={styles.modal}>
+        <div className={styles.header}>
+          {title && <h2 className={styles.title}>{title}</h2>}
           <button
-            className="modal-close-btn"
+            className={styles.closeButton}
             aria-label="Close"
             onClick={onClose}
           >
             <MdClose />
           </button>
         </div>
-        <div className="modal-content">
-          {message && <p className="modal-message">{message}</p>}
+        <div className={styles.content}>
+          {message && <p className={styles.message}>{message}</p>}
           {children}
         </div>
       </div>

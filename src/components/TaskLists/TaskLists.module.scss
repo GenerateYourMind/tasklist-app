@@ -1,0 +1,11 @@
+.taskLists {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+@media (max-width: 767.98px) {
+  .taskLists {
+    flex-direction: column;
+  }
+}

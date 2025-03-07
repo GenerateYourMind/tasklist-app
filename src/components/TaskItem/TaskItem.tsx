@@ -15,6 +15,7 @@ import { Draggable } from '@hello-pangea/dnd';
 import Modal from '@components/Modal';
 import { useModal } from '@hooks/useModal';
 import { Task, TaskActions, Target } from '@typings/taskTypes';
+import styles from './TaskItem.module.scss';
 
 interface TaskItemProps {
   index: number;
@@ -87,14 +88,14 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
       <Draggable draggableId={task.id.toString()} index={index}>
         {(provided) => (
           <li
-            className="task-item"
+            className={styles.taskItem}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            <div className="task-control-buttons">
+            <div className={styles.controlButtons}>
               <button
-                className="task-control-btn"
+                className={styles.controlButton}
                 disabled={isEditing}
                 aria-label={task.isCompleted ? 'Return' : 'Complete'}
                 onClick={handleComplete}
@@ -105,7 +106,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
             {isEditing ? (
               <input
                 type="text"
-                className="task-text"
+                className={styles.text}
                 value={editTaskText}
                 onChange={handleEditTaskText}
                 onKeyDown={handleKeyDownEnter}
@@ -113,7 +114,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
               />
             ) : (
               <p
-                className="task-text"
+                className={styles.text}
                 style={{
                   textDecoration: task.isCompleted ? 'line-through' : 'none',
                 }}
@@ -121,10 +122,10 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 {task.taskText}
               </p>
             )}
-            <div className="task-control-buttons">
+            <div className={styles.controlButtons}>
               {!task.isCompleted && (
                 <button
-                  className="task-control-btn"
+                  className={styles.controlButton}
                   aria-label={isEditing ? 'Save' : 'Edit'}
                   onClick={isEditing ? handleSaveEdit : handleToggleEdit}
                 >
@@ -132,7 +133,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 </button>
               )}
               <button
-                className="task-control-btn"
+                className={styles.controlButton}
                 disabled={isEditing}
                 aria-label="Delete"
                 onClick={handleDelete}

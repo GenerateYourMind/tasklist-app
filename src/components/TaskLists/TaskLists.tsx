@@ -3,6 +3,7 @@ import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import TaskList from '@components/TaskList';
 import { TaskContext } from '@context/TaskContext';
 import { Task } from '@typings/taskTypes';
+import styles from './TaskLists.module.scss';
 
 const TaskLists: FC = () => {
   const {
@@ -57,7 +58,7 @@ const TaskLists: FC = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="task-lists">
+      <div className={styles.taskLists}>
         <TaskList
           title="Active tasks"
           tasks={activeTasks}
