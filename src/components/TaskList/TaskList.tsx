@@ -16,11 +16,7 @@ const TaskList: FC<TaskListProps> = ({ title, tasks, status, droppableId }) => {
   const { dispatch } = useContext(TaskContext);
 
   return (
-    <div
-      className={`${styles.taskList} ${
-        status === 'completed' ? styles.completed : ''
-      }`}
-    >
+    <div className={`${styles.taskList} ${styles[status]}`}>
       <h2 className={styles.title}>{title}</h2>
       <Droppable droppableId={droppableId}>
         {(provided) => (
