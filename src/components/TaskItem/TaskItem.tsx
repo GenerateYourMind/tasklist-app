@@ -35,7 +35,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     }
   }, [isEditing, isModalOpen]);
 
-  const handleComplete = (): void => {
+  const handleMoveTaskBetweenLists = (): void => {
     const target: Target = task.isCompleted ? 'completedTasks' : 'activeTasks';
 
     dispatch({ type: 'COMPLETE-TASK', payload: { id: task.id, target } });
@@ -98,7 +98,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 className={styles.controlButton}
                 disabled={isEditing}
                 aria-label={task.isCompleted ? 'Return' : 'Complete'}
-                onClick={handleComplete}
+                onClick={handleMoveTaskBetweenLists}
               >
                 {task.isCompleted ? <RiArrowGoBackFill /> : <MdDoneOutline />}
               </button>
