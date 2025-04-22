@@ -60,13 +60,16 @@ input.text {
   font-size: 20px;
   line-height: 0;
   padding: 5px;
-  transition: transform 0.2s;
 
-  &:hover {
+  & svg {
+    transition: transform 0.2s;
+  }
+
+  &:hover svg {
     transform: scale(1.2);
   }
 
-  &:active {
+  &:active svg {
     transform: scale(1);
   }
 
