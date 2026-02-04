@@ -7,23 +7,23 @@
 }
 
 .active {
-  background-color: #025d92;
+  background-color: rgba(2, 93, 146, 0.6);
 }
 
 .completed {
-  background-color: #12992f;
+  background-color: rgba(18, 153, 58, 0.6);
 }
 
 .title {
   font-size: 28px;
   text-align: center;
   color: var(--theme-header);
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .noTasks {
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   font-size: 18px;
   text-align: center;
 }
