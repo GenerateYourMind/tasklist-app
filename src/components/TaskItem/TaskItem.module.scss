@@ -1,13 +1,13 @@
 %hover-active-effect {
   box-shadow: 0 0 5px #333;
-  background-color: rgba(255, 255, 255, 0.33);
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .taskItem {
   display: flex;
   border-radius: 10px;
-  padding: 20px 15px;
-  background-color: rgba(255, 255, 255, 0.4);
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
   cursor: grab;
   transition:
     background-color 0.3s,
@@ -31,7 +31,7 @@
 .text {
   flex: 1;
   margin: 0px 10px;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 30px;
   word-wrap: break-word;
   min-width: 0;
