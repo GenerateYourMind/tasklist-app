@@ -28,9 +28,24 @@
   text-align: center;
 }
 
+@media (max-width: 991.98px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .noTasks {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 767.98px) {
   .taskList {
     width: 100%;
-    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .taskList {
+    padding: 15px 10px;
   }
 }
