@@ -21,6 +21,12 @@
   color: var(--theme-header);
 }
 
+.taskItems {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
 .noTasks {
   font-weight: 700;
   letter-spacing: 0.5px;

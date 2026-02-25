@@ -22,10 +22,6 @@
     @extend %hover-active-effect;
     cursor: grabbing;
   }
-
-  &:not(:last-child) {
-    margin-bottom: 10px;
-  }
 }
 
 .text {
