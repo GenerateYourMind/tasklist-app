@@ -23,14 +23,16 @@
   justify-self: end;
   color: #fff;
   background-color: transparent;
-  font-size: 30px;
   padding: 10px;
-  line-height: 0;
   border-radius: 10px;
   transition: background-color, 0.2s;
 
   &:hover {
     background-color: rgba(175, 202, 224, 0.5);
+  }
+
+  & svg {
+    @include icon-size(30px);
   }
 }
 
@@ -39,8 +41,8 @@
     font-size: 36px;
   }
 
-  .themeButton {
-    font-size: 25px;
+  .themeButton svg {
+    @include icon-size(25px);
   }
 }
 

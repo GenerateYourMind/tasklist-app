@@ -46,14 +46,12 @@
 .closeButton {
   width: 60px;
   aspect-ratio: 1 / 1;
-  line-height: 0;
   background-color: transparent;
   color: var(--theme-text);
   margin-left: auto;
 
   & svg {
-    width: 25px;
-    height: 25px;
+    @include icon-size(25px);
     transition: transform 0.2s;
   }
 
@@ -81,8 +79,7 @@
     width: 55px;
 
     & svg {
-      width: 22px;
-      height: 22px;
+      @include icon-size(22px);
     }
   }
 
