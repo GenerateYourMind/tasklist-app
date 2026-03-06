@@ -52,7 +52,7 @@
   margin-left: auto;
 
   & svg {
-    @include icon-size(25px);
+    @include icon-size(24px);
     transition: transform 0.2s;
   }
 
@@ -78,10 +78,6 @@
 
   .closeButton {
     width: 55px;
-
-    & svg {
-      @include icon-size(22px);
-    }
   }
 
   .message {
