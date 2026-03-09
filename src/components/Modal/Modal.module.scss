@@ -71,7 +71,7 @@
   line-height: 24px;
 }
 
-@media (max-width: 479.98px) {
+@media (max-width: $mobileSmall) {
   .title {
     font-size: 22px;
   }
