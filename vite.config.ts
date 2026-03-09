@@ -16,8 +16,11 @@ export default defineConfig({
     },
     preprocessorOptions: {
       scss: {
-        // Automatically injects SCSS mixins globally into all SCSS files
-        additionalData: `@use '@styles/mixins' as *;`,
+        // Automatically injects SCSS mixins and breakpoint variables globally into all SCSS files
+        additionalData: `
+          @use '@styles/mixins' as *;
+          @use '@styles/breakpoints' as *;
+        `,
       },
     },
   },
