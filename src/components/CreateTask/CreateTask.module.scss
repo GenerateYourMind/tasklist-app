@@ -74,7 +74,7 @@
   }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: $tablet) {
   .input {
     height: 54px;
     font-size: 18px;
@@ -92,13 +92,13 @@
   }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: $mobile) {
   .form {
     margin-bottom: 20px;
   }
 }
 
-@media (max-width: 479.98px) {
+@media (max-width: $mobileSmall) {
   .input {
     font-size: 16px;
   }

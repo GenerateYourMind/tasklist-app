@@ -68,7 +68,7 @@ input.text {
   }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: $tablet) {
   .taskItem {
     padding: 10px;
   }
@@ -83,7 +83,7 @@ input.text {
   }
 }
 
-@media (max-width: 479.98px) {
+@media (max-width: $mobileSmall) {
   .taskItem {
     padding: 10px 5px;
   }
