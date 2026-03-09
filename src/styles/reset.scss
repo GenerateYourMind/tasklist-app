@@ -7,8 +7,7 @@
   box-sizing: border-box;
 }
 
-:focus,
-:active {
+input:focus {
   outline: none;
 }
 
