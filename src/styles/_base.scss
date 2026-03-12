@@ -11,10 +11,20 @@ input:focus {
   outline: none;
 }
 
-ul li {
+ul {
   list-style: none;
 }
 
 svg {
   display: block;
+}
+
+body {
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+  font-family: "Lato", sans-serif;
+}
+
+button {
+  cursor: pointer;
 }
