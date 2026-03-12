@@ -1,3 +1,24 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+}
+
+ul {
+  list-style: none;
+}
+
+svg {
+  display: block;
+}
+
 body {
   background-color: var(--theme-bg);
   color: var(--theme-text);
