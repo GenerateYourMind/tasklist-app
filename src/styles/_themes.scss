@@ -1,30 +1,20 @@
-// Theme color variables
-:root {
-  --light-bg: rgb(128, 146, 158);
-  --light-text: rgb(0, 0, 0);
-  --light-input-bg: rgb(255, 255, 255);
-  --light-header: rgb(252, 252, 252);
+$color-white: #fff;
+$color-black: #000;
 
-  --dark-bg: rgb(26, 27, 30);
-  --dark-text: rgb(255, 255, 255);
-  --dark-input-bg: rgba(255, 255, 255, 0.15);
-  --dark-header: rgb(215, 255, 255);
-}
-
-// Light theme variables
 html[data-theme="light"] {
-  --theme-bg: var(--light-bg);
-  --theme-text: var(--light-text);
-  --theme-input-bg: var(--light-input-bg);
-  --theme-input-text: var(--light-text);
-  --theme-header: var(--light-header);
+  --theme-bg-main: #80929e;
+  --theme-bg-input: #{$color-white};
+
+  --theme-text-main: #{$color-black};
+  --theme-text-input: #{$color-black};
+  --theme-text-header: #{$color-white};
 }
 
-// Dark theme variables
 html[data-theme="dark"] {
-  --theme-bg: var(--dark-bg);
-  --theme-text: var(--dark-text);
-  --theme-input-bg: var(--dark-input-bg);
-  --theme-input-text: var(--dark-text);
-  --theme-header: var(--dark-header);
+  --theme-bg-main: #1a1b1e;
+  --theme-bg-input: rgba(255, 255, 255, 0.15);
+
+  --theme-text-main: #{$color-white};
+  --theme-text-input: #{$color-white};
+  --theme-text-header: #d7ffff;
 }
