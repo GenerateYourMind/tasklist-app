@@ -2,17 +2,19 @@ $color-white: #fff;
 $color-black: #000;
 
 html[data-theme="light"] {
-  --theme-bg: #80929e;
-  --theme-text: #{$color-black};
-  --theme-input-bg: #{$color-white};
-  --theme-input-text: #{$color-black};
-  --theme-header: #{$color-white};
+  --theme-bg-main: #80929e;
+  --theme-bg-input: #{$color-white};
+
+  --theme-text-main: #{$color-black};
+  --theme-text-input: #{$color-black};
+  --theme-text-header: #{$color-white};
 }
 
 html[data-theme="dark"] {
-  --theme-bg: #1a1b1e;
-  --theme-text: #{$color-white};
-  --theme-input-bg: rgba(255, 255, 255, 0.15);
-  --theme-input-text: #{$color-white};
-  --theme-header: #d7ffff;
+  --theme-bg-main: #1a1b1e;
+  --theme-bg-input: rgba(255, 255, 255, 0.15);
+
+  --theme-text-main: #{$color-white};
+  --theme-text-input: #{$color-white};
+  --theme-text-header: #d7ffff;
 }
