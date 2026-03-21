@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
 import { getFromStorage, saveToStorage } from '@utils/localStorage';
-import { THEMES } from '@constants/themeList';
+import { THEMES, Theme } from '@constants/themeList';
 
 interface UseThemeReturn {
-  theme: string;
+  theme: Theme | '';
   toggleTheme: () => void;
 }
 
 export const useTheme = (): UseThemeReturn => {
-  const [theme, setTheme] = useState<string>('');
+  const [theme, setTheme] = useState<Theme | ''>('');
 
   useEffect(() => {
-    const storedTheme = getFromStorage<string | null>('theme');
+    const storedTheme = getFromStorage<Theme | null>('theme');
 
     if (storedTheme) {
       setTheme(storedTheme);
     } else {
-      const systemTheme = matchMedia?.('(prefers-color-scheme: dark)').matches
+      const systemTheme = matchMedia('(prefers-color-scheme: dark)').matches
         ? THEMES.DARK
         : THEMES.LIGHT;
       setTheme(systemTheme);
