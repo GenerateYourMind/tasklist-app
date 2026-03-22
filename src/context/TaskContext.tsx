@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useReducer, useEffect } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useReducer,
+  useEffect,
+  useLayoutEffect,
+} from 'react';
 import { InitialState, TaskContextProps, Task } from '@typings/taskTypes';
 import { taskReducer } from '@context/taskReducer';
 import { saveToStorage, getFromStorage } from '@utils/localStorage';
@@ -17,7 +23,8 @@ const TaskContextProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
   const { activeTasks, completedTasks } = state;
 
-  useEffect(() => {
+  // Use layout effect to prevent layout shift (scrollbar jump) on initial render.
+  useLayoutEffect(() => {
     const storedActiveTasks = getFromStorage<Task[] | null>('activeTasks');
     const storedCompletedTasks = getFromStorage<Task[] | null>(
       'completedTasks'

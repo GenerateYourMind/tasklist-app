@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { getFromStorage, saveToStorage } from '@utils/localStorage';
 import { THEMES, Theme } from '@constants/themeList';
 
@@ -10,7 +10,8 @@ interface UseThemeReturn {
 export const useTheme = (): UseThemeReturn => {
   const [theme, setTheme] = useState<Theme | ''>('');
 
-  useEffect(() => {
+  // Use layout effect to prevent theme flash on initial render.
+  useLayoutEffect(() => {
     const storedTheme = getFromStorage<Theme | null>('theme');
 
     if (storedTheme) {
