@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { getFromStorage, saveToStorage } from '@utils/localStorage';
+import { saveToStorage } from '@utils/localStorage';
 import { THEMES, Theme } from '@constants/themeList';
 
 interface UseThemeReturn {
@@ -10,18 +10,13 @@ interface UseThemeReturn {
 export const useTheme = (): UseThemeReturn => {
   const [theme, setTheme] = useState<Theme | ''>('');
 
-  // Use layout effect to prevent theme flash on initial render.
+  // Use layout effect to prevent theme icon flickering on initial render
   useLayoutEffect(() => {
-    const storedTheme = getFromStorage<Theme | null>('theme');
-
-    if (storedTheme) {
-      setTheme(storedTheme);
-    } else {
-      const systemTheme = matchMedia('(prefers-color-scheme: dark)').matches
-        ? THEMES.DARK
-        : THEMES.LIGHT;
-      setTheme(systemTheme);
-    }
+    // Sync state with the theme initialized by the blocking script in index.html
+    const initialTheme = document.documentElement.getAttribute(
+      'data-theme'
+    ) as Theme;
+    setTheme(initialTheme || THEMES.LIGHT);
   }, []);
 
   useEffect(() => {

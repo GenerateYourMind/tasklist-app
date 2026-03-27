@@ -4,6 +4,24 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Initialize theme before first paint to prevent flash on iOS
+      (function () {
+        let theme = 'light';
+        try {
+          const storedTheme = JSON.parse(localStorage.getItem('theme'));
+          if (storedTheme) {
+            theme = storedTheme;
+          } else {
+            const systemTheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            theme = systemTheme;
+          }
+        } catch {
+        } finally {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
