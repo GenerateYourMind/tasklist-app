@@ -1,8 +1,3 @@
-%hover-active-effect {
-  box-shadow: 0 0 5px #333;
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
 .taskItem {
   display: flex;
   border-radius: 10px;
@@ -14,12 +9,16 @@
     box-shadow 0.3s;
   animation: appear 0.5s;
 
-  &:hover {
-    @extend %hover-active-effect;
+  @include hover-supported {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 5px #333;
+    }
   }
 
   &:active {
-    @extend %hover-active-effect;
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 5px #333;
     cursor: grabbing;
   }
 }
@@ -63,8 +62,10 @@ input.text {
     transition: transform 0.2s;
   }
 
-  &:hover svg {
-    transform: scale(1.2);
+  @include hover-supported {
+    &:hover svg {
+      transform: scale(1.2);
+    }
   }
 
   &:active svg {

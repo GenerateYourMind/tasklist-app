@@ -27,8 +27,10 @@
   border-radius: 10px;
   transition: background-color, 0.2s;
 
-  &:hover {
-    background-color: rgba(175, 202, 224, 0.5);
+  @include hover-supported {
+    &:hover {
+      background-color: rgba(175, 202, 224, 0.5);
+    }
   }
 
   & svg {

@@ -9,3 +9,9 @@
   height: $height;
   flex-shrink: 0;
 }
+
+@mixin hover-supported {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
