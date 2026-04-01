@@ -64,9 +64,11 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   z-index: 2;
 
-  &:hover {
-    color: #fff;
-    background-color: #80a8c0;
+  @include hover-supported {
+    &:hover {
+      color: #fff;
+      background-color: #80a8c0;
+    }
   }
 
   &:active {

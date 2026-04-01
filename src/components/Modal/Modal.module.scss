@@ -56,8 +56,10 @@
     transition: transform 0.2s;
   }
 
-  &:hover svg {
-    transform: rotate(90deg);
+  @include hover-supported {
+    &:hover svg {
+      transform: rotate(90deg);
+    }
   }
 }
 
