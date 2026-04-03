@@ -1,3 +1,8 @@
+@mixin _task-item-highlight {
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 5px #333;
+}
+
 .taskItem {
   display: flex;
   border-radius: 10px;
@@ -11,15 +16,17 @@
 
   @include hover-supported {
     &:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 0 5px #333;
+      @include _task-item-highlight;
     }
   }
 
   &:active {
-    background-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 5px #333;
+    @include _task-item-highlight;
     cursor: grabbing;
+  }
+
+  &.isDragging {
+    @include _task-item-highlight;
   }
 }
 
