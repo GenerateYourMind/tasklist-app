@@ -85,10 +85,10 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
 
   return (
     <>
-      <Draggable draggableId={task.id.toString()} index={index}>
-        {(provided) => (
+      <Draggable draggableId={task.id} index={index}>
+        {(provided, snapshot) => (
           <li
-            className={styles.taskItem}
+            className={`${styles.taskItem} ${snapshot.isDragging ? styles.isDragging : ''}`}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
