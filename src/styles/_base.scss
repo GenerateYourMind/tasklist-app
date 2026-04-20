@@ -20,6 +20,7 @@ svg {
 }
 
 body {
+  -webkit-tap-highlight-color: transparent;
   background-color: var(--theme-bg-main);
   color: var(--theme-text-main);
   font-family: "Lato", sans-serif;
