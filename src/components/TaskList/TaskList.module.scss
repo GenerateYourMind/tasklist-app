@@ -22,9 +22,12 @@
 }
 
 .taskItems {
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
+  // Margins used for dnd stability (flex/gap causes list to jump during dnd)
+  margin-bottom: -10px;
+
+  & > li {
+    margin-bottom: 10px;
+  }
 }
 
 .noTasks {
