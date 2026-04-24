@@ -1,6 +1,7 @@
 .wrapper {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100vh; // fallback
+  min-height: 100svh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
