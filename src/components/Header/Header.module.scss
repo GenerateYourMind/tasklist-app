@@ -1,11 +1,11 @@
 .header {
   width: 95%;
-  min-height: 110px;
+  min-height: 100px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   column-gap: 15px;
-  padding: 15px 0 20px;
+  padding: 5px 0;
 }
 
 .title {
@@ -39,21 +39,25 @@
 }
 
 @media (max-width: $tablet) {
+  .header {
+    min-height: 80px;
+  }
+
   .title {
-    font-size: 36px;
+    font-size: 32px;
   }
 
   .themeButton svg {
-    @include icon-size(24px);
+    @include icon-size(22px);
   }
 }
 
 @media (max-width: $mobile) {
   .header {
-    min-height: 90px;
+    min-height: 60px;
   }
 
   .title {
-    font-size: 32px;
+    font-size: 26px;
   }
 }
