@@ -1,14 +1,21 @@
 .wrapper {
   width: 100%;
-  min-height: 100vh; // fallback
-  min-height: 100svh;
-  overflow: hidden;
+  height: 100vh; // fallback
+  height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .tasksContainer {
+  flex: 1;
   width: 95%;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+  @include touch-supported {
+    // Fix dnd list collapse on touch devices.
+    // Requires body overflow to be hidden.
+    overflow-y: auto;
+    overscroll-behavior: none;
+  }
 }
