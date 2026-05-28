@@ -33,6 +33,18 @@
   &.isDragging {
     @include _task-item-highlight;
   }
+
+  &.isEditing {
+    position: relative;
+    z-index: 9;
+    @include _task-item-highlight;
+    touch-action: none;
+    cursor: default;
+
+    &:active {
+      cursor: default;
+    }
+  }
 }
 
 .text {
@@ -84,6 +96,14 @@ input.text {
       transform: scale(1);
     }
   }
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  background-color: rgba(0, 0, 0, 0.4);
+  touch-action: none;
 }
 
 @media (max-width: $tablet) {

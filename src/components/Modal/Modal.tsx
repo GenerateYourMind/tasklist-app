@@ -1,6 +1,7 @@
 import { FC, MouseEvent, ReactNode, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { MdClose } from 'react-icons/md';
+import { portal } from '@utils/portal';
 import { useLockBodyScroll } from '@hooks/useLockBodyScroll';
 import styles from './Modal.module.scss';
 
@@ -13,8 +14,6 @@ interface ModalProps {
   message?: string;
   children?: ReactNode;
 }
-
-const portal = document.getElementById('portal')!;
 
 const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
   const backdropRef = useRef<HTMLDivElement>(null);
