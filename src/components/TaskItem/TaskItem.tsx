@@ -8,10 +8,12 @@ import {
   KeyboardEvent,
   ChangeEvent,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { FaTrash, FaEdit, FaPlus } from 'react-icons/fa';
 import { MdDoneOutline } from 'react-icons/md';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { Draggable } from '@hello-pangea/dnd';
+import { portal } from '@utils/portal';
 import Modal from '@components/Modal';
 import { useModal } from '@hooks/useModal';
 import { Task, TaskActions, Target } from '@typings/taskTypes';
@@ -85,10 +87,10 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
 
   return (
     <>
-      <Draggable draggableId={task.id} index={index}>
+      <Draggable draggableId={task.id} index={index} isDragDisabled={isEditing}>
         {(provided, snapshot) => (
           <li
-            className={`${styles.taskItem} ${snapshot.isDragging ? styles.isDragging : ''}`}
+            className={`${styles.taskItem} ${snapshot.isDragging ? styles.isDragging : ''} ${isEditing ? styles.isEditing : ''}`}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
@@ -144,6 +146,11 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
           </li>
         )}
       </Draggable>
+
+      {isEditing &&
+        !isModalOpen &&
+        createPortal(<div className={styles.backdrop} />, portal)}
+
       {isModalOpen && (
         <Modal
           onClose={closeModal}
