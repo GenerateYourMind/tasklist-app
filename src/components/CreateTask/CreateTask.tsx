@@ -26,14 +26,15 @@ const CreateTask: FC = () => {
     event.preventDefault();
 
     if (taskText.trim().length === 0) {
-      openModal();
+      inputRef.current?.blur();
       setTaskText('');
+      openModal();
       return;
     }
 
+    inputRef.current?.blur();
     dispatch({ type: 'CREATE-TASK', payload: { taskText } });
     setTaskText('');
-    inputRef.current?.blur();
   };
 
   return (
