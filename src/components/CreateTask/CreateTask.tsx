@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
   ChangeEvent,
+  MouseEvent,
 } from 'react';
 import { PiPlusBold } from 'react-icons/pi';
 import Modal from '@components/Modal';
@@ -37,6 +38,11 @@ const CreateTask: FC = () => {
     setTaskText('');
   };
 
+  const handleKeepInputFocus = (event: MouseEvent<HTMLButtonElement>): void => {
+    // Prevent input blur on mousedown to avoid UI flickering
+    event.preventDefault();
+  };
+
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmitTask}>
@@ -50,7 +56,11 @@ const CreateTask: FC = () => {
             ref={inputRef}
           />
         </div>
-        <button className={styles.submitButton} aria-label="Create">
+        <button
+          className={styles.submitButton}
+          aria-label="Create"
+          onMouseDown={handleKeepInputFocus}
+        >
           <PiPlusBold />
         </button>
       </form>

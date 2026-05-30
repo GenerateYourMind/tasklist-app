@@ -7,6 +7,7 @@ import {
   Dispatch,
   KeyboardEvent,
   ChangeEvent,
+  MouseEvent,
 } from 'react';
 import { createPortal } from 'react-dom';
 import { FaTrash, FaEdit, FaPlus } from 'react-icons/fa';
@@ -87,6 +88,11 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     setEditTaskText(event.target.value);
   };
 
+  const handleKeepInputFocus = (event: MouseEvent<HTMLButtonElement>): void => {
+    // Prevent input blur on mousedown to avoid UI flickering
+    event.preventDefault();
+  };
+
   return (
     <>
       <Draggable draggableId={task.id} index={index} isDragDisabled={isEditing}>
@@ -131,6 +137,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 <button
                   className={styles.controlButton}
                   aria-label={isEditing ? 'Save' : 'Edit'}
+                  onMouseDown={handleKeepInputFocus}
                   onClick={isEditing ? handleSaveEdit : handleToggleEdit}
                 >
                   {isEditing ? <FaPlus /> : <FaEdit />}
