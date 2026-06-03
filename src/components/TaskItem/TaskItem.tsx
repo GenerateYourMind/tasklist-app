@@ -33,8 +33,11 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (isEditing && !isModalOpen) {
-      inputRef.current?.focus();
+    if (isEditing && !isModalOpen && inputRef.current) {
+      const input = inputRef.current;
+      input.focus();
+      const length = input.value.length;
+      input.setSelectionRange(length, length);
     }
   }, [isEditing, isModalOpen]);
 
@@ -66,7 +69,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
   const handleSaveEdit = (): void => {
     if (editTaskText.trim().length === 0) {
       inputRef.current?.blur();
-      setEditTaskText('');
+      setEditTaskText(task.taskText);
       openModal();
       return;
     }
