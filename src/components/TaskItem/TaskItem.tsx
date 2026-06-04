@@ -67,7 +67,9 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
   };
 
   const handleSaveEdit = (): void => {
-    if (editTaskText.trim().length === 0) {
+    const trimmedText = editTaskText.trim();
+
+    if (trimmedText.length === 0) {
       inputRef.current?.blur();
       setEditTaskText(task.taskText);
       openModal();
@@ -76,8 +78,9 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
 
     dispatch({
       type: 'EDIT-TASK',
-      payload: { id: task.id, editTaskText },
+      payload: { id: task.id, editTaskText: trimmedText },
     });
+    setEditTaskText(trimmedText);
     setIsEditing(false);
   };
 

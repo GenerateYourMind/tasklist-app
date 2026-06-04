@@ -25,8 +25,9 @@ const CreateTask: FC = () => {
 
   const handleSubmitTask = (event: FormEvent): void => {
     event.preventDefault();
+    const trimmedText = taskText.trim();
 
-    if (taskText.trim().length === 0) {
+    if (trimmedText.length === 0) {
       inputRef.current?.blur();
       setTaskText('');
       openModal();
@@ -34,7 +35,7 @@ const CreateTask: FC = () => {
     }
 
     inputRef.current?.blur();
-    dispatch({ type: 'CREATE-TASK', payload: { taskText } });
+    dispatch({ type: 'CREATE-TASK', payload: { taskText: trimmedText } });
     setTaskText('');
   };
 
