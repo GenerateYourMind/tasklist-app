@@ -94,7 +94,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     setEditTaskText(event.target.value);
   };
 
-  const handleKeepInputFocus = (event: MouseEvent<HTMLButtonElement>): void => {
+  const handleKeepInputFocus = (event: MouseEvent<HTMLElement>): void => {
     // Prevent input blur on mousedown to avoid UI flickering
     event.preventDefault();
   };
@@ -164,7 +164,14 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
 
       {isEditing &&
         !isModalOpen &&
-        createPortal(<div className={styles.backdrop} />, portal)}
+        createPortal(
+          <div
+            className={styles.backdrop}
+            onMouseDown={handleKeepInputFocus}
+            onClick={handleSaveEdit}
+          />,
+          portal
+        )}
 
       {isModalOpen && (
         <Modal
