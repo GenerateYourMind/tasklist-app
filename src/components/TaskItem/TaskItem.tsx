@@ -3,6 +3,8 @@ import {
   useState,
   useRef,
   useEffect,
+  useLayoutEffect,
+  useCallback,
   memo,
   Dispatch,
   KeyboardEvent,
@@ -17,6 +19,7 @@ import { Draggable } from '@hello-pangea/dnd';
 import { portal } from '@utils/portal';
 import Modal from '@components/Modal';
 import { useModal } from '@hooks/useModal';
+import { useWindowResize } from '@hooks/useWindowResize';
 import { Task, TaskActions, Target } from '@typings/taskTypes';
 import styles from './TaskItem.module.scss';
 
@@ -30,15 +33,31 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTaskText, setEditTaskText] = useState<string>(task.taskText);
   const { isModalOpen, openModal, closeModal } = useModal();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const updateTextareaHeight = useCallback(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  }, []);
+
+  useWindowResize(updateTextareaHeight, isEditing);
+
+  useLayoutEffect(() => {
+    if (!isEditing) return;
+
+    updateTextareaHeight();
+  }, [isEditing, editTaskText, updateTextareaHeight]);
 
   useEffect(() => {
-    if (isEditing && !isModalOpen && inputRef.current) {
-      const input = inputRef.current;
-      input.focus();
-      const length = input.value.length;
-      input.setSelectionRange(length, length);
-    }
+    const textarea = textareaRef.current;
+    if (!isEditing || isModalOpen || !textarea) return;
+
+    textarea.focus();
+    const length = textarea.value.length;
+    textarea.setSelectionRange(length, length);
   }, [isEditing, isModalOpen]);
 
   const handleMoveTaskBetweenLists = (): void => {
@@ -70,7 +89,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     const trimmedText = editTaskText.trim();
 
     if (trimmedText.length === 0) {
-      inputRef.current?.blur();
+      textareaRef.current?.blur();
       setEditTaskText(task.taskText);
       openModal();
       return;
@@ -84,18 +103,21 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     setIsEditing(false);
   };
 
-  const handleKeyDownEnter = (event: KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Enter') {
-      handleSaveEdit();
-    }
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>): void => {
+    if (event.key !== 'Enter' || event.shiftKey) return;
+
+    event.preventDefault();
+    handleSaveEdit();
   };
 
-  const handleEditTaskText = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleEditTaskText = (
+    event: ChangeEvent<HTMLTextAreaElement>
+  ): void => {
     setEditTaskText(event.target.value);
   };
 
-  const handleKeepInputFocus = (event: MouseEvent<HTMLElement>): void => {
-    // Prevent input blur on mousedown to avoid UI flickering
+  const handleKeepTextareaFocus = (event: MouseEvent<HTMLElement>): void => {
+    // Prevent textarea blur on mousedown to avoid UI flickering
     event.preventDefault();
   };
 
@@ -120,14 +142,14 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
               </button>
             </div>
             {isEditing ? (
-              <input
-                type="text"
+              <textarea
                 className={styles.text}
                 value={editTaskText}
                 onChange={handleEditTaskText}
-                onKeyDown={handleKeyDownEnter}
-                ref={inputRef}
-              />
+                onKeyDown={handleKeyDown}
+                ref={textareaRef}
+                rows={1}
+              ></textarea>
             ) : (
               <p
                 className={styles.text}
@@ -143,7 +165,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 <button
                   className={styles.controlButton}
                   aria-label={isEditing ? 'Save' : 'Edit'}
-                  onMouseDown={handleKeepInputFocus}
+                  onMouseDown={handleKeepTextareaFocus}
                   onClick={isEditing ? handleSaveEdit : handleToggleEdit}
                 >
                   {isEditing ? <FaPlus /> : <FaEdit />}
@@ -167,7 +189,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
         createPortal(
           <div
             className={styles.backdrop}
-            onMouseDown={handleKeepInputFocus}
+            onMouseDown={handleKeepTextareaFocus}
             onClick={handleSaveEdit}
           />,
           portal
