@@ -10,12 +10,15 @@ import {
   KeyboardEvent,
   ChangeEvent,
   MouseEvent,
+  AnimationEvent,
 } from 'react';
 import { createPortal } from 'react-dom';
+import { Draggable } from '@hello-pangea/dnd';
+import clsx from 'clsx';
 import { FaTrash, FaEdit, FaPlus } from 'react-icons/fa';
 import { MdDoneOutline } from 'react-icons/md';
 import { RiArrowGoBackFill } from 'react-icons/ri';
-import { Draggable } from '@hello-pangea/dnd';
+import { getTaskDropStyle } from '@utils/getTaskDropStyle';
 import { portal } from '@utils/portal';
 import Modal from '@components/Modal';
 import { useModal } from '@hooks/useModal';
@@ -33,6 +36,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTaskText, setEditTaskText] = useState<string>(task.taskText);
   const { isModalOpen, openModal, closeModal } = useModal();
+  const isAnimating = useRef(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const updateTextareaHeight = useCallback(() => {
@@ -121,14 +125,26 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     event.preventDefault();
   };
 
+  const handleAnimationEnd = (event: AnimationEvent<HTMLLIElement>): void => {
+    if (event.animationName.includes('appear')) {
+      isAnimating.current = false;
+    }
+  };
+
   return (
     <>
       <Draggable draggableId={task.id} index={index} isDragDisabled={isEditing}>
         {(provided, snapshot) => (
           <li
-            className={`${styles.taskItem} ${snapshot.isDragging ? styles.isDragging : ''} ${isEditing ? styles.isEditing : ''}`}
+            className={clsx(styles.taskItem, {
+              [styles.isAnimating]: isAnimating.current,
+              [styles.isDragging]: snapshot.isDragging,
+              [styles.isEditing]: isEditing,
+            })}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
+            style={getTaskDropStyle(provided.draggableProps.style, snapshot)}
+            onAnimationEnd={handleAnimationEnd}
             ref={provided.innerRef}
           >
             <div className={styles.controlButtons}>

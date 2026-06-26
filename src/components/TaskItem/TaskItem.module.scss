@@ -4,20 +4,22 @@
 }
 
 .taskItem {
+  --task-item-bg: rgba(255, 255, 255, 0.2);
+  --task-item-shadow: none;
+
   display: flex;
   border-radius: 10px;
   padding: 15px;
-
-  // Prevent task item layout shift during dnd (Firefox/Safari). Matches dnd library 2D transforms.
-  transform: translate(0, 0);
-
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--task-item-bg);
+  box-shadow: var(--task-item-shadow);
   cursor: grab;
   user-select: none;
   transition:
     background-color 0.3s,
     box-shadow 0.3s;
-  animation: appear 0.5s;
+
+  // Prevent task item layout shift during dnd (Firefox/Safari). Matches dnd library 2D transforms.
+  transform: translate(0, 0);
 
   @include hover-supported {
     &:hover {
@@ -28,6 +30,10 @@
   &:active {
     @include _task-item-highlight;
     cursor: grabbing;
+  }
+
+  &.isAnimating {
+    animation: appear 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &.isDragging {
@@ -144,8 +150,10 @@ textarea.text {
 @keyframes appear {
   0% {
     opacity: 0;
+    transform: translateY(4px);
   }
   100% {
     opacity: 1;
+    transform: translateY(0);
   }
 }
