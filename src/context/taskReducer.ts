@@ -72,7 +72,7 @@ const taskReducer = (
     case 'UPDATE-TASKS':
       return {
         ...state,
-        [payload.target]: [...(payload[payload.target] as Task[])],
+        [payload.target]: [...payload.tasks],
       };
 
     default:

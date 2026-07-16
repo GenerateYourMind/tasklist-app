@@ -41,18 +41,12 @@ const TaskLists: FC = () => {
 
     dispatch({
       type: 'UPDATE-TASKS',
-      payload: {
-        activeTasks: active,
-        target: 'activeTasks',
-      },
+      payload: { tasks: active, target: 'activeTasks' },
     });
 
     dispatch({
       type: 'UPDATE-TASKS',
-      payload: {
-        completedTasks: completed,
-        target: 'completedTasks',
-      },
+      payload: { tasks: completed, target: 'completedTasks' },
     });
   };
 

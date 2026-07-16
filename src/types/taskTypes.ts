@@ -38,9 +38,5 @@ export type TaskActions =
     }
   | {
       type: 'UPDATE-TASKS';
-      payload: {
-        activeTasks?: Task[];
-        completedTasks?: Task[];
-        target: Target;
-      };
+      payload: { tasks: Task[]; target: Target };
     };
