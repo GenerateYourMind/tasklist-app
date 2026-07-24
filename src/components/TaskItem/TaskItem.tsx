@@ -67,18 +67,18 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
   const handleMoveTaskBetweenLists = (): void => {
     const target: Target = task.isCompleted ? 'completedTasks' : 'activeTasks';
 
-    dispatch({ type: 'COMPLETE-TASK', payload: { id: task.id, target } });
-    dispatch({ type: 'MOVE-TASK-BETWEEN-LISTS', payload: { target } });
-    dispatch({ type: 'DELETE-TASK', payload: { id: task.id, target } });
+    dispatch({ type: 'COMPLETE_TASK', payload: { id: task.id, target } });
+    dispatch({ type: 'MOVE_TASK_BETWEEN_LISTS', payload: { target } });
+    dispatch({ type: 'DELETE_TASK', payload: { id: task.id, target } });
   };
 
   const handleDelete = (): void => {
     dispatch({
-      type: 'DELETE-TASK',
+      type: 'DELETE_TASK',
       payload: { id: task.id, target: 'activeTasks' },
     });
     dispatch({
-      type: 'DELETE-TASK',
+      type: 'DELETE_TASK',
       payload: { id: task.id, target: 'completedTasks' },
     });
   };
@@ -100,7 +100,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     }
 
     dispatch({
-      type: 'EDIT-TASK',
+      type: 'EDIT_TASK',
       payload: { id: task.id, editTaskText: trimmedText },
     });
     setEditTaskText(trimmedText);

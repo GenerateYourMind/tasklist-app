@@ -35,7 +35,7 @@ const CreateTask: FC = () => {
     }
 
     inputRef.current?.blur();
-    dispatch({ type: 'CREATE-TASK', payload: { taskText: trimmedText } });
+    dispatch({ type: 'CREATE_TASK', payload: { taskText: trimmedText } });
     setTaskText('');
   };
 

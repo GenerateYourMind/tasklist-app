@@ -6,45 +6,52 @@ const taskReducer = (
   action: TaskActions
 ): InitialState => {
   const { type, payload } = action;
-  const { activeTasks, completedTasks } = state;
-  const targetArray =
-    payload.target === 'activeTasks' ? activeTasks : completedTasks;
 
   switch (type) {
-    case 'CREATE-TASK':
+    case 'CREATE_TASK': {
+      const { taskText } = payload;
+
       return {
         ...state,
         activeTasks: [
-          ...activeTasks,
-          { id: uuidv4(), taskText: payload.taskText, isCompleted: false },
+          ...state.activeTasks,
+          { id: uuidv4(), taskText, isCompleted: false },
         ],
       };
+    }
 
-    case 'DELETE-TASK':
+    case 'DELETE_TASK': {
+      const { id, target } = payload;
+
       return {
         ...state,
-        [payload.target]: targetArray.filter((task) => task.id !== payload.id),
+        [target]: state[target].filter((task) => task.id !== id),
       };
+    }
 
-    case 'COMPLETE-TASK':
+    case 'COMPLETE_TASK': {
+      const { id, target } = payload;
+
       return {
         ...state,
-        [payload.target]: targetArray.map((task) =>
-          task.id === payload.id
-            ? { ...task, isCompleted: !task.isCompleted }
-            : task
+        [target]: state[target].map((task) =>
+          task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
         ),
       };
+    }
 
-    case 'MOVE-TASK-BETWEEN-LISTS': {
+    case 'MOVE_TASK_BETWEEN_LISTS': {
+      const { target } = payload;
+      const { activeTasks, completedTasks } = state;
+
       const returnTasks = (
         taskList: Task[],
         targetName: string,
         isCompleted: boolean,
-        currentState: InitialState
+        targetArray: Task[]
       ): InitialState => {
         return {
-          ...currentState,
+          ...state,
           [targetName]: [
             ...taskList,
             ...targetArray.filter((task) => task.isCompleted === isCompleted),
@@ -52,28 +59,32 @@ const taskReducer = (
         };
       };
 
-      if (payload.target === 'activeTasks') {
-        return returnTasks(completedTasks, 'completedTasks', true, state);
+      if (target === 'activeTasks') {
+        return returnTasks(completedTasks, 'completedTasks', true, activeTasks);
       }
 
-      return returnTasks(activeTasks, 'activeTasks', false, state);
+      return returnTasks(activeTasks, 'activeTasks', false, completedTasks);
     }
 
-    case 'EDIT-TASK':
+    case 'EDIT_TASK': {
+      const { id, editTaskText } = payload;
+
       return {
         ...state,
-        activeTasks: activeTasks.map((task) =>
-          task.id === payload.id
-            ? { ...task, taskText: payload.editTaskText }
-            : task
+        activeTasks: state.activeTasks.map((task) =>
+          task.id === id ? { ...task, taskText: editTaskText } : task
         ),
       };
+    }
 
-    case 'UPDATE-TASKS':
+    case 'UPDATE_TASKS': {
+      const { tasks, target } = payload;
+
       return {
         ...state,
-        [payload.target]: [...payload.tasks],
+        [target]: [...tasks],
       };
+    }
 
     default:
       return state;
