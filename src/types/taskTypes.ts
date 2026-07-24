@@ -22,21 +22,23 @@ export interface TaskContextProps {
 export type Target = 'activeTasks' | 'completedTasks';
 
 export type TaskActions =
-  | { type: 'CREATE-TASK'; payload: { taskText: string; target?: Target } }
   | {
-      type: 'DELETE-TASK' | 'COMPLETE-TASK';
+      type: 'CREATE_TASK';
+      payload: { taskText: string };
+    }
+  | {
+      type: 'DELETE_TASK' | 'COMPLETE_TASK';
       payload: { id: string; target: Target };
     }
-  | { type: 'MOVE-TASK-BETWEEN-LISTS'; payload: { target: Target } }
   | {
-      type: 'EDIT-TASK';
-      payload: {
-        id: string;
-        editTaskText: string;
-        target?: Target;
-      };
+      type: 'MOVE_TASK_BETWEEN_LISTS';
+      payload: { target: Target };
     }
   | {
-      type: 'UPDATE-TASKS';
+      type: 'EDIT_TASK';
+      payload: { id: string; editTaskText: string };
+    }
+  | {
+      type: 'UPDATE_TASKS';
       payload: { tasks: Task[]; target: Target };
     };

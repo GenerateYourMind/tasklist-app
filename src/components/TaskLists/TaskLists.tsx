@@ -40,12 +40,12 @@ const TaskLists: FC = () => {
     destinationArray.splice(destination.index, 0, movingTask);
 
     dispatch({
-      type: 'UPDATE-TASKS',
+      type: 'UPDATE_TASKS',
       payload: { tasks: active, target: 'activeTasks' },
     });
 
     dispatch({
-      type: 'UPDATE-TASKS',
+      type: 'UPDATE_TASKS',
       payload: { tasks: completed, target: 'completedTasks' },
     });
   };

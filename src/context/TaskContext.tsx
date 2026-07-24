@@ -32,14 +32,14 @@ const TaskContextProvider = ({ children }: { children: ReactNode }) => {
 
     if (storedActiveTasks && storedActiveTasks.length > 0) {
       dispatch({
-        type: 'UPDATE-TASKS',
+        type: 'UPDATE_TASKS',
         payload: { tasks: storedActiveTasks, target: 'activeTasks' },
       });
     }
 
     if (storedCompletedTasks && storedCompletedTasks.length > 0) {
       dispatch({
-        type: 'UPDATE-TASKS',
+        type: 'UPDATE_TASKS',
         payload: { tasks: storedCompletedTasks, target: 'completedTasks' },
       });
     }
