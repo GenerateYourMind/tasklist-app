@@ -5,7 +5,12 @@ import {
   useEffect,
   useLayoutEffect,
 } from 'react';
-import { InitialState, TaskContextProps, Task } from '@typings/taskTypes';
+import {
+  InitialState,
+  TaskContextProps,
+  Task,
+  TaskListKey,
+} from '@typings/taskTypes';
 import { taskReducer } from '@context/taskReducer';
 import { saveToStorage, getFromStorage } from '@utils/localStorage';
 
@@ -25,24 +30,15 @@ const TaskContextProvider = ({ children }: { children: ReactNode }) => {
 
   // Use layout effect to prevent layout shift (scrollbar jump) on initial render.
   useLayoutEffect(() => {
-    const storedActiveTasks = getFromStorage<Task[] | null>('activeTasks');
-    const storedCompletedTasks = getFromStorage<Task[] | null>(
-      'completedTasks'
-    );
+    const taskListKeys: TaskListKey[] = ['activeTasks', 'completedTasks'];
 
-    if (storedActiveTasks && storedActiveTasks.length > 0) {
-      dispatch({
-        type: 'UPDATE_TASKS',
-        payload: { tasks: storedActiveTasks, target: 'activeTasks' },
-      });
-    }
+    taskListKeys.forEach((taskListKey) => {
+      const taskList = getFromStorage<Task[] | null>(taskListKey);
 
-    if (storedCompletedTasks && storedCompletedTasks.length > 0) {
-      dispatch({
-        type: 'UPDATE_TASKS',
-        payload: { tasks: storedCompletedTasks, target: 'completedTasks' },
-      });
-    }
+      if (taskList && taskList.length > 0) {
+        dispatch({ type: 'SET_TASK_LIST', payload: { taskList, taskListKey } });
+      }
+    });
   }, []);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { InitialState, TaskActions, Task } from '@typings/taskTypes';
+import { InitialState, TaskActions, TaskListKey } from '@typings/taskTypes';
 
 const taskReducer = (
   state: InitialState,
@@ -21,49 +21,36 @@ const taskReducer = (
     }
 
     case 'DELETE_TASK': {
-      const { id, target } = payload;
+      const { id, isCompleted } = payload;
+      const taskListKey: TaskListKey = isCompleted
+        ? 'completedTasks'
+        : 'activeTasks';
 
       return {
         ...state,
-        [target]: state[target].filter((task) => task.id !== id),
+        [taskListKey]: state[taskListKey].filter((task) => task.id !== id),
       };
     }
 
-    case 'COMPLETE_TASK': {
-      const { id, target } = payload;
+    case 'TOGGLE_TASK_COMPLETE': {
+      const { task } = payload;
+      const sourceListKey: TaskListKey = task.isCompleted
+        ? 'completedTasks'
+        : 'activeTasks';
+      const destinationListKey: TaskListKey = task.isCompleted
+        ? 'activeTasks'
+        : 'completedTasks';
 
       return {
         ...state,
-        [target]: state[target].map((task) =>
-          task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
+        [sourceListKey]: state[sourceListKey].filter(
+          (currentTask) => currentTask.id !== task.id
         ),
+        [destinationListKey]: [
+          ...state[destinationListKey],
+          { ...task, isCompleted: !task.isCompleted },
+        ],
       };
-    }
-
-    case 'MOVE_TASK_BETWEEN_LISTS': {
-      const { target } = payload;
-      const { activeTasks, completedTasks } = state;
-
-      const returnTasks = (
-        taskList: Task[],
-        targetName: string,
-        isCompleted: boolean,
-        targetArray: Task[]
-      ): InitialState => {
-        return {
-          ...state,
-          [targetName]: [
-            ...taskList,
-            ...targetArray.filter((task) => task.isCompleted === isCompleted),
-          ],
-        };
-      };
-
-      if (target === 'activeTasks') {
-        return returnTasks(completedTasks, 'completedTasks', true, activeTasks);
-      }
-
-      return returnTasks(activeTasks, 'activeTasks', false, completedTasks);
     }
 
     case 'EDIT_TASK': {
@@ -77,12 +64,12 @@ const taskReducer = (
       };
     }
 
-    case 'UPDATE_TASKS': {
-      const { tasks, target } = payload;
+    case 'SET_TASK_LIST': {
+      const { taskList, taskListKey } = payload;
 
       return {
         ...state,
-        [target]: [...tasks],
+        [taskListKey]: taskList,
       };
     }
 
