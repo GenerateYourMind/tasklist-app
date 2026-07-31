@@ -23,7 +23,7 @@ import { portal } from '@utils/portal';
 import Modal from '@components/Modal';
 import { useModal } from '@hooks/useModal';
 import { useWindowResize } from '@hooks/useWindowResize';
-import { Task, TaskActions, Target } from '@typings/taskTypes';
+import { Task, TaskActions } from '@typings/taskTypes';
 import styles from './TaskItem.module.scss';
 
 interface TaskItemProps {
@@ -64,26 +64,18 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     textarea.setSelectionRange(length, length);
   }, [isEditing, isModalOpen]);
 
-  const handleMoveTaskBetweenLists = (): void => {
-    const target: Target = task.isCompleted ? 'completedTasks' : 'activeTasks';
-
-    dispatch({ type: 'COMPLETE_TASK', payload: { id: task.id, target } });
-    dispatch({ type: 'MOVE_TASK_BETWEEN_LISTS', payload: { target } });
-    dispatch({ type: 'DELETE_TASK', payload: { id: task.id, target } });
+  const handleToggleComplete = (): void => {
+    dispatch({ type: 'TOGGLE_TASK_COMPLETE', payload: { task } });
   };
 
   const handleDelete = (): void => {
     dispatch({
       type: 'DELETE_TASK',
-      payload: { id: task.id, target: 'activeTasks' },
-    });
-    dispatch({
-      type: 'DELETE_TASK',
-      payload: { id: task.id, target: 'completedTasks' },
+      payload: { id: task.id, isCompleted: task.isCompleted },
     });
   };
 
-  const handleToggleEdit = (): void => {
+  const handleStartEdit = (): void => {
     if (!isEditing) {
       setIsEditing(true);
     }
@@ -152,7 +144,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 className={styles.controlButton}
                 disabled={isEditing}
                 aria-label={task.isCompleted ? 'Return' : 'Complete'}
-                onClick={handleMoveTaskBetweenLists}
+                onClick={handleToggleComplete}
               >
                 {task.isCompleted ? <RiArrowGoBackFill /> : <MdDoneOutline />}
               </button>
@@ -182,7 +174,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                   className={styles.controlButton}
                   aria-label={isEditing ? 'Save' : 'Edit'}
                   onMouseDown={handleKeepTextareaFocus}
-                  onClick={isEditing ? handleSaveEdit : handleToggleEdit}
+                  onClick={isEditing ? handleSaveEdit : handleStartEdit}
                 >
                   {isEditing ? <FaPlus /> : <FaEdit />}
                 </button>
