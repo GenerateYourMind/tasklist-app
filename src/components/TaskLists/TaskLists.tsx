@@ -31,13 +31,14 @@ const TaskLists: FC = () => {
     const sourceArray = getArray(source.droppableId);
     const destinationArray = getArray(destination.droppableId);
 
-    const movingTask: Task = sourceArray[source.index];
+    const [movingTask] = sourceArray.splice(source.index, 1);
 
-    // Updates task status based on the destination list
-    movingTask.isCompleted = destination.droppableId !== 'ActiveTaskList';
+    const updatedTask: Task = {
+      ...movingTask,
+      isCompleted: destination.droppableId !== 'ActiveTaskList',
+    };
 
-    sourceArray.splice(source.index, 1);
-    destinationArray.splice(destination.index, 0, movingTask);
+    destinationArray.splice(destination.index, 0, updatedTask);
 
     dispatch({
       type: 'SET_TASK_LIST',
