@@ -2,14 +2,14 @@ import { FC, useContext } from 'react';
 import { Droppable } from '@hello-pangea/dnd';
 import TaskItem from '@components/TaskItem';
 import { TaskContext } from '@context/TaskContext';
-import { Task, TaskStatus } from '@typings/taskTypes';
+import { Task, TaskStatus, TaskListKey } from '@typings/taskTypes';
 import styles from './TaskList.module.scss';
 
 interface TaskListProps {
   title: string;
   tasks: Task[];
   status: TaskStatus;
-  droppableId: string;
+  droppableId: TaskListKey;
 }
 
 const TaskList: FC<TaskListProps> = ({ title, tasks, status, droppableId }) => {

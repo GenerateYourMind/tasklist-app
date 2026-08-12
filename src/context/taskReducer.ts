@@ -1,5 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import { InitialState, TaskActions, TaskListKey } from '@typings/taskTypes';
+import {
+  InitialState,
+  Task,
+  TaskActions,
+  TaskListKey,
+} from '@typings/taskTypes';
 
 const taskReducer = (
   state: InitialState,
@@ -50,6 +55,43 @@ const taskReducer = (
           ...state[destinationListKey],
           { ...task, isCompleted: !task.isCompleted },
         ],
+      };
+    }
+
+    case 'MOVE_TASK': {
+      const {
+        sourceListKey,
+        destinationListKey,
+        sourceIndex,
+        destinationIndex,
+      } = payload;
+
+      if (sourceListKey === destinationListKey) {
+        const taskList = [...state[sourceListKey]];
+        const [movedTask] = taskList.splice(sourceIndex, 1);
+        taskList.splice(destinationIndex, 0, movedTask);
+
+        return {
+          ...state,
+          [sourceListKey]: taskList,
+        };
+      }
+
+      const sourceList = [...state[sourceListKey]];
+      const destinationList = [...state[destinationListKey]];
+
+      const [movedTask] = sourceList.splice(sourceIndex, 1);
+
+      const updatedTask: Task = {
+        ...movedTask,
+        isCompleted: destinationListKey === 'completedTasks',
+      };
+      destinationList.splice(destinationIndex, 0, updatedTask);
+
+      return {
+        ...state,
+        [sourceListKey]: sourceList,
+        [destinationListKey]: destinationList,
       };
     }
 

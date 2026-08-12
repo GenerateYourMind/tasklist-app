@@ -2,7 +2,7 @@ import { FC, useContext } from 'react';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import TaskList from '@components/TaskList';
 import { TaskContext } from '@context/TaskContext';
-import { Task } from '@typings/taskTypes';
+import { TaskListKey } from '@typings/taskTypes';
 import styles from './TaskLists.module.scss';
 
 const TaskLists: FC = () => {
@@ -11,60 +11,42 @@ const TaskLists: FC = () => {
     dispatch,
   } = useContext(TaskContext);
 
-  const onDragEnd = (result: DropResult): void => {
+  const handleDragEnd = (result: DropResult): void => {
     const { source, destination } = result;
 
     if (
       !destination ||
-      (destination.droppableId === source.droppableId &&
-        destination.index === source.index)
+      (source.droppableId === destination.droppableId &&
+        source.index === destination.index)
     ) {
       return;
     }
 
-    const active = [...activeTasks];
-    const completed = [...completedTasks];
-
-    const getArray = (droppableId: string): Task[] =>
-      droppableId === 'ActiveTaskList' ? active : completed;
-
-    const sourceArray = getArray(source.droppableId);
-    const destinationArray = getArray(destination.droppableId);
-
-    const [movingTask] = sourceArray.splice(source.index, 1);
-
-    const updatedTask: Task = {
-      ...movingTask,
-      isCompleted: destination.droppableId !== 'ActiveTaskList',
-    };
-
-    destinationArray.splice(destination.index, 0, updatedTask);
-
     dispatch({
-      type: 'SET_TASK_LIST',
-      payload: { taskList: active, taskListKey: 'activeTasks' },
-    });
-
-    dispatch({
-      type: 'SET_TASK_LIST',
-      payload: { taskList: completed, taskListKey: 'completedTasks' },
+      type: 'MOVE_TASK',
+      payload: {
+        sourceListKey: source.droppableId as TaskListKey,
+        destinationListKey: destination.droppableId as TaskListKey,
+        sourceIndex: source.index,
+        destinationIndex: destination.index,
+      },
     });
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={handleDragEnd}>
       <div className={styles.taskLists}>
         <TaskList
           title="Active tasks"
           tasks={activeTasks}
           status="active"
-          droppableId="ActiveTaskList"
+          droppableId="activeTasks"
         />
         <TaskList
           title="Completed tasks"
           tasks={completedTasks}
           status="completed"
-          droppableId="CompletedTaskList"
+          droppableId="completedTasks"
         />
       </div>
     </DragDropContext>
