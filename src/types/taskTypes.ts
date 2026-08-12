@@ -34,6 +34,15 @@ export type TaskActions =
       payload: { task: Task };
     }
   | {
+      type: 'MOVE_TASK';
+      payload: {
+        sourceListKey: TaskListKey;
+        destinationListKey: TaskListKey;
+        sourceIndex: number;
+        destinationIndex: number;
+      };
+    }
+  | {
       type: 'EDIT_TASK';
       payload: { id: string; editTaskText: string };
     }
