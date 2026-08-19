@@ -22,6 +22,9 @@
 }
 
 .taskItems {
+  position: relative;
+  min-height: 30px;
+
   // Margins used for dnd stability (flex/gap causes list to jump during dnd)
   margin-bottom: -10px;
 
@@ -31,10 +34,15 @@
 }
 
 .noTasks {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  font-size: 16px;
-  text-align: center;
+  pointer-events: none;
 }
 
 @media (max-width: $tablet) {
