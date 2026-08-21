@@ -19,17 +19,18 @@ const TaskList: FC<TaskListProps> = ({ title, tasks, status, droppableId }) => {
     <div className={`${styles.taskList} ${styles[status]}`}>
       <h2 className={styles.title}>{title}</h2>
       <Droppable droppableId={droppableId}>
-        {(provided) => (
+        {(provided, snapshot) => (
           <ul
             className={styles.taskItems}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            {!tasks.length && (
+            {!tasks.length && !snapshot.isDraggingOver && (
               <li
                 className={styles.noTasks}
               >{`There are no ${status} tasks`}</li>
             )}
+
             {tasks.map((task, index) => (
               <TaskItem
                 index={index}
@@ -38,6 +39,7 @@ const TaskList: FC<TaskListProps> = ({ title, tasks, status, droppableId }) => {
                 dispatch={dispatch}
               />
             ))}
+
             {provided.placeholder}
           </ul>
         )}
