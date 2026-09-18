@@ -6,6 +6,7 @@ import {
   useState,
   ChangeEvent,
   MouseEvent,
+  KeyboardEvent,
 } from 'react';
 import { PiPlusBold } from 'react-icons/pi';
 import Modal from '@components/Modal';
@@ -19,7 +20,7 @@ const CreateTask: FC = () => {
   const { dispatch } = useContext(TaskContext);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleTaskText = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setTaskText(event.target.value);
   };
 
@@ -28,7 +29,6 @@ const CreateTask: FC = () => {
     const trimmedText = taskText.trim();
 
     if (trimmedText.length === 0) {
-      inputRef.current?.blur();
       setTaskText('');
       openModal();
       return;
@@ -39,6 +39,12 @@ const CreateTask: FC = () => {
     setTaskText('');
   };
 
+  const handleFormKeyDown = (event: KeyboardEvent<HTMLFormElement>): void => {
+    if (event.key === 'Escape' && event.target instanceof HTMLElement) {
+      event.target.blur();
+    }
+  };
+
   const handleKeepInputFocus = (event: MouseEvent<HTMLButtonElement>): void => {
     // Prevent input blur on mousedown to avoid UI flickering
     event.preventDefault();
@@ -46,14 +52,19 @@ const CreateTask: FC = () => {
 
   return (
     <>
-      <form className={styles.form} onSubmit={handleSubmitTask}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmitTask}
+        onKeyDown={handleFormKeyDown}
+      >
         <div className={styles.inputBackdrop}>
           <input
-            type="text"
             className={styles.input}
+            type="text"
             placeholder="Enter your task..."
             value={taskText}
-            onChange={handleTaskText}
+            aria-label="New task"
+            onChange={handleInputChange}
             ref={inputRef}
           />
         </div>
@@ -65,6 +76,7 @@ const CreateTask: FC = () => {
           <PiPlusBold />
         </button>
       </form>
+
       {isModalOpen && (
         <Modal
           onClose={closeModal}
