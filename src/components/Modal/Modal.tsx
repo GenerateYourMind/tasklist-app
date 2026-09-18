@@ -1,4 +1,4 @@
-import { FC, MouseEvent, ReactNode, useEffect, useRef } from 'react';
+import { FC, MouseEvent, ReactNode, useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { FocusTrap } from 'focus-trap-react';
 import { MdClose } from 'react-icons/md';
@@ -17,6 +17,8 @@ interface ModalProps {
 }
 
 const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
+  const titleId = useId();
+  const messageId = useId();
   const modalRef = useRef<HTMLDivElement>(null);
 
   useLockBodyScroll();
@@ -50,9 +52,21 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
       }}
     >
       <div className={styles.backdrop} onClick={handleBackdropClick}>
-        <div className={styles.modal} ref={modalRef} tabIndex={-1}>
+        <div
+          className={styles.modal}
+          ref={modalRef}
+          tabIndex={-1}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={title ? titleId : undefined}
+          aria-describedby={message ? messageId : undefined}
+        >
           <div className={styles.header}>
-            {title && <h2 className={styles.title}>{title}</h2>}
+            {title && (
+              <h2 className={styles.title} id={titleId}>
+                {title}
+              </h2>
+            )}
             <button
               className={styles.closeButton}
               aria-label="Close"
@@ -62,7 +76,11 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
             </button>
           </div>
           <div className={styles.content}>
-            {message && <p className={styles.message}>{message}</p>}
+            {message && (
+              <p className={styles.message} id={messageId}>
+                {message}
+              </p>
+            )}
             {children}
           </div>
         </div>

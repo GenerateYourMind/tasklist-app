@@ -63,6 +63,7 @@ const CreateTask: FC = () => {
             className={styles.input}
             placeholder="Enter your task..."
             value={taskText}
+            aria-label="New task"
             onChange={handleTaskText}
             ref={inputRef}
           />

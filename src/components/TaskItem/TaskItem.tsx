@@ -179,6 +179,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 <textarea
                   className={styles.text}
                   value={editTaskText}
+                  aria-label="Task"
                   onChange={handleEditTaskText}
                   onKeyDown={handleKeyDown}
                   ref={textareaRef}
