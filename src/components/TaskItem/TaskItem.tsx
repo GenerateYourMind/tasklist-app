@@ -7,7 +7,7 @@ import {
   useCallback,
   memo,
   Dispatch,
-  KeyboardEvent,
+  KeyboardEvent as ReactKeyboardEvent,
   ChangeEvent,
   MouseEvent,
   AnimationEvent,
@@ -65,6 +65,21 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     textarea.setSelectionRange(length, length);
   }, [isEditing]);
 
+  useEffect(() => {
+    if (!isEditing || isModalOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        setEditTaskText(task.taskText);
+        setIsEditing(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isEditing, isModalOpen, task.taskText]);
+
   const handleToggleComplete = (): void => {
     dispatch({ type: 'TOGGLE_TASK_COMPLETE', payload: { task } });
   };
@@ -99,7 +114,9 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     setIsEditing(false);
   };
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>): void => {
+  const handleKeyDown = (
+    event: ReactKeyboardEvent<HTMLTextAreaElement>
+  ): void => {
     if (event.key !== 'Enter' || event.shiftKey) return;
 
     event.preventDefault();

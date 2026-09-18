@@ -6,6 +6,7 @@ import {
   useState,
   ChangeEvent,
   MouseEvent,
+  KeyboardEvent,
 } from 'react';
 import { PiPlusBold } from 'react-icons/pi';
 import Modal from '@components/Modal';
@@ -38,6 +39,12 @@ const CreateTask: FC = () => {
     setTaskText('');
   };
 
+  const handleFormKeyDown = (event: KeyboardEvent<HTMLFormElement>): void => {
+    if (event.key === 'Escape' && event.target instanceof HTMLElement) {
+      event.target.blur();
+    }
+  };
+
   const handleKeepInputFocus = (event: MouseEvent<HTMLButtonElement>): void => {
     // Prevent input blur on mousedown to avoid UI flickering
     event.preventDefault();
@@ -45,7 +52,11 @@ const CreateTask: FC = () => {
 
   return (
     <>
-      <form className={styles.form} onSubmit={handleSubmitTask}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmitTask}
+        onKeyDown={handleFormKeyDown}
+      >
         <div className={styles.inputBackdrop}>
           <input
             type="text"
