@@ -28,7 +28,6 @@ const CreateTask: FC = () => {
     const trimmedText = taskText.trim();
 
     if (trimmedText.length === 0) {
-      inputRef.current?.blur();
       setTaskText('');
       openModal();
       return;

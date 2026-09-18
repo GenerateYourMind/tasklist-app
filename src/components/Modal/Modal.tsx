@@ -1,5 +1,6 @@
 import { FC, MouseEvent, ReactNode, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { FocusTrap } from 'focus-trap-react';
 import { MdClose } from 'react-icons/md';
 import { portal } from '@utils/portal';
 import { useLockBodyScroll } from '@hooks/useLockBodyScroll';
@@ -16,7 +17,7 @@ interface ModalProps {
 }
 
 const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
-  const backdropRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useLockBodyScroll();
 
@@ -35,34 +36,38 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
   }, [onClose]);
 
   const handleBackdropClick = (event: MouseEvent<HTMLDivElement>): void => {
-    if (backdropRef.current === (event.target as HTMLElement)) {
+    if (event.target === event.currentTarget) {
       onClose();
     }
   };
 
   return createPortal(
-    <div
-      className={styles.backdrop}
-      ref={backdropRef}
-      onClick={handleBackdropClick}
+    <FocusTrap
+      focusTrapOptions={{
+        escapeDeactivates: false,
+        initialFocus: () => modalRef.current,
+        returnFocusOnDeactivate: true,
+      }}
     >
-      <div className={styles.modal}>
-        <div className={styles.header}>
-          {title && <h2 className={styles.title}>{title}</h2>}
-          <button
-            className={styles.closeButton}
-            aria-label="Close"
-            onClick={onClose}
-          >
-            <MdClose />
-          </button>
-        </div>
-        <div className={styles.content}>
-          {message && <p className={styles.message}>{message}</p>}
-          {children}
+      <div className={styles.backdrop} onClick={handleBackdropClick}>
+        <div className={styles.modal} ref={modalRef} tabIndex={-1}>
+          <div className={styles.header}>
+            {title && <h2 className={styles.title}>{title}</h2>}
+            <button
+              className={styles.closeButton}
+              aria-label="Close"
+              onClick={onClose}
+            >
+              <MdClose />
+            </button>
+          </div>
+          <div className={styles.content}>
+            {message && <p className={styles.message}>{message}</p>}
+            {children}
+          </div>
         </div>
       </div>
-    </div>,
+    </FocusTrap>,
     portal
   );
 };

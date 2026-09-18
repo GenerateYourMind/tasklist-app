@@ -14,6 +14,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { Draggable } from '@hello-pangea/dnd';
+import { FocusTrap } from 'focus-trap-react';
 import clsx from 'clsx';
 import { FaTrash, FaEdit, FaPlus } from 'react-icons/fa';
 import { MdDoneOutline } from 'react-icons/md';
@@ -57,12 +58,12 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
 
   useEffect(() => {
     const textarea = textareaRef.current;
-    if (!isEditing || isModalOpen || !textarea) return;
+    if (!isEditing || !textarea) return;
 
     textarea.focus();
     const length = textarea.value.length;
     textarea.setSelectionRange(length, length);
-  }, [isEditing, isModalOpen]);
+  }, [isEditing]);
 
   const handleToggleComplete = (): void => {
     dispatch({ type: 'TOGGLE_TASK_COMPLETE', payload: { task } });
@@ -85,7 +86,6 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     const trimmedText = editTaskText.trim();
 
     if (trimmedText.length === 0) {
-      textareaRef.current?.blur();
       setEditTaskText(task.taskText);
       openModal();
       return;
@@ -127,68 +127,78 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     <>
       <Draggable draggableId={task.id} index={index} isDragDisabled={isEditing}>
         {(provided, snapshot) => (
-          <li
-            className={clsx(styles.taskItem, {
-              [styles.isAnimating]: isAnimating.current,
-              [styles.isDragging]: snapshot.isDragging,
-              [styles.isEditing]: isEditing,
-            })}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            style={getTaskDropStyle(provided.draggableProps.style, snapshot)}
-            onAnimationEnd={handleAnimationEnd}
-            ref={provided.innerRef}
+          <FocusTrap
+            active={isEditing}
+            focusTrapOptions={{
+              allowOutsideClick: true,
+              escapeDeactivates: false,
+              initialFocus: false,
+              returnFocusOnDeactivate: true,
+            }}
           >
-            <div className={styles.controlButtons}>
-              <button
-                className={styles.controlButton}
-                disabled={isEditing}
-                aria-label={task.isCompleted ? 'Return' : 'Complete'}
-                onClick={handleToggleComplete}
-              >
-                {task.isCompleted ? <RiArrowGoBackFill /> : <MdDoneOutline />}
-              </button>
-            </div>
-            {isEditing ? (
-              <textarea
-                className={styles.text}
-                value={editTaskText}
-                onChange={handleEditTaskText}
-                onKeyDown={handleKeyDown}
-                ref={textareaRef}
-                rows={1}
-              ></textarea>
-            ) : (
-              <p
-                className={styles.text}
-                style={{
-                  textDecoration: task.isCompleted ? 'line-through' : 'none',
-                }}
-              >
-                {task.taskText}
-              </p>
-            )}
-            <div className={styles.controlButtons}>
-              {!task.isCompleted && (
+            <li
+              className={clsx(styles.taskItem, {
+                [styles.isAnimating]: isAnimating.current,
+                [styles.isDragging]: snapshot.isDragging,
+                [styles.isEditing]: isEditing,
+              })}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              style={getTaskDropStyle(provided.draggableProps.style, snapshot)}
+              onAnimationEnd={handleAnimationEnd}
+              ref={provided.innerRef}
+            >
+              <div className={styles.controlButtons}>
                 <button
                   className={styles.controlButton}
-                  aria-label={isEditing ? 'Save' : 'Edit'}
-                  onMouseDown={handleKeepTextareaFocus}
-                  onClick={isEditing ? handleSaveEdit : handleStartEdit}
+                  disabled={isEditing}
+                  aria-label={task.isCompleted ? 'Return' : 'Complete'}
+                  onClick={handleToggleComplete}
                 >
-                  {isEditing ? <FaPlus /> : <FaEdit />}
+                  {task.isCompleted ? <RiArrowGoBackFill /> : <MdDoneOutline />}
                 </button>
+              </div>
+              {isEditing ? (
+                <textarea
+                  className={styles.text}
+                  value={editTaskText}
+                  onChange={handleEditTaskText}
+                  onKeyDown={handleKeyDown}
+                  ref={textareaRef}
+                  rows={1}
+                ></textarea>
+              ) : (
+                <p
+                  className={styles.text}
+                  style={{
+                    textDecoration: task.isCompleted ? 'line-through' : 'none',
+                  }}
+                >
+                  {task.taskText}
+                </p>
               )}
-              <button
-                className={styles.controlButton}
-                disabled={isEditing}
-                aria-label="Delete"
-                onClick={handleDelete}
-              >
-                <FaTrash />
-              </button>
-            </div>
-          </li>
+              <div className={styles.controlButtons}>
+                {!task.isCompleted && (
+                  <button
+                    className={styles.controlButton}
+                    aria-label={isEditing ? 'Save' : 'Edit'}
+                    onMouseDown={handleKeepTextareaFocus}
+                    onClick={isEditing ? handleSaveEdit : handleStartEdit}
+                  >
+                    {isEditing ? <FaPlus /> : <FaEdit />}
+                  </button>
+                )}
+                <button
+                  className={styles.controlButton}
+                  disabled={isEditing}
+                  aria-label="Delete"
+                  onClick={handleDelete}
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            </li>
+          </FocusTrap>
         )}
       </Draggable>
 
