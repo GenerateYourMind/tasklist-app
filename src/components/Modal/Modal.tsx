@@ -24,17 +24,15 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
   useLockBodyScroll();
 
   useEffect(() => {
-    const handleEsc = (event: KeyboardEvent): void => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
         onClose();
       }
     };
 
-    document.addEventListener('keydown', handleEsc);
+    document.addEventListener('keydown', handleKeyDown);
 
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-    };
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
   const handleBackdropClick = (event: MouseEvent<HTMLDivElement>): void => {
@@ -75,6 +73,7 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
               <MdClose />
             </button>
           </div>
+
           <div className={styles.content}>
             {message && (
               <p className={styles.message} id={messageId}>

@@ -20,7 +20,7 @@ const CreateTask: FC = () => {
   const { dispatch } = useContext(TaskContext);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleTaskText = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setTaskText(event.target.value);
   };
 
@@ -59,12 +59,12 @@ const CreateTask: FC = () => {
       >
         <div className={styles.inputBackdrop}>
           <input
-            type="text"
             className={styles.input}
+            type="text"
             placeholder="Enter your task..."
             value={taskText}
             aria-label="New task"
-            onChange={handleTaskText}
+            onChange={handleInputChange}
             ref={inputRef}
           />
         </div>
@@ -76,6 +76,7 @@ const CreateTask: FC = () => {
           <PiPlusBold />
         </button>
       </form>
+
       {isModalOpen && (
         <Modal
           onClose={closeModal}

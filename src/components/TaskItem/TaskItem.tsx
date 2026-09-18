@@ -114,22 +114,24 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     setIsEditing(false);
   };
 
-  const handleKeyDown = (
+  const handleTextareaKeyDown = (
     event: ReactKeyboardEvent<HTMLTextAreaElement>
   ): void => {
-    if (event.key !== 'Enter' || event.shiftKey) return;
-
-    event.preventDefault();
-    handleSaveEdit();
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      handleSaveEdit();
+    }
   };
 
-  const handleEditTaskText = (
+  const handleTextareaChange = (
     event: ChangeEvent<HTMLTextAreaElement>
   ): void => {
     setEditTaskText(event.target.value);
   };
 
   const handleKeepTextareaFocus = (event: MouseEvent<HTMLElement>): void => {
+    if (!isEditing) return;
+
     // Prevent textarea blur on mousedown to avoid UI flickering
     event.preventDefault();
   };
@@ -175,13 +177,14 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                   {task.isCompleted ? <RiArrowGoBackFill /> : <MdDoneOutline />}
                 </button>
               </div>
+
               {isEditing ? (
                 <textarea
                   className={styles.text}
                   value={editTaskText}
                   aria-label="Task"
-                  onChange={handleEditTaskText}
-                  onKeyDown={handleKeyDown}
+                  onChange={handleTextareaChange}
+                  onKeyDown={handleTextareaKeyDown}
                   ref={textareaRef}
                   rows={1}
                 ></textarea>
@@ -195,6 +198,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                   {task.taskText}
                 </p>
               )}
+
               <div className={styles.controlButtons}>
                 {!task.isCompleted && (
                   <button
