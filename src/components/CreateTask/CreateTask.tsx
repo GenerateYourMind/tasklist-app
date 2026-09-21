@@ -53,21 +53,19 @@ const CreateTask: FC = () => {
   return (
     <>
       <form
-        className={styles.form}
+        className={`${styles.form} ${styles.backdrop}`}
         onSubmit={handleSubmitTask}
         onKeyDown={handleFormKeyDown}
       >
-        <div className={styles.inputBackdrop}>
-          <input
-            className={styles.input}
-            type="text"
-            placeholder="Enter your task..."
-            value={taskText}
-            aria-label="New task"
-            onChange={handleInputChange}
-            ref={inputRef}
-          />
-        </div>
+        <input
+          className={styles.input}
+          type="text"
+          placeholder="Enter your task..."
+          value={taskText}
+          aria-label="New task"
+          onChange={handleInputChange}
+          ref={inputRef}
+        />
         <button
           className={styles.submitButton}
           aria-label="Create"
