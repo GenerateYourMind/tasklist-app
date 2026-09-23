@@ -20,6 +20,7 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
   const titleId = useId();
   const messageId = useId();
   const modalRef = useRef<HTMLDivElement>(null);
+  const mouseDownTargetRef = useRef<EventTarget | null>(null);
 
   useLockBodyScroll();
 
@@ -35,8 +36,16 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
+  const handleBackdropMouseDown = (event: MouseEvent<HTMLDivElement>): void => {
+    mouseDownTargetRef.current = event.target;
+  };
+
   const handleBackdropClick = (event: MouseEvent<HTMLDivElement>): void => {
-    if (event.target === event.currentTarget) {
+    const isBackdropClick =
+      mouseDownTargetRef.current === event.currentTarget &&
+      event.target === event.currentTarget;
+
+    if (isBackdropClick) {
       onClose();
     }
   };
@@ -49,7 +58,11 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
         returnFocusOnDeactivate: true,
       }}
     >
-      <div className={styles.backdrop} onClick={handleBackdropClick}>
+      <div
+        className={styles.backdrop}
+        onMouseDown={handleBackdropMouseDown}
+        onClick={handleBackdropClick}
+      >
         <div
           className={styles.modal}
           ref={modalRef}
