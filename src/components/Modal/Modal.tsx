@@ -1,8 +1,7 @@
 import { FC, MouseEvent, ReactNode, useEffect, useId, useRef } from 'react';
-import { createPortal } from 'react-dom';
 import { FocusTrap } from 'focus-trap-react';
 import { MdClose } from 'react-icons/md';
-import { portal } from '@utils/portal';
+import Portal from '@components/Portal';
 import { useLockBodyScroll } from '@hooks/useLockBodyScroll';
 import styles from './Modal.module.scss';
 
@@ -50,55 +49,56 @@ const Modal: FC<ModalProps> = ({ onClose, title, message, children }) => {
     }
   };
 
-  return createPortal(
-    <FocusTrap
-      focusTrapOptions={{
-        escapeDeactivates: false,
-        initialFocus: () => modalRef.current,
-        returnFocusOnDeactivate: true,
-      }}
-    >
-      <div
-        className={styles.backdrop}
-        onMouseDown={handleBackdropMouseDown}
-        onClick={handleBackdropClick}
+  return (
+    <Portal>
+      <FocusTrap
+        focusTrapOptions={{
+          escapeDeactivates: false,
+          initialFocus: () => modalRef.current,
+          returnFocusOnDeactivate: true,
+        }}
       >
         <div
-          className={styles.modal}
-          ref={modalRef}
-          tabIndex={-1}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={title ? titleId : undefined}
-          aria-describedby={message ? messageId : undefined}
+          className={styles.backdrop}
+          onMouseDown={handleBackdropMouseDown}
+          onClick={handleBackdropClick}
         >
-          <div className={styles.header}>
-            {title && (
-              <h2 className={styles.title} id={titleId}>
-                {title}
-              </h2>
-            )}
-            <button
-              className={styles.closeButton}
-              aria-label="Close"
-              onClick={onClose}
-            >
-              <MdClose />
-            </button>
-          </div>
+          <div
+            className={styles.modal}
+            ref={modalRef}
+            tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={title ? titleId : undefined}
+            aria-describedby={message ? messageId : undefined}
+          >
+            <div className={styles.header}>
+              {title && (
+                <h2 className={styles.title} id={titleId}>
+                  {title}
+                </h2>
+              )}
+              <button
+                className={styles.closeButton}
+                aria-label="Close"
+                onClick={onClose}
+              >
+                <MdClose />
+              </button>
+            </div>
 
-          <div className={styles.content}>
-            {message && (
-              <p className={styles.message} id={messageId}>
-                {message}
-              </p>
-            )}
-            {children}
+            <div className={styles.content}>
+              {message && (
+                <p className={styles.message} id={messageId}>
+                  {message}
+                </p>
+              )}
+              {children}
+            </div>
           </div>
         </div>
-      </div>
-    </FocusTrap>,
-    portal
+      </FocusTrap>
+    </Portal>
   );
 };
 
