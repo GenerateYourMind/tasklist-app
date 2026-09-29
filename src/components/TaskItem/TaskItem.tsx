@@ -12,7 +12,6 @@ import {
   MouseEvent,
   AnimationEvent,
 } from 'react';
-import { createPortal } from 'react-dom';
 import { Draggable } from '@hello-pangea/dnd';
 import { FocusTrap } from 'focus-trap-react';
 import clsx from 'clsx';
@@ -20,7 +19,7 @@ import { FaTrash, FaEdit, FaPlus } from 'react-icons/fa';
 import { MdDoneOutline } from 'react-icons/md';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { getTaskDropStyle } from '@utils/getTaskDropStyle';
-import { portal } from '@utils/portal';
+import Portal from '@components/Portal';
 import Modal from '@components/Modal';
 import { useModal } from '@hooks/useModal';
 import { useWindowResize } from '@hooks/useWindowResize';
@@ -224,16 +223,15 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
         )}
       </Draggable>
 
-      {isEditing &&
-        !isModalOpen &&
-        createPortal(
+      {isEditing && !isModalOpen && (
+        <Portal>
           <div
             className={styles.backdrop}
             onMouseDown={handleKeepTextareaFocus}
             onClick={handleSaveEdit}
-          />,
-          portal
-        )}
+          />
+        </Portal>
+      )}
 
       {isModalOpen && (
         <Modal
