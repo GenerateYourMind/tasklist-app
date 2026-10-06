@@ -1,8 +1,8 @@
 import { FC, useContext } from 'react';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
-import TaskList from '@components/TaskList';
-import { TaskContext } from '@context/TaskContext';
-import { TaskListKey } from '@typings/taskTypes';
+import TaskList from '@/components/TaskList';
+import { TaskContext } from '@/context/TaskContext';
+import { TaskListKey } from '@/types/taskTypes';
 import styles from './TaskLists.module.scss';
 
 const TaskLists: FC = () => {

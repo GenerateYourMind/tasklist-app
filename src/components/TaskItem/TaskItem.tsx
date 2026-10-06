@@ -18,12 +18,12 @@ import clsx from 'clsx';
 import { FaTrash, FaEdit, FaPlus } from 'react-icons/fa';
 import { MdDoneOutline } from 'react-icons/md';
 import { RiArrowGoBackFill } from 'react-icons/ri';
-import { getTaskDropStyle } from '@utils/getTaskDropStyle';
-import Portal from '@components/Portal';
-import Modal from '@components/Modal';
-import { useModal } from '@hooks/useModal';
-import { useWindowResize } from '@hooks/useWindowResize';
-import { Task, TaskActions } from '@typings/taskTypes';
+import { getTaskDropStyle } from '@/utils/getTaskDropStyle';
+import Portal from '@/components/Portal';
+import Modal from '@/components/Modal';
+import { useModal } from '@/hooks/useModal';
+import { useWindowResize } from '@/hooks/useWindowResize';
+import { Task, TaskActions } from '@/types/taskTypes';
 import styles from './TaskItem.module.scss';
 
 interface TaskItemProps {

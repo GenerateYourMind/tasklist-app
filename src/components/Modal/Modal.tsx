@@ -1,8 +1,8 @@
 import { FC, MouseEvent, ReactNode, useEffect, useId, useRef } from 'react';
 import { FocusTrap } from 'focus-trap-react';
 import { MdClose } from 'react-icons/md';
-import Portal from '@components/Portal';
-import { useLockBodyScroll } from '@hooks/useLockBodyScroll';
+import Portal from '@/components/Portal';
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
 import styles from './Modal.module.scss';
 
 // Use prop title for both simple and complex content.

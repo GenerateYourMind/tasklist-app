@@ -21,15 +21,8 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Path aliases */
-    "baseUrl": "./src",
     "paths": {
-      "@components/*": ["components/*"],
-      "@constants/*": ["constants/*"],
-      "@context/*": ["context/*"],
-      "@hooks/*": ["hooks/*"],
-      "@styles/*": ["styles/*"],
-      "@typings/*": ["types/*"],
-      "@utils/*": ["utils/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],

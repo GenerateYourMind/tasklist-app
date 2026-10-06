@@ -1,8 +1,8 @@
 import { FC, useContext } from 'react';
 import { Droppable } from '@hello-pangea/dnd';
-import TaskItem from '@components/TaskItem';
-import { TaskContext } from '@context/TaskContext';
-import { Task, TaskStatus, TaskListKey } from '@typings/taskTypes';
+import TaskItem from '@/components/TaskItem';
+import { TaskContext } from '@/context/TaskContext';
+import { Task, TaskStatus, TaskListKey } from '@/types/taskTypes';
 import styles from './TaskList.module.scss';
 
 interface TaskListProps {

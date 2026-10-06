@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { saveToStorage } from '@utils/localStorage';
-import { THEMES, Theme } from '@constants/themes';
+import { saveToStorage } from '@/utils/localStorage';
+import { THEMES, Theme } from '@/constants/themes';
 
 interface UseThemeReturn {
   theme: Theme | '';

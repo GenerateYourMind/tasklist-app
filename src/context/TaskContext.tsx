@@ -5,14 +5,14 @@ import {
   useEffect,
   useLayoutEffect,
 } from 'react';
+import { saveToStorage, getFromStorage } from '@/utils/localStorage';
+import { taskReducer } from './taskReducer';
 import {
   InitialState,
   TaskContextProps,
   Task,
   TaskListKey,
-} from '@typings/taskTypes';
-import { taskReducer } from '@context/taskReducer';
-import { saveToStorage, getFromStorage } from '@utils/localStorage';
+} from '@/types/taskTypes';
 
 const initialState: InitialState = {
   activeTasks: [],
