@@ -4,7 +4,7 @@ import {
   Task,
   TaskActions,
   TaskListKey,
-} from '@typings/taskTypes';
+} from '@/types/taskTypes';
 
 const taskReducer = (
   state: InitialState,

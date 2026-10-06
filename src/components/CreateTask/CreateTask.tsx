@@ -9,9 +9,9 @@ import {
   KeyboardEvent,
 } from 'react';
 import { PiPlusBold } from 'react-icons/pi';
-import Modal from '@components/Modal';
-import { useModal } from '@hooks/useModal';
-import { TaskContext } from '@context/TaskContext';
+import Modal from '@/components/Modal';
+import { useModal } from '@/hooks/useModal';
+import { TaskContext } from '@/context/TaskContext';
 import styles from './CreateTask.module.scss';
 
 const CreateTask: FC = () => {

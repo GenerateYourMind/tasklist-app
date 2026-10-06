@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
-import { useTheme } from '@hooks/useTheme';
+import { useTheme } from '@/hooks/useTheme';
 import styles from './Header.module.scss';
 
 const Header: FC = () => {
