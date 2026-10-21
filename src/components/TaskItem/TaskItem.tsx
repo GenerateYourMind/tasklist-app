@@ -33,8 +33,10 @@ interface TaskItemProps {
 }
 
 const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
+  const { id, text, isCompleted } = task;
+
   const [isEditing, setIsEditing] = useState(false);
-  const [editTaskText, setEditTaskText] = useState<string>(task.taskText);
+  const [editTaskText, setEditTaskText] = useState(text);
   const { isModalOpen, openModal, closeModal } = useModal();
   const isAnimating = useRef(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -69,7 +71,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
 
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
-        setEditTaskText(task.taskText);
+        setEditTaskText(text);
         setIsEditing(false);
       }
     };
@@ -77,17 +79,14 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     document.addEventListener('keydown', handleKeyDown);
 
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isEditing, isModalOpen, task.taskText]);
+  }, [isEditing, isModalOpen, text]);
 
   const handleToggleComplete = (): void => {
     dispatch({ type: 'TOGGLE_TASK_COMPLETE', payload: { task } });
   };
 
   const handleDelete = (): void => {
-    dispatch({
-      type: 'DELETE_TASK',
-      payload: { id: task.id, isCompleted: task.isCompleted },
-    });
+    dispatch({ type: 'DELETE_TASK', payload: { id, isCompleted } });
   };
 
   const handleStartEdit = (): void => {
@@ -100,15 +99,12 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
     const trimmedText = editTaskText.trim();
 
     if (trimmedText.length === 0) {
-      setEditTaskText(task.taskText);
+      setEditTaskText(text);
       openModal();
       return;
     }
 
-    dispatch({
-      type: 'EDIT_TASK',
-      payload: { id: task.id, editTaskText: trimmedText },
-    });
+    dispatch({ type: 'EDIT_TASK', payload: { id, text: trimmedText } });
     setEditTaskText(trimmedText);
     setIsEditing(false);
   };
@@ -130,7 +126,6 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
 
   const handleKeepTextareaFocus = (event: MouseEvent<HTMLElement>): void => {
     if (!isEditing) return;
-
     // Prevent textarea blur on mousedown to avoid UI flickering
     event.preventDefault();
   };
@@ -143,7 +138,7 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
 
   return (
     <>
-      <Draggable draggableId={task.id} index={index} isDragDisabled={isEditing}>
+      <Draggable draggableId={id} index={index} isDragDisabled={isEditing}>
         {(provided, snapshot) => (
           <FocusTrap
             active={isEditing}
@@ -170,10 +165,10 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 <button
                   className={styles.controlButton}
                   disabled={isEditing}
-                  aria-label={task.isCompleted ? 'Return' : 'Complete'}
+                  aria-label={isCompleted ? 'Return' : 'Complete'}
                   onClick={handleToggleComplete}
                 >
-                  {task.isCompleted ? <RiArrowGoBackFill /> : <MdDoneOutline />}
+                  {isCompleted ? <RiArrowGoBackFill /> : <MdDoneOutline />}
                 </button>
               </div>
 
@@ -191,15 +186,15 @@ const TaskItem: FC<TaskItemProps> = memo(({ index, task, dispatch }) => {
                 <p
                   className={styles.text}
                   style={{
-                    textDecoration: task.isCompleted ? 'line-through' : 'none',
+                    textDecoration: isCompleted ? 'line-through' : 'none',
                   }}
                 >
-                  {task.taskText}
+                  {text}
                 </p>
               )}
 
               <div className={styles.controlButtons}>
-                {!task.isCompleted && (
+                {!isCompleted && (
                   <button
                     className={styles.controlButton}
                     aria-label={isEditing ? 'Save' : 'Edit'}
