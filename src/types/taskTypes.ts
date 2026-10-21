@@ -2,7 +2,7 @@ import { Dispatch } from 'react';
 
 export interface Task {
   id: string;
-  taskText: string;
+  text: string;
   isCompleted: boolean;
 }
 
@@ -23,7 +23,7 @@ export type TaskListKey = keyof InitialState;
 export type TaskActions =
   | {
       type: 'CREATE_TASK';
-      payload: { taskText: string };
+      payload: { text: string };
     }
   | {
       type: 'DELETE_TASK';
@@ -44,7 +44,7 @@ export type TaskActions =
     }
   | {
       type: 'EDIT_TASK';
-      payload: { id: string; editTaskText: string };
+      payload: { id: string; text: string };
     }
   | {
       type: 'SET_TASK_LIST';

@@ -14,13 +14,13 @@ const taskReducer = (
 
   switch (type) {
     case 'CREATE_TASK': {
-      const { taskText } = payload;
+      const { text } = payload;
 
       return {
         ...state,
         activeTasks: [
           ...state.activeTasks,
-          { id: uuidv4(), taskText, isCompleted: false },
+          { id: uuidv4(), text, isCompleted: false },
         ],
       };
     }
@@ -96,12 +96,12 @@ const taskReducer = (
     }
 
     case 'EDIT_TASK': {
-      const { id, editTaskText } = payload;
+      const { id, text } = payload;
 
       return {
         ...state,
         activeTasks: state.activeTasks.map((task) =>
-          task.id === id ? { ...task, taskText: editTaskText } : task
+          task.id === id ? { ...task, text } : task
         ),
       };
     }

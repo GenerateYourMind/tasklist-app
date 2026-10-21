@@ -24,7 +24,7 @@ const CreateTask: FC = () => {
     setTaskText(event.target.value);
   };
 
-  const handleSubmitTask = (event: FormEvent): void => {
+  const handleSubmit = (event: FormEvent): void => {
     event.preventDefault();
     const trimmedText = taskText.trim();
 
@@ -35,7 +35,7 @@ const CreateTask: FC = () => {
     }
 
     inputRef.current?.blur();
-    dispatch({ type: 'CREATE_TASK', payload: { taskText: trimmedText } });
+    dispatch({ type: 'CREATE_TASK', payload: { text: trimmedText } });
     setTaskText('');
   };
 
@@ -54,7 +54,7 @@ const CreateTask: FC = () => {
     <>
       <form
         className={`${styles.form} ${styles.backdrop}`}
-        onSubmit={handleSubmitTask}
+        onSubmit={handleSubmit}
         onKeyDown={handleFormKeyDown}
       >
         <input
