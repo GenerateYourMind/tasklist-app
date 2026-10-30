@@ -43,6 +43,7 @@
   font-weight: 700;
   letter-spacing: 0.5px;
   pointer-events: none;
+  @include subpixel-text-rendering;
 }
 
 @media (max-width: $tablet) {

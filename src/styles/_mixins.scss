@@ -21,3 +21,8 @@
     @content;
   }
 }
+
+// Workaround to prevent text visual artifacts during animation and dnd.
+@mixin subpixel-text-rendering {
+  opacity: 0.99;
+}
