@@ -61,6 +61,10 @@
   white-space: pre-wrap;
   word-wrap: break-word;
   min-width: 0;
+
+  &:not(textarea) {
+    @include subpixel-text-rendering;
+  }
 }
 
 textarea.text {
