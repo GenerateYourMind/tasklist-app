@@ -9,6 +9,14 @@
   box-sizing: border-box;
 }
 
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
 input:focus {
   outline: none;
 }
